@@ -1,0 +1,6 @@
+<!-- inner html -->
+<ng-container *ngFor="let item of column.items">
+    <ng-container *ngIf="row[column.prop] == item.key">
+        <div [innerHtml]="item.template"></div>
+    </ng-container>
+</ng-container>

@@ -1,0 +1,65 @@
+<div ngbDropdown class="d-inline-block classDropdown" [placement]="'bottom-right'" container="body" #myDrop="ngbDropdown">
+    <button type="button" class="btn" [id]="'dropdownBasic1'+row.id" ngbDropdownToggle
+        [innerHTML]="dropdownData.header.template">a</button>
+    <div ngbDropdownMenu [attr.aria-labelledby]="'dropdownBasic1'+row.id" class="w-225px max-w-100 py-3">
+        <ng-container *ngFor="let item of row?.dropdownItemActions; let index = index">
+            <ng-container *ngIf="uid == 'admission'">
+                <ng-container *ngIf="row['admission_status'].toLowerCase() == 'new' && item?.key == 'set-top-open'">
+                    <button (click)="onChange.emit(item); myDrop.close()"
+                        class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                        [innerHTML]="item.template">Action - 1</button>
+                </ng-container>
+
+                <ng-container
+                    *ngIf="(!(row['admission_status'].toLowerCase() == 'new' ) && item?.key == 'evaluation-card')">
+                    <button (click)="onChange.emit(item); myDrop.close()"
+                        class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                        [innerHTML]="item.template">Action - 1</button>
+                </ng-container>
+
+                <ng-container *ngIf="index != 0 && index != 1 && item?.key != 'evaluation-card'">
+                    <button (click)="onChange.emit(item); myDrop.close()"
+                        class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                        [innerHTML]="item.template">Action - 1</button>
+                </ng-container>
+            </ng-container>
+
+            <!-- <ng-container> -->
+            <ng-container *ngIf="uid != 'future-candidates' && uid != 'admission' && uid != 'archive'">
+                <button (click)="onChange.emit(item); myDrop.close()"
+                    class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                    [innerHTML]="item.template">Action - 1</button>
+            </ng-container>
+            <!-- </ng-container> -->
+
+            <!-- <ng-container> -->
+            <ng-container *ngIf="uid == 'archive'">
+                <ng-container *ngIf="row['admission_status'] != 'new'">
+                    <button (click)="onChange.emit(item); myDrop.close()"
+                        class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                        [innerHTML]="item.template">Action - 1</button>
+                </ng-container>
+
+                <ng-container *ngIf="row['admission_status'] == 'new'">
+                    <button (click)="onChange.emit(item); myDrop.close()" *ngIf="item.key != 'evaluation-card'"
+                        class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem
+                        [innerHTML]="item.template">Action - 1</button>
+                </ng-container>
+
+            </ng-container>
+            <!-- </ng-container> -->
+            <!-- </ng-container> -->
+            <ng-container *ngIf="uid == 'future-candidates'">
+                <button (click)="onChange.emit(item); myDrop.close()" *ngIf="item?.can_view"
+                    class="d-flex align-items-center p-0 ngbDropdownItem" ngbDropdownItem [innerHTML]="item?.template">
+                    Action - 1
+                </button>
+            </ng-container>
+
+        </ng-container>
+        <ng-container *ngIf="row?.dropdownItemActions?.length ===0">
+           <div class="pl-5"> No Action</div>
+         </ng-container>
+        
+    </div>
+</div>

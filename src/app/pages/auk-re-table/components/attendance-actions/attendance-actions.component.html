@@ -1,0 +1,18 @@
+<div class="d-flex">
+    <button (click)="onClick.emit({'key': 'check-in-out', 'row': row})" class="min-w-auto" mat-button color="primary">
+        <i
+            [ngClass]="{
+                'text-success': row?.today_sign_in && !row?.has_vacation,
+                'text-dark': !row?.today_sign_in
+            }"
+            class="fas fa-user-check font-size-h5"></i>
+    </button>
+    <button (click)="onClick.emit({'key': 'employee-vacation', 'row': row})" class="min-w-auto" mat-button color="primary">
+        <i
+            [ngClass]="{
+                'text-danger': row?.has_vacation,
+                'text-dark': !row?.has_vacation
+            }" 
+            class="fas text-dark fa-user-alt-slash font-size-h5"></i>
+    </button>
+</div>

@@ -1,0 +1,5 @@
+<ng-container *ngIf="row?.student?.custody_status || row?.custody">
+    <img width="33" src="assets/media/icons/custody.svg" role="button" (click)="showCustody()"
+        onerror="if (this.src != 'assets/media/error/Placeholder.svg') this.src = 'assets/media/error/Placeholder.svg';"
+        class="img-fluid" [alt]="row.title">
+</ng-container> 

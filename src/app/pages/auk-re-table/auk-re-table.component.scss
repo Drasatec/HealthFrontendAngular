@@ -1,0 +1,227 @@
+:host {
+  .new-spinner {
+    box-sizing: border-box;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    border-radius: 50%;
+    border-right: 2px solid transparent;
+  }
+  // Structure Block
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  ::ng-deep {
+    .empty-row {
+      // Typograohy Block
+      text-align: center;
+    }
+
+    .ngx-datatable {
+      overflow: hidden;
+      overflow-x: visible;
+    }
+
+    .auk-dropdown {
+      .mat-checkbox {
+        // Structure Block
+        padding: 0.5rem;
+
+        &:not(:last-of-type) {
+          // Structure Block
+          border-bottom: 1px solid #e7eaf2;
+        }
+
+        & > label {
+          // Structure Block
+          display: block;
+        }
+      }
+    }
+
+    .datatable-header {
+      // Strucure Block
+      margin-bottom: 1rem;
+    }
+
+    .datatable-body {
+      // overflow: auto;
+      // overflow: auto;
+      width: 100% !important;
+      /* width */
+      // &::-webkit-scrollbar {
+      //   width: 4px;
+      //   height: 4px;
+      //   border-radius: 5px;
+      // }
+
+      // /* Track */
+      // &::-webkit-scrollbar-track {
+      //   background: transparent;
+      //   border-radius: 5px;
+      // }
+
+      // /* Handle */
+      // &::-webkit-scrollbar-thumb {
+      //   background: var(--primary);
+      //   border-radius: 5px;
+      // }
+
+      .datatable-scroll {
+        // minWidth: 100% !important;
+        width: auto !important;
+      }
+    }
+    .ngx-datatable.scroll-horz .datatable-body {
+      overflow: inherit;
+    }
+    // =====================================================
+    datatable-body-cell {
+      // Modifire Block
+      overflow: visible !important;
+
+      // Typography Block
+      text-transform: capitalize;
+    }
+
+    .bulk-action-brn,
+    .selected-fields-btn {
+      &.mat-button {
+        // Structure Block
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+
+        // Typography Block
+        font-size: 0.95rem;
+      }
+    }
+
+    .ngx-datatable {
+      //   Structure Block
+      // minWidth: 100%;
+      margin-bottom: 1rem;
+      background-color: transparent;
+
+      // Typography Block
+      color: #3f4254;
+
+      .datatable-header {
+        .datatable-header-cell {
+          // Typography Block
+          font-weight: bold;
+          color: #000 !important;
+          letter-spacing: 0.1rem;
+          text-align: center;
+
+          // Typography Block
+          text-transform: capitalize;
+
+          //   Structure Block
+          border-bottom-width: 1px;
+          padding: 1rem 0.75rem;
+          border-bottom: 1px solid #e9eaee;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .datatable-header-cell-template-wrap {
+            //   Structure Block
+            width: 100%;
+            flex-direction: row-reverse;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+
+    .datatable-row-wrapper {
+      width: 100% !important;
+      &:nth-child(even) {
+        background-color: #f5f6fa;
+        border-radius: 8px;
+      }
+    }
+
+    .datatable-body-row {
+      .datatable-body-cell {
+        //   Structure Block
+        padding: 0.75rem;
+        // display: flex;
+        align-items: center;
+        justify-content: center;
+        word-break: break-all;
+        text-align: center;
+      }
+    }
+
+    .ngx-datatable * {
+      // Typography Block
+      font-size: 0.95rem;
+      // text-align: center;
+      // minWidth: 100%;
+    }
+    .ngx-datatable .datatable-header {
+      width: auto;
+      overflow: visible;
+    }
+  }
+
+  .header-table,
+  .cell-table,
+  .cell-table-family,
+  .header-table-family {
+    width: 100%;
+    text-align: center;
+  }
+
+  .header-table td {
+    width: 25%;
+  }
+  .header-table-family td {
+    width: 20%;
+  }
+
+  .cell-table td {
+    width: 25%;
+  }
+
+  .cell-table-family td {
+    width: 20%;
+  }
+  .custom-label {
+    padding-inline-start: 10px;
+    word-break: break-word;
+  }
+}
+::ng-deep {
+  .accepted {
+    background-color: #5cb85c;
+  }
+  .rejected {
+    background-color: #d9534f;
+  }
+
+  .attendanceLable {
+    background-color: #838383;
+    border-radius: 5px;
+  }
+
+  .present {
+    background-color: #09a31b;
+  }
+  .late {
+    background-color: #e78133;
+  }
+  .absent {
+    background-color: #e3120b;
+  }
+  .leftEarly {
+    background-color: #100682 !important;
+    color:#fff
+  }
+
+}

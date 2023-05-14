@@ -7,6 +7,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { ECommerceModule } from './e-commerce/e-commerce.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
+import { AukReTableModule } from './auk-re-table/auk-re-table.module';
+import { CRUDTableModule } from './shared/crud-table';
 
 @NgModule({
   imports: [
@@ -16,6 +18,8 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     DashboardModule,
     ECommerceModule,
     MiscellaneousModule,
+    AukReTableModule,
+    CRUDTableModule
   ],
   declarations: [
     PagesComponent,
