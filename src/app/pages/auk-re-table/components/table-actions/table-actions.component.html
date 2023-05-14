@@ -1,0 +1,6 @@
+<div class="d-flex justify-content-center align-items-center">
+    <ng-container *ngFor="let action of actions">
+        <div *ngIf="action.can_view" (click)="onAction.emit({action: action, row: row})" [innerHTML]="action.template">
+        </div>
+    </ng-container>
+</div>

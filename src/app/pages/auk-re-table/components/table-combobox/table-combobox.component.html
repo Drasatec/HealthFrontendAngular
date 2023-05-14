@@ -1,0 +1,15 @@
+<div class="combobox">
+    <ng-select 
+        [items]="items"
+        name="combobox"
+        
+        bindLabel="name"
+        bindValue="value"
+        [clearable]="false"
+        [placeholder]="placeholder"
+        [(ngModel)]="selectedAttributes"
+        class="bg-transparent flex-grow-1 table-compobox"
+        (change)="valueChanges.emit({id: rowDta.id , value: $event.value})"
+    >                  
+    </ng-select>
+</div>

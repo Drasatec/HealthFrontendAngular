@@ -1,0 +1,26 @@
+<ng-container *ngIf="!column.isCircle">
+    <span class="badge"
+    [ngClass]="{
+        'badge-primary' : row[column?.prop] == 1,
+        'badge-success' : row[column?.prop] == 2,
+        'badge-danger' : row[column?.prop] == 0,
+        'badge-warning' : row[column?.prop] == 3
+    }">
+    {{row[column?.splitProps[1]]}}
+    </span>
+</ng-container>
+
+<ng-container *ngIf="column.isCircle">
+    <span
+    [ngClass]="{
+        'text-primary' : row[column?.prop] == 1,
+        'text-success' : row[column?.prop] == 2,
+        'text-danger' : row[column?.prop] == 0,
+        'text-warning' : row[column?.prop] == 3
+    }">
+        ⬤
+    </span>
+</ng-container>
+
+
+

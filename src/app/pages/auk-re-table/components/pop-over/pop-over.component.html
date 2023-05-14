@@ -1,0 +1,16 @@
+<ng-container *ngIf="!row[column?.popOverVal]">
+    <span>
+        {{row[column?.prop]}}
+    </span>
+</ng-container>
+<ng-container *ngIf="row[column?.popOverVal] && row[column?.prop] ==='Enrolled'">
+    <span placement="top" [ngbPopover]="row[column?.prop]">
+        {{row[column?.prop]}}
+    </span>
+</ng-container>
+<ng-container *ngIf="row[column?.popOverVal] && row[column?.prop] !=='Enrolled'  ">
+    <span  placement="top" 
+    [ngbPopover]="row[column?.popOverVal]" popoverTitle="Decline Reason" triggers="mouseenter:mouseleave">
+        {{row[column?.prop]}}
+    </span>
+</ng-container>
