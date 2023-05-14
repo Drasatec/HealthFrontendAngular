@@ -4,7 +4,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'لوحة التحكم',
     icon: 'shopping-cart-outline',
-    link: '/dashboard/dashboard',
+    // link: '/dashboard/dashboard',
     home: true,
   },
   // {
