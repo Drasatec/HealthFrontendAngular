@@ -1,15 +1,15 @@
-@import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
+@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
 
-body{
+body {
   direction: rtl !important;
 }
-.text-base-color{
+.text-base-color {
   color:#222d32
 }
-.text-bold{
+.text-bold {
   font-weight: 600;
 }
-.background-primary{
+.background-primary {
   background-color: #0070cd;
   color:#fff;
   font-size: 1rem;
@@ -21,8 +21,8 @@ tr.mat-header-row,.mat-header-cell {
   font-size: 1.2rem;
 }
 .mat-menu-content:not(:empty) {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
+  padding-top: 1px !important;
+  padding-bottom: 1px !important;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 7px;
@@ -31,21 +31,21 @@ button.mat-menu-item,.mat-icon-button,.mat-menu-item:hover:not([disabled]) {
   width: 100%;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-    &:focus{
+    &:focus {
       outline: none;
     }
-    &:hover{
+    &:hover {
       background-color: #0070cd;
       color: #fff;
     }
 }
-input.ng-invalid.ng-touched{
+input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
-.help-block{
-  color:red
+.help-block {
+  color:red;
 }
-.mat-dialog-container{
+.mat-dialog-container {
   background-color: #fff;
   overflow: hidden !important;
 }

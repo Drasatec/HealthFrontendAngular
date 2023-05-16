@@ -15,11 +15,14 @@
 .image-row > .image-column {
   padding: 5px 10px;
 }
-.image-row:after {
-  content: '';
-  display: table;
-  clear: both;
+.image-row{
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
+
 .image-column {
   float: left;
   width: 25%;
