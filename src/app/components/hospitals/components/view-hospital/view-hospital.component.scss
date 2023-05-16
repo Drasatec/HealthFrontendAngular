@@ -15,8 +15,8 @@
 .image-row > .image-column {
   padding: 5px 10px;
 }
-.image-row{
-  &:after {
+.image-row {
+  &::after {
     content: '';
     display: table;
     clear: both;
