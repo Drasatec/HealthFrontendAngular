@@ -27,20 +27,22 @@ export const MENU_ITEMS: NbMenuItem[] = [
         children :[
           {
             title: 'المستشفيات',
-            icon: {icon: 'hospital', pack: 'font-awesome'},
+            icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
+            link: '/dashboard/hospitals',
+            // icon: {icon: 'hospital', pack: 'font-awesome'},
             // link: '/pages/iot-dashboard',
-            children:[
-              {
-                title: 'كل المستشفيات',
-                icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
-                link: '/dashboard/hospitals',
-              },
-              {
-                title: 'إضافة مستشفي',
-                icon: {icon: 'square-plus', pack: 'font-awesome'},
-                link: '/dashboard/hspitals/add-hospital',
-              }
-            ]
+            // children:[
+            //   {
+            //     title: 'كل المستشفيات',
+            //     icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
+            //     link: '/dashboard/hospitals',
+            //   },
+            //   {
+            //     title: 'إضافة مستشفي',
+            //     icon: {icon: 'square-plus', pack: 'font-awesome'},
+            //     link: '/dashboard/hospitals/add-hospital',
+            //   }
+            // ]
           }
         ]
       },

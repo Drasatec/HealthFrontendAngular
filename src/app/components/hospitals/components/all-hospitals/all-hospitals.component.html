@@ -1,20 +1,67 @@
 <div class="card">
   <div class="card-header">
-    <h4 class="text-primary">كل المستشفيات</h4>
-    <button class="btn btn-primary background-primary">
+    <h5 class="text-base-color text-bold">كل المستشفيات</h5>
+    <button class="btn btn-primary background-primary" [routerLink]="['add-hospital']"  >
       <i class="fa-solid fa-circle-plus"></i>
       إضافة مستشفي
     </button>
   </div>
   <div class="card-body">
     <!-- begin:Table -->
-    <div class="table-wrapper h-100">
-      <!-- <auk-re-table (searchChange)="searchChange($event)" [rows]="tableData" [columns]="columns"
-          [actions]="actions" [showPaginator]="true" (sort)="onSort($event)" [externalSorting]="false"
-          [isLoading]="isLoading" [actionsData]="actionsData" [paginatorState]="paginator"
-          (onAction)="tableAction($event)" (onPaginateChange)="paginate($event)">
-      </auk-re-table> -->
-  </div>
+
+    <div >
+      <table mat-table [dataSource]="dataSource" matSort>
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
+          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+        </ng-container>
+
+        <!-- Progress Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
+          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="address">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
+          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+        </ng-container>
+
+        <!-- Fruit Column -->
+        <ng-container matColumnDef="img">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> صورة </th>
+          <td mat-cell *matCellDef="let row"> {{row.img}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef = 'action'>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
+          <!-- Action Menu Items -->
+          <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+
+          <button mat-icon-button [matMenuTriggerFor]="mainMenu">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <mat-menu #mainMenu="matMenu">
+            <button mat-menu-item (click)="rowAction('action_1')" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
+            <button mat-menu-item (click)="rowAction('action_2')"> <i class="fa-solid fa-trash-can px-1"></i>حذف </button>
+          </mat-menu>
+        </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+        <tr mat-row (click)="onClickPublisher(row.id)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      </table>
+
+      <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="اختر صفحة">
+      </mat-paginator>
+    </div>
+
+
   <!-- end: Table -->
   </div>
 </div>

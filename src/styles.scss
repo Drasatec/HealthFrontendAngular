@@ -1,11 +1,51 @@
+@import "~mdb-angular-ui-kit/assets/scss/mdb.scss";
 
 body{
   direction: rtl !important;
 }
-.text-primary{
+.text-base-color{
   color:#222D32
+}
+.text-bold{
+  font-weight: 600;
 }
 .background-primary{
   background-color: #0070CD;
-  color:#fff
+  color:#fff;
+  font-size: 1rem;
+}
+tr.mat-header-row,.mat-header-cell {
+  height: 56px;
+  background-color: #0070CD;
+  color: #fff;
+  font-size: 1.2rem;
+}
+.mat-menu-content:not(:empty) {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+}
+button.mat-menu-item,.mat-icon-button,.mat-menu-item:hover:not([disabled]) {
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  &:focus{
+    outline: none;
+  }
+  &:hover{
+    background-color: #0070CD;
+    color: #fff;
+  }
+}
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+.help-block{
+  color:red
+}
+.mat-dialog-container{
+  background-color: #fff;
+  overflow: hidden !important;
 }

@@ -3,13 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { HospitalsComponent } from './hospitals.component';
 import { AllHospitalsComponent } from './components/all-hospitals/all-hospitals.component';
 import { AddHospitalComponent } from './components/add-hospital/add-hospital.component';
+import { ViewHospitalComponent } from './components/view-hospital/view-hospital.component';
 
 const routes: Routes = [
   { path: '', component: AllHospitalsComponent },
   {path:'add-hospital',component : AddHospitalComponent},
-  {path:'all-hospital',component : AllHospitalsComponent}
-
-
+  {path:'all-hospital',component : AllHospitalsComponent},
+  {path:'view-hospital/:id',component : ViewHospitalComponent},
 ];
 
 @NgModule({
