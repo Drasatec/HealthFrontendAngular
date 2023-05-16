@@ -82,7 +82,7 @@ const routes: Routes = [{
     },
   ],
 },
-  { path: 'buildings', loadChildren: () => import('../buildings/buildings.module').then(m => m.BuildingsModule) },
+  { path: 'buildings', loadChildren: () => import('../components/buildings/buildings.module').then(m => m.BuildingsModule) },
 ];
 
 @NgModule({
