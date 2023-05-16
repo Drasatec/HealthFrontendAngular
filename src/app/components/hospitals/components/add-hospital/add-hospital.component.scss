@@ -38,7 +38,8 @@
 
 .files-list {
   margin-top: 1.5rem;
-
+  display: flex;
+  flex-grow: 1;
   .single-file {
     display: flex;
     padding: 0.5rem;
@@ -46,7 +47,6 @@
     align-items: center;
     border: dashed 1px #979797;
     margin-bottom: 1rem;
-
     .delete {
       display: flex;
       margin-left: 0.5rem;
@@ -54,10 +54,6 @@
       align-self: flex-end;
       z-index: 99999;
     }
-
-
-    display: flex;
-    flex-grow: 1;
 
     .name {
       font-size: 14px;
@@ -75,7 +71,7 @@
     }
 
     .info {
-      width: 100%
+      width: 100%;
     }
   }
 }

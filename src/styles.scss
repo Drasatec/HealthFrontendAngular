@@ -4,19 +4,19 @@ body{
   direction: rtl !important;
 }
 .text-base-color{
-  color:#222D32
+  color:#222d32
 }
 .text-bold{
   font-weight: 600;
 }
 .background-primary{
-  background-color: #0070CD;
+  background-color: #0070cd;
   color:#fff;
   font-size: 1rem;
 }
 tr.mat-header-row,.mat-header-cell {
   height: 56px;
-  background-color: #0070CD;
+  background-color: #0070cd;
   color: #fff;
   font-size: 1.2rem;
 }
@@ -31,13 +31,13 @@ button.mat-menu-item,.mat-icon-button,.mat-menu-item:hover:not([disabled]) {
   width: 100%;
   background-color: #fff;
   border-bottom: 1px solid #ddd;
-  &:focus{
-    outline: none;
-  }
-  &:hover{
-    background-color: #0070CD;
-    color: #fff;
-  }
+    &:focus{
+      outline: none;
+    }
+    &:hover{
+      background-color: #0070cd;
+      color: #fff;
+    }
 }
 input.ng-invalid.ng-touched{
   border: 1px solid red;
