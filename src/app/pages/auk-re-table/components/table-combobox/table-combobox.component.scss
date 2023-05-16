@@ -1,0 +1,29 @@
+::ng-deep {
+    .table-compobox.ng-select.ng-select-opened.bg-transparent > .ng-select-container,
+    .table-compobox.ng-select.bg-transparent > .ng-select-container {
+        // Structure Block 
+        background-color: #eef0f8;
+        border: 1px solid #eef0f8 !important;
+        min-height: 27px;
+        height: auto;
+        min-width: 104px;
+
+    }
+
+    .table-compobox.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+        // Structure Block 
+        background-color: #eef0f8 !important;  
+    }
+
+
+    .table-compobox.ng-dropdown-panel {
+        // Structure Block 
+        border: 0 !important
+    }
+
+    .table-compobox.ng-select .ng-arrow-wrapper {
+        // Structure Block 
+        height: 11px;
+        width: 11px;
+    }
+}

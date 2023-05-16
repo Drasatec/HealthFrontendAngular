@@ -1,0 +1,43 @@
+.badge {
+    // Structure Block 
+    min-width: 70px;
+    min-height: 26px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    // Typography Block 
+    color: #fff;
+    font-size: .85rem;
+    font-weight: 300;
+
+    &-primary {
+        // Structure Block 
+        background-color: #cce4ff;
+        border: 1px solid #0362c6;
+        color: #0356ad;
+    }
+
+    &-danger {
+        // Structure Block 
+        background-color: #fdebeb;
+        border: 1px solid #e02525;
+        color: #ce1e1e;
+    }
+
+    &-success {
+        // Structure Block 
+        background-color: #c5f0c0;
+        border: 1px solid #1b850f;
+        color: #166e0c;
+    }
+
+    &-warning {
+        // Structure Block 
+        background-color: white;
+        border: 1px solid #f9d66f;
+        color: #f8cf57;
+    }
+    
+}
+
