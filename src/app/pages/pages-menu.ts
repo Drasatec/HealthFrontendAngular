@@ -43,6 +43,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
             //     link: '/dashboard/hospitals/add-hospital',
             //   }
             // ]
+          },
+          {
+            title: 'المباني',
+            icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
+            link: '/dashboard/buildings',
           }
         ]
       },
