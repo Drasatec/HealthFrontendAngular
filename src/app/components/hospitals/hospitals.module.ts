@@ -40,6 +40,9 @@ import { StopHospitalComponent } from './components/stop-hospital/stop-hospital.
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule
+  ],
+  exports: [
+    AddHospitalComponent
   ]
 })
 export class HospitalsModule { }

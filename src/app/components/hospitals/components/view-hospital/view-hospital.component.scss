@@ -3,18 +3,19 @@
     display: flex;
     justify-content: space-between;
   }
-
+  .card-body {
+    .center-border {
+      border: 1px solid #ddd;
+      padding: 0.3rem;
+      text-align: center;
+      margin-top:0.3rem;
+    }
+  }
 }
 .mat-dialog-container {
   background-color: #fff;
 }
-.image-row {
-  display: flex;
-  flex-wrap: wrap;
-}
-.image-row > .image-column {
-  padding: 5px 10px;
-}
+
 .image-row {
   &::after {
     content: '';
@@ -23,10 +24,6 @@
   }
 }
 
-.image-column {
-  float: left;
-  width: 25%;
-}
 img {
   width: 100%;
 }

@@ -27,7 +27,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         children :[
           {
             title: 'المستشفيات',
-            icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
+            icon: {icon: 'hospital', pack: 'font-awesome'},
             link: '/dashboard/hospitals',
             // icon: {icon: 'hospital', pack: 'font-awesome'},
             // link: '/pages/iot-dashboard',
@@ -46,7 +46,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
           },
           {
             title: 'المباني',
-            icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
+            icon: {icon: 'building', pack: 'font-awesome'},
             link: '/dashboard/buildings',
           }
         ]
