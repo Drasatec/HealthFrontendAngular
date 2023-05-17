@@ -43,6 +43,12 @@ button.mat-menu-item,.mat-icon-button,.mat-menu-item:hover:not([disabled]) {
 input.ng-invalid.ng-touched {
   border: 1px solid red;
 }
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}
+.mat-radio-checked .mat-radio-inner-circle{
+  background-color: #0070cd;
+}
 .help-block {
   color:red;
 }
@@ -63,3 +69,23 @@ input.ng-invalid.ng-touched {
     }
   }
 }
+  .card {
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+    }
+    .card-body {
+      table {
+        width: 100%;
+      }
+
+      .mat-mdc-form-field {
+        font-size: 14px;
+        width: 100%;
+      }
+
+      td, th {
+        width: 25%;
+      }
+    }
+  }

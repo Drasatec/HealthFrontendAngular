@@ -1,0 +1,31 @@
+.card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-body {
+    .mat-radio-button {
+      margin-right: 2rem;
+    }
+    .recerve {
+      border:1px solid #ddd;
+      padding:1rem;
+      border-radius: 5px;
+    }
+    .recerve-stat {
+      background-color: #d7e5f5;
+      padding: 0.3rem 1rem;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.7rem;
+      margin-bottom:1rem;
+      span {
+        background-color: #3b71ca8f;
+        padding: 1rem;
+        border-radius: 5px;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
