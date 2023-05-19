@@ -9,4 +9,13 @@
         margin-left: 1rem;
       }
   }
+  .logo {
+    padding: 1rem 1.25rem;
+    font-size: 1.5rem;
+    // @include nb-ltr(border-left, 1px solid nb-theme(divider-color));
+    // @include nb-rtl(border-right, 1px solid nb-theme(divider-color));
+    white-space: nowrap;
+    text-decoration: none;
+    color:#fff;
+  }
 }
