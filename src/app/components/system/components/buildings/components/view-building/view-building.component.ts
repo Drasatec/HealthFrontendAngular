@@ -10,6 +10,7 @@ export class ViewBuildingComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("")
   }
 
 }
