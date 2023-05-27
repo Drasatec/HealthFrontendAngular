@@ -19,12 +19,12 @@ body {
 .ng-select .ng-select-container {
   color: #fff;
   background-color: var(--light-color-basic);
-  border:none
+  border:none;
 }
 .form-control:read-only {
   background-color: var(--light-color-basic);
 }
-.ng-select.ng-select-opened>.ng-select-container {
+.ng-select.ng-select-opened > .ng-select-container {
   background: transparent;
   border-color:transparent;
 }
@@ -167,7 +167,7 @@ input.ng-invalid.ng-touched {
       td, th {
         width: 25%;
       }
-      .dropdown-menu.show{
+      .dropdown-menu.show {
         direction: ltr;
       }
       .mat-radio-button {
@@ -216,10 +216,10 @@ input.ng-invalid.ng-touched {
       }
     }
     img {
-    opacity: .5;
+    opacity: 0.5;
     }
     p {
-      margin-bottom: 0px;
+      margin-bottom: 1px;
     }
 
   }
@@ -232,7 +232,7 @@ input.ng-invalid.ng-touched {
     }
   }
   .btn-outline-primary {
-    color:var(--text-base-color)
+    color:var(--text-base-color);
   }
   .input-select {
     display: flex;
