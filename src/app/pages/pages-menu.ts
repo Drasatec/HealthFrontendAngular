@@ -1,9 +1,8 @@
-import { NbMenuItem } from '@nebular/theme';
 
-export const MENU_ITEMS: NbMenuItem[] = [
+export const items = [
   {
     title: 'لوحة التحكم',
-    icon: 'shopping-cart-outline',
+    icon: 'fa-solid fa-shopping-cart',
     // link: '/dashboard/dashboard',
     home: true,
   },
@@ -14,57 +13,52 @@ export const MENU_ITEMS: NbMenuItem[] = [
   // }
   {
     title: 'اعدادات النظام',
-    icon: {icon: 'gear', pack: 'font-awesome'},
+    icon:'fa-solid fa-gear',
+    link:'/dashboard/system/',
     children: [
       {
+        title: ' الاعدادات',
+        icon:'fa-solid fa-notes-medical',
+        link:'/dashboard/system/ettings/all-seeting'
+      },
+      {
         title: 'البيانات الاساسية',
-        icon: {icon: 'notes-medical', pack: 'font-awesome'},
-        // link: '/pages/layout/stepper',
-        children :[
-          {
-            title: 'المستشفيات',
-            icon: {icon: 'hospital', pack: 'font-awesome'},
-            link: '/dashboard/hospitals',
-            // icon: {icon: 'hospital', pack: 'font-awesome'},
-            // link: '/pages/iot-dashboard',
-            // children:[
-            //   {
-            //     title: 'كل المستشفيات',
-            //     icon: {icon: 'house-medical-flag', pack: 'font-awesome'},
-            //     link: '/dashboard/hospitals',
-            //   },
-            //   {
-            //     title: 'إضافة مستشفي',
-            //     icon: {icon: 'square-plus', pack: 'font-awesome'},
-            //     link: '/dashboard/hospitals/add-hospital',
-            //   }
-            // ]
-          },
-          {
-            title: 'المباني',
-            icon: {icon: 'building', pack: 'font-awesome'},
-            link: '/dashboard/buildings',
-          }
-        ]
+        icon:'fa-solid fa-notes-medical',
+        link:'/dashboard/system/hospitals/all-hospital'
       },
 
     ],
   },
   {
     title: ' نظام إدارة الاستقبال',
-    icon: {icon: 'receipt', pack: 'font-awesome'},
+    icon:'fa-solid fa-receipt',
+    link:'/dashboard/booking/',
     children: [
       {
-        title: ' الحجوزات',
-        icon: {icon: 'phone', pack: 'font-awesome'},
-        // link: '/pages/layout/stepper',
-        children :[
-          {
-            title: 'كل الحجوزات',
-            icon: {icon: 'book-medical', pack: 'font-awesome'},
-            link: '/dashboard/booking',
-          },
-        ]
+        title: ' الاجراءات',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/booking/all-booking'
+      },
+      {
+        title: ' التقارير',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/all-seeting'
+      },
+    ],
+  },
+  {
+    title: ' نظام العيادات',
+    icon:'fa-solid fa-receipt',
+    children: [
+      {
+        title: ' الاجراءات',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/all-seeting'
+      },
+      {
+        title: ' التقارير',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/all-seeting'
       },
 
     ],

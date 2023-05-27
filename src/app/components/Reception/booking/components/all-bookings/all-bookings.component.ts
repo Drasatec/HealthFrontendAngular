@@ -4,9 +4,13 @@ import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserData } from '../../../../hospitals/model/hospital.model';
 import { MyCustomPaginatorIntl } from '../../../../../pages/paginator/paginator.srvice';
-
+export class UserData{
+  id:string;
+  name:string;
+  address:string;
+  img:string;
+ }
 @Component({
   selector: 'ngx-all-bookings',
   templateUrl: './all-bookings.component.html',
@@ -73,7 +77,7 @@ this.dataSource = new MatTableDataSource(users);
     }
   }
   rowAction(action){
-
+    this.router.navigate(['/dashboard/booking/edit-booking/1'])
   }
   onClickPublisher(id){
     console.log(id)

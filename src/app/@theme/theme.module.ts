@@ -40,6 +40,9 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { RouterModule } from '@angular/router';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -54,6 +57,7 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  RouterModule
 ];
 const COMPONENTS = [
   HeaderComponent,
@@ -63,6 +67,8 @@ const COMPONENTS = [
   OneColumnLayoutComponent,
   ThreeColumnsLayoutComponent,
   TwoColumnsLayoutComponent,
+  ToolbarComponent,
+  SidebarComponent
 ];
 const PIPES = [
   CapitalizePipe,
@@ -84,7 +90,7 @@ export class ThemeModule {
       providers: [
         ...NbThemeModule.forRoot(
           {
-            name: 'default',
+            name: 'dark',
           },
           [ DEFAULT_THEME ],
           DEFAULT_MEDIA_BREAKPOINTS,

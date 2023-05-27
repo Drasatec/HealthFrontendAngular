@@ -2,10 +2,20 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingComponent } from './booking.component';
 import { AllBookingsComponent } from './components/all-bookings/all-bookings.component';
+import { AddBookingComponent } from './components/add-booking/add-booking.component';
 
 const routes: Routes = [
-  { path: '', component: AllBookingsComponent },
-  { path:'all-booking', component: AllBookingsComponent}
+  { path: '', component: BookingComponent,
+    children:[
+      { path:'all-booking', component: AllBookingsComponent},
+      { path:'add-booking', component: AddBookingComponent},
+      { path:'edit-booking/:id', component: AddBookingComponent},
+      { path:'', redirectTo:'all-booking',pathMatch:'full'},
+    ]
+  },
+
+
+
 ];
 
 @NgModule({
@@ -13,3 +23,7 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class BookingRoutingModule { }
+export const routedComponents = [
+  AllBookingsComponent,
+  AddBookingComponent,
+];

@@ -13,18 +13,13 @@ const routes: Routes = [{
       path: 'dashboard',
       component: ECommerceComponent,
     },
-    { path: 'hospitals',
-      loadChildren: () => import('../components/hospitals/hospitals.module').then(m => m.HospitalsModule)
-    },
-    { path: 'buildings',
-      loadChildren: () => import('../components/buildings/buildings.module').then(m => m.BuildingsModule)
-    },
+    { path: 'system', loadChildren: () => import('../components/system/system.module').then(m => m.SystemModule) },
 
     { path: 'booking', loadChildren: () => import('../components/Reception/booking/booking.module').then(m => m.BookingModule) },
 
     {
       path: '',
-      redirectTo: 'hospitals',
+      redirectTo: 'system',
       pathMatch: 'full',
     },
     {

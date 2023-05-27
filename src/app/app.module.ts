@@ -20,6 +20,10 @@ import {
   NbToastrModule,
   NbWindowModule,
 } from '@nebular/theme';
+import { MenuModule } from 'primeng/menu';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
+import { TieredMenuModule } from 'primeng/tieredmenu';
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,6 +43,10 @@ import {
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    TieredMenuModule,
+    MenuModule,
+    MessageModule,
+    MessagesModule
   ],
   bootstrap: [AppComponent],
 })

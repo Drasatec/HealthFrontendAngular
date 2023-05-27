@@ -1,0 +1,162 @@
+<div [formGroup]="form" >
+
+  <div class="card">
+    <div class="card-header">
+      <h5 class="text-base-color text-bold" *ngIf="!isEdit">إضافة حجز</h5>
+      <h5 class="text-base-color text-bold"  *ngIf="isEdit">تعديل حجز</h5>
+
+    </div>
+    <div class="card-body">
+      <div  class="row">
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <label for="example-search-input" class="text-base-color text-bold"> العيادة</label>
+          <div class="form-group mb-3">
+            <ng-select class="pr-3 my-2"
+              [items]="clinics"
+              bindLabel="name"
+              bindValue="id"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="clinic">
+            </ng-select>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <label for="example-search-input" class="text-base-color text-bold"> التاريخ</label>
+          <div class="form-group mb-3">
+
+            <div class="input-group calendar pr-3 my-2">
+              <input formControlName="from_date" class="border-color-primary form-control border-right-0"
+                  placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off"
+                  (click)="d.toggle()" >
+              <button class="btn btn-outline-primary calendar rounded-0 rounded-right border-left-0 py-0"
+                  (click)="d.toggle()" type="button">
+                  <img width="20" src="assets/images/calendar3.svg" alt="Icon">
+              </button>
+          </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 recerve">
+            <label id="example-radio-group-label text-bold text-base-color">الفترة  </label>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1" selected>صباخية</mat-radio-button>
+              <mat-radio-button value="2">مسائية</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 recerve">
+            <label id="example-radio-group-label text-bold text-base-color">نوع الحجز</label>
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1" selected>كشف</mat-radio-button>
+              <mat-radio-button value="2">اعادة</mat-radio-button>
+              <mat-radio-button value="3">استدعاء</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card my-2">
+        <div class="card-header">
+          <h5 class="text-primary text-bold"> الاطباء</h5>
+        </div>
+        <div class="card-body">
+          <label for="example-search-input" class="text-base-color text-bold"> البحث عن طبيب</label>
+          <div class="form-group mb-3">
+            <ng-select class="pr-3 my-2"
+              [items]="clinics"
+              bindLabel="name"
+              bindValue="id"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="clinic">
+            </ng-select>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-bold text-base-color">اسم الطبيب : <span class="text-primary">محمد علي  </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color"> التخصص : <span class="text-primary"> قلب </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color"> عدد حجوزات اليوم : <span class="text-primary"> 10  </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color"> عدد الحجوزات المتبقية لليوم : <span class="text-primary"> 5  </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color"> سعر الكشف : <span class="text-primary"> 100 فرنك  </span></p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card my-2">
+        <div class="card-header">
+          <h5 class="text-primary text-bold"> المريض</h5>
+        </div>
+        <div class="card-body">
+          <label for="example-search-input" class="text-base-color text-bold" *ngIf="!isEdit"> البحث عن مريض</label>
+          <div class="form-group mb-3">
+            <ng-select class="pr-3 my-2"
+              [items]="clinics"
+              bindLabel="name"
+              bindValue="id"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="clinic"  *ngIf="!isEdit">
+            </ng-select>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <p class="text-bold text-base-color">اسم المريض : <span class="text-primary">محمد علي  </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color"> اسم العميل : <span class="text-primary"> سامسونج </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color">   تاريخ اخر زيارة : <span class="text-primary"> 10/10/2010  </span></p>
+
+            </div>
+            <div class="col-md-6">
+              <p class="text-bold text-base-color">  الموعد المحدد للزيارة القادمة: <span class="text-primary"> 5/5/2005  </span></p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <button type="button" class="background-primary my-3" mat-raised-button (click)="save()">
+      <span *ngIf="!isEdit">حجز</span>
+      <span *ngIf="isEdit">تعديل حجز</span>
+
+    </button>
+  </div>
+</div>

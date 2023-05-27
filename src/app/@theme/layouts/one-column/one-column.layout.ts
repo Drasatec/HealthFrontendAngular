@@ -6,13 +6,12 @@ import { NbMenuService } from '@nebular/theme';
   styleUrls: ['./one-column.layout.scss'],
   template: `
     <nb-layout windowMode>
-      <nb-layout-header fixed subheader>
+      <nb-layout-header fixed >
         <ngx-header></ngx-header>
       </nb-layout-header>
 
       <nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive start>
-        <a class="logo" href="#" (click)="navigateHome()">مستشفي الرحمة</a>
-        <ng-content select="nb-menu"></ng-content>
+        <ng-content select="ngx-sidebar"></ng-content>
       </nb-sidebar>
 
       <nb-layout-column>

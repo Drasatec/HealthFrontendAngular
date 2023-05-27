@@ -17,15 +17,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { AddBookingComponent } from './components/add-booking/add-booking.component';
+import { ThemeModule } from '../../../@theme/theme.module';
 
 
 @NgModule({
   declarations: [
     BookingComponent,
-    AllBookingsComponent
+    AllBookingsComponent,
+    AddBookingComponent
   ],
   imports: [
     CommonModule,
+    ThemeModule,
     BookingRoutingModule,
     FormsModule,
     ReactiveFormsModule,

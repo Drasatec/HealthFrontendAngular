@@ -25,18 +25,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     {
       value: 'dark',
       name: 'Dark',
-    },
-    {
-      value: 'cosmic',
-      name: 'Cosmic',
-    },
-    {
-      value: 'corporate',
-      name: 'Corporate',
-    },
+    }
   ];
 
-  currentTheme = 'default';
+  currentTheme = 'dark';
 
   userMenu = [ { title: 'Profile' }, { title: 'Log out' } ];
 
@@ -86,6 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
+
     this.layoutService.changeLayoutSize();
 
     return false;

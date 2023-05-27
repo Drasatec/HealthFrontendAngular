@@ -10,18 +10,24 @@ import {MatTableModule} from '@angular/material/table'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MenuModule } from 'primeng/menu';
+import { MessageModule } from 'primeng/message';
+import { MessagesModule } from 'primeng/messages';
 @NgModule({
   imports: [
     PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
-    ECommerceModule,
     MiscellaneousModule,
     MatTableModule,
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-
+    TieredMenuModule,
+    MenuModule,
+    MessageModule,
+    MessagesModule
   ],
   declarations: [
     PagesComponent,

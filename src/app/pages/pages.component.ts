@@ -1,18 +1,20 @@
 import { Component } from '@angular/core';
 
-import { MENU_ITEMS } from './pages-menu';
+import { items } from './pages-menu';
 
 @Component({
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
   template: `
     <ngx-one-column-layout>
-      <nb-menu [items]="menu"></nb-menu>
+      <!-- <nb-menu [items]="menu" autoCollapse="true">
+      </nb-menu> -->
+      <ngx-sidebar [items]=menu></ngx-sidebar>
       <router-outlet></router-outlet>
     </ngx-one-column-layout>
   `,
 })
 export class PagesComponent {
 
-  menu = MENU_ITEMS;
+  menu = items;
 }

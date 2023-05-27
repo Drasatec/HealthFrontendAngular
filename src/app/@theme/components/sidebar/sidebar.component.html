@@ -1,0 +1,19 @@
+
+<nav class="sidebar-nav">
+  <ul>
+    <li *ngFor="let item of items">
+      <a [routerLink]="item.link" routerLinkActive="active" [ngClass]="item.children && item.children.length > 0 ?'afterProp':''">
+        <i [ngClass]="item.icon + ' fa-xl mx-3'"></i>
+        <span>{{item.title}}</span>
+      </a>
+      <ul class="nav-flyout" *ngIf="item.children && item.children.length > 0">
+        <li  *ngFor="let child of item.children">
+          <a [routerLink]="child.link" routerLinkActive="active">
+            <i [ngClass]="child.icon + ' fa-xl mx-2'"></i>
+            <span>{{child.title}}</span>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

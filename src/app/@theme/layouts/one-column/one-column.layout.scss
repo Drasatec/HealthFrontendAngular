@@ -5,6 +5,7 @@
 @include nb-install-component() {
   .menu-sidebar ::ng-deep .scrollable {
     padding-top: nb-theme(layout-padding-top);
+    overflow: visible;
       .menu-icon {
         margin-left: 1rem;
       }
@@ -18,4 +19,33 @@
     text-decoration: none;
     color:#fff;
   }
+  ::ng-deep{
+    nb-sidebar {
+      overflow: visible;
+      nb-menu{
+        overflow: visible;
+        .menu-items {
+          overflow: hidden;
+
+        }
+
+        .menu-items>.menu-item{
+          position: static;
+        }
+        .menu-items>.menu-item>.menu-items  {
+          position: absolute;
+          top: 0;
+          right:85%;
+
+          .menu-item{
+            position: static;
+          }
+        }
+      }
+    }
+
+  }
+
+
+
 }
