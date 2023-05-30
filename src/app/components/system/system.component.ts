@@ -17,7 +17,7 @@ export class SystemComponent implements AfterContentChecked {
     {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
     {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/booking/all-booking',active:false},
     {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
-    {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/booking/all-booking',active:false},
+    {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctors/all-doctor',active:false},
     {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
     {name:'خدمات',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
 

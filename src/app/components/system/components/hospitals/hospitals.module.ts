@@ -16,9 +16,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatSelectModule } from '@angular/material/select';
+
 import { StopHospitalComponent } from './components/stop-hospital/stop-hospital.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSelectModule } from '@angular/material/select';
+import { FilterSystemComponent } from '../filter-system/filter-system.component';
+import { SystemModule } from '../../system.module';
 
 
 @NgModule({
@@ -27,7 +30,7 @@ import { MatSelectModule } from '@angular/material/select';
     AllHospitalsComponent,
     AddHospitalComponent,
     ViewHospitalComponent,
-    StopHospitalComponent
+    StopHospitalComponent,
   ],
   imports: [
     HttpClientModule,
@@ -44,7 +47,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatPaginatorModule,
     MatDialogModule,
     NgSelectModule,
-    MatSelectModule
+    MatSelectModule,
+    SystemModule
   ]
 })
 export class HospitalsModule { }

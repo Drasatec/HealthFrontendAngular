@@ -1,15 +1,14 @@
+import { environment } from './../../../../../../../environments/environment';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginatorIntl, MatPaginator } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MyCustomPaginatorIntl } from '../../../../../../pages/paginator/paginator.srvice';
-export class UserData{
-  id:string;
-  name:string;
-  address:string;
-  img:string;
- }
+import { HospitalService } from '../../services/hospital.service';
+import { Subscription } from 'rxjs';
+import { HospitalModel } from '../../models/hospital.model';
+
 @Component({
   selector: 'ngx-all-hospitals',
   templateUrl: './all-hospitals.component.html',
@@ -17,29 +16,66 @@ export class UserData{
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 
 })
-export class AllHospitalsComponent implements AfterViewInit{
-
+export class AllHospitalsComponent implements OnInit{
+  imgUrl=`${environment.imgUrl}`;
   displayedColumns: string[] = ['id','name','address','img','action'];
-  dataSource: MatTableDataSource<UserData>;
+  dataSource: MatTableDataSource<HospitalModel>;
+  private subscriptions: Subscription = new Subscription();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  filterElements = {
+    global_search: true,
 
-  constructor(private router:Router) {
-    // Create 100 users
-    const users = [{id:'0',name:'مستشفي الرحمة',address:'طنطا',img:'kitten-cosmic.png'},
-                    {id:'1',name:'مستشفي الرحمة',address:'طنطا',img:'kitten-cosmic.png'}
-                  ];
+  };
 
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
+  fetchCriteria ={
+    keyword:'',
+    page:1,
+    pageSize:3,
+    lang:'ar'
+  }
+  pagePaginator={
+    length :0,
+    pageSize : 10,
+    pageIndex : 0,
+  }
+  constructor(private router:Router,private _hospitalservice:HospitalService
+    ) {
+
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+  ngOnInit() {
+    this.getTableData()
+    // this.dataSource.paginator = this.paginator;
+    // this.dataSource.sort = this.sort;
   }
+  hospitals:any;
+  getTableData(event?){
+    console.log(event)
+    this.subscriptions.add(
+      this._hospitalservice.getAllHospitals().subscribe((res: any) => {
+        console.log(res)
+        this.hospitals = res;
+      this.dataSource = new MatTableDataSource(this.hospitals);
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+      }, err => {
+        // this._SnackBarService.openSnackBar('Error, please try again!', 'Error', 'error');
+      })
 
+    );
+  }
+  getServerData(e){
+    // console.log(e)
+    // this.fetchCriteria={
+    //   pageSize : e.pageSize,
+    //   page : e.pageIndex,
+    //   lang:this.fetchCriteria.lang,
+    //   keyword:''
+    // }
+    // this.getTableData(e)
+  }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -54,6 +90,8 @@ export class AllHospitalsComponent implements AfterViewInit{
   onClickPublisher(id){
     console.log(id)
     this.router.navigate(['/dashboard/system/hospitals/view-hospital/',id])
+  }
+  onFilterChange(e) {
   }
 }
 

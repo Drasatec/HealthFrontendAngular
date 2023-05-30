@@ -26,10 +26,10 @@ Sidebar Nav
   height: 100%;
   font-weight: 400;
   font-size: 1.2em;
-  overflow: auto;
+  // overflow: auto;
   padding-bottom: 6em;
   z-index: 9;
-  // overflow: hidden;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
   width: -webkit-fill-available;
   /* -------------

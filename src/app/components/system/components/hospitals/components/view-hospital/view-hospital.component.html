@@ -5,14 +5,14 @@
       <div class="col-md-4">
         <div class="image-row">
           <div class="image-column" *ngFor="let image of images; let i = index">
-              <img src="{{image.url}}" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
+              <img [src]="imgUrl+'small/'+image.url" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
           </div>
         </div>
       </div>
       <div class="col-md-8">
         <div class="header-view d-flex justify-content-between ">
           <h5 class="text-base-color text-bold">
-            مستشفي الرحمة
+            {{hospital?.hospitalTrasnlations[0]?.name}}
           </h5>
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <i class="fa-solid fa-ellipsis-vertical"></i>
@@ -33,20 +33,20 @@
           </mat-menu>
         </div>
         <div class="content-view">
-          <p><i class="fa-solid fa-location-dot ms-2"></i>شارع الجامعة, محافظة طنطا, جمهورية مصر العربية</p>
-          <p><i class="fa-solid fa-phone ms-2"></i>015056589432 / 015056589432 / 015056589432</p>
-          <p><i class="fa-brands fa-whatsapp ms-2"></i>015056589432 </p>
-          <p><i class="fa-solid fa-envelope ms-2"></i>Alrahma@Hospital.com </p>
+          <p><i class="fa-solid fa-location-dot ms-2"></i>{{hospital?.hospitalTrasnlations[0]?.address}}</p>
+          <p><i class="fa-solid fa-phone ms-2"></i>{{hospital?.hospitalsContactData[0]?.telephoneNumber}}</p>
+          <p ><i class="fa-brands fa-whatsapp ms-2"></i>{{hospital?.hospitalsContactData[0]?.whatsAppNumber}} </p>
+          <p ><i class="fa-solid fa-envelope ms-2"></i>{{hospital?.hospitalsContactData[0]?.email}}</p>
         </div>
 
       </div>
 
 
     </div>
-    <div class="row">
+    <!-- <div class="row">
       <p class="my-5">معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب
       </p>
-    </div>
+    </div> -->
     <div class="d-flex justify-content-center align-items-center">
       <div class="stat d-flex align-items-center flex-column mx-3">
         <img width="50" src="assets/images/hospital-icons/Group.svg">
@@ -65,22 +65,22 @@
         <p class="mt-2">500 غرفة</p>
       </div>
     </div>
-    <div id="imgModal" class="slide-modal">
-      <span class="close cursor" (click)="closeModal()">&times;</span>
-      <div class="slide-modal-content">
-          <div class="img-slides" *ngFor="let image of images; let i = index">
-              <img src="{{image.url}}">
-          </div>
-          <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
-          <a class="next" (click)="plusSlides(1)">&#10095;</a> -->
-          <!-- <div class="image-row">
-              <div class="image-column" *ngFor="let image of images; let i = index">
-                  <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
-              </div>
-          </div> -->
+
+</div>
+</div>
+
+<div id="imgModal" class="slide-modal">
+  <span class="close cursor" (click)="closeModal()">&times;</span>
+  <div class="slide-modal-content">
+      <div class="img-slides" *ngFor="let image of images; let i = index">
+          <img [src]="imgUrl+'medium/'+image.url">
       </div>
-    </div>
+      <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+      <a class="next" (click)="plusSlides(1)">&#10095;</a> -->
+      <!-- <div class="image-row">
+          <div class="image-column" *ngFor="let image of images; let i = index">
+              <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
+          </div>
+      </div> -->
+  </div>
 </div>
-</div>
-
-

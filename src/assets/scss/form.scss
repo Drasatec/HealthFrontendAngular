@@ -1,0 +1,62 @@
+.ng-select .ng-select-container {
+  color: #fff;
+  background-color: var(--light-color-basic);
+  border:none;
+}
+.form-control:read-only {
+  background-color: var(--light-color-basic);
+}
+.ng-select.ng-select-opened > .ng-select-container {
+  background: transparent;
+  border-color:transparent;
+}
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: var(--dark-color-basic);
+  color: #fff;
+}
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+.mat-mdc-radio-button ~ .mat-mdc-radio-button {
+  margin-left: 16px;
+}
+.mat-radio-checked .mat-radio-inner-circle {
+  background-color: #0070cd;
+}
+.form-control {
+  background-color: transparent;
+  color:#fff;
+  &:focus {
+    color: #ffffff;
+    background-color: var(--dark-color-basic);
+  }
+}
+
+.input-select {
+  display: flex;
+  align-items: end;
+  border: 1px solid #7c7b7b94;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 0.5rem;
+}
+.ng-select .ng-select-container {
+  min-height: 26px;
+}
+.ng-select.ng-select-single .ng-select-container {
+  height: 26px;
+}
+.form-group {
+  margin:auto 0.5rem;
+
+}
+.ng-select {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+::ng-deep {
+.mat-select-panel {
+  background-color: var(--dark-color-basic);
+  color: #fff;
+}
+}

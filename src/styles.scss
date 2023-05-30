@@ -1,9 +1,15 @@
 @import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
 @import '~@ng-select/ng-select/themes/default.theme.css';
+@import 'assets/scss/attachment.scss';
+@import 'assets/scss/card.scss';
+@import 'assets/scss/tab.scss';
+@import 'assets/scss/toolbar.scss';
+@import 'assets/scss/form.scss';
+
 body {
   direction: rtl !important;
+  color:#fff;
 }
-
 /*basic color **/
 .text-base-color {
   color:var(--text-base-color);
@@ -16,18 +22,7 @@ body {
   color:#fff;
   font-size: 1rem;
 }
-.ng-select .ng-select-container {
-  color: #fff;
-  background-color: var(--light-color-basic);
-  border:none;
-}
-.form-control:read-only {
-  background-color: var(--light-color-basic);
-}
-.ng-select.ng-select-opened > .ng-select-container {
-  background: transparent;
-  border-color:transparent;
-}
+
 /**header*/
 // nb-layout.window-mode .layout nb-layout-header {
 //   width:calc(100% - var(--sidebar-width));
@@ -118,15 +113,7 @@ button.mat-menu-item {
       color: var(--dark-color-text);
     }
 }
-input.ng-invalid.ng-touched {
-  border: 1px solid red;
-}
-.mat-mdc-radio-button ~ .mat-mdc-radio-button {
-  margin-left: 16px;
-}
-.mat-radio-checked .mat-radio-inner-circle {
-  background-color: #0070cd;
-}
+
 .help-block {
   color:red;
 }
@@ -147,111 +134,28 @@ input.ng-invalid.ng-touched {
     }
   }
 }
-  .card {
-    background-color: var(--card-background-color);
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      background-color: var(--layout-background-color);
-    }
-    .card-body {
-      table {
-        width: 100%;
-      }
 
-      .mat-mdc-form-field {
-        font-size: 14px;
-        width: 100%;
-      }
-
-      td, th {
-        width: 25%;
-      }
-      .dropdown-menu.show {
-        direction: ltr;
-      }
-      .mat-radio-button {
-        margin-right: 2rem;
-      }
-      .recerve {
-        border:1px solid #ddd;
-        padding:1rem;
-        border-radius: 5px;
-      }
-      .recerve-stat {
-        background-color: #d7e5f5;
-        padding: 0.3rem 1rem;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 1.7rem;
-        margin-bottom:1rem;
-        span {
-          background-color: #3b71ca8f;
-          padding: 1rem;
-          border-radius: 5px;
-          display: block;
-          width: 100%;
-        }
-      }
-    }
-  }
-  .toolbar {
-    background-color: var(--light-color-basic);
-    padding:1rem;
-    border-radius: 5px;
-    display:flex;
-    align-items: center;
-    justify-content: space-around;
-    overflow-x: auto;
-    width: 100%;
-    a {
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      &.active {
-        img {
-          opacity : 1;
-        }
-      }
-    }
-    img {
-    opacity: 0.5;
-    }
-    p {
-      margin-bottom: 1px;
-    }
-
-  }
-  .form-control {
-    background-color: transparent;
-    color:#fff;
-    &:focus {
-      color: #ffffff;
-      background-color: var(--dark-color-basic);
-    }
-  }
   .btn-outline-primary {
     color:var(--text-base-color);
-  }
-  .input-select {
-    display: flex;
-    align-items: end;
-    border: 1px solid #7c7b7b94;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 0.5rem;
-  }
-  .ng-select .ng-select-container {
-    min-height: 26px;
-  }
-  .ng-select.ng-select-single .ng-select-container {
-    height: 26px;
-  }
-  .form-group {
-    margin:auto 0.5rem;
-
   }
   .btn-add {
     padding: 0.3rem 0.6rem;
   }
+  :host ::ng-deep{
+    .table-data {
+     .mat-select-panel .mat-option {
+      background: #ddd !important;
+
+    }
+    .mat-option-text{
+      color:#fff !important;
+    }
+    }
+  }
+  ::ng-deep div.cdk-overlay-container .cdk-overlay-pane {
+    background-color: #ddd;
+  }
+
+
+
+

@@ -1,0 +1,29 @@
+
+.toolbar {
+  background-color: var(--light-color-basic);
+  padding:1rem;
+  border-radius: 5px;
+  display:flex;
+  align-items: center;
+  justify-content: space-around;
+  overflow-x: auto;
+  width: 100%;
+  a {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &.active {
+      img {
+        opacity : 1;
+      }
+    }
+  }
+  img {
+  opacity: 0.5;
+  }
+  p {
+    margin-bottom: 1px;
+  }
+
+}

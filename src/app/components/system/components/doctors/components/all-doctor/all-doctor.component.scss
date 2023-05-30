@@ -1,0 +1,41 @@
+.card {
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .card-body {
+    table {
+      width: 100%;
+    }
+
+    .mat-mdc-form-field {
+      font-size: 14px;
+      width: 100%;
+    }
+
+    td, th {
+      width: 25%;
+    }
+  }
+  .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    cursor: pointer;
+  }
+
+  .mat-row:hover .mat-cell {
+    border-color: currentColor;
+  }
+
+  .demo-row-is-clicked {
+    font-weight: bold;
+  }
+}
+.doc-card {
+  padding: 0.3rem;
+  background-color: var(--dark-color-basic);
+  border-radius: 5px;
+  display: flex;
+  align-items: flex-start;
+  margin: 0.3rem 0.1rem;
+}

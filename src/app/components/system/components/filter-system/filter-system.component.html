@@ -1,0 +1,99 @@
+<div class="filters">
+  <div [formGroup]="form" class="row justify-content-md-start">
+      <div class="col-12 d-flex flex-wrap  justify-content-center filters ml-1"
+          *ngIf="filterElements?.global_search">
+          <div class="input-group col-md-8">
+              <button type="button" mat-raised-button class="global-button">بحث عام</button>
+              <!-- appDebounceInputChange [debounceTime]="1000" (valueChanged)="filters($event)" -->
+              <input type="search" class="form-control rounded" placeholder="بحث" formControlName="keyword"
+                  aria-label="Search" aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                  (valueChanged)="filters($event)" />
+          </div>
+      </div>
+      <div class="col-12 d-flex justify-content-md-start flex-wrap filters" style="background: none;" >
+          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.hospitals">
+              <div class="form-group">
+                  <!-- <label> المستشفيات</label> -->
+                  <ng-select [items]="lookups.hospitals" appendTo="body" placeholder="مستشفيات"
+                      bindValue="id" bindLabel="name" [virtualScroll]="true"
+                      aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                      formControlName="hospital"
+                      [multiple]="false"
+                      (clear)="DisplayNoData($event);">
+                  </ng-select>
+                  <!-- <span class="text-danger form-text mt-1"
+                      [ngStyle]="{
+                  'display': formControls.grade_book_id?.errors  &&formControls.grade_book_id.touched ? 'block':'none'}">Please enter Grade Book
+                      name.</span> -->
+              </div>
+          </div>
+          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.specialize">
+            <div class="form-group">
+                <!-- <label> المستشفيات</label> -->
+                <ng-select [items]="lookups.specialize" appendTo="body" placeholder="تخصصات"
+                    bindValue="id" bindLabel="name" [virtualScroll]="true"
+                    aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                    formControlName="specialize"
+                    [multiple]="false"
+                    (clear)="DisplayNoData($event);">
+                </ng-select>
+                <!-- <span class="text-danger form-text mt-1"
+                    [ngStyle]="{
+                'display': formControls.grade_book_id?.errors  &&formControls.grade_book_id.touched ? 'block':'none'}">Please enter Grade Book
+                    name.</span> -->
+            </div>
+        </div>
+          <div class="col-md-3 col-xxl-3" *ngIf="filterElements?.hiring_date">
+              <div class="form-group mb-3">
+                  <label class="text-primary">Hiring Date</label>
+                  <div class="input-group calendar">
+                      <input formControlName="hiring_date" class="border-color-primary form-control border-right-0"
+                          placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off"
+                          (click)="d.toggle()" (blur)="filters()" (dateSelect)="filters()">
+                      <button class="btn btn-outline-primary calendar rounded-0 rounded-right border-left-0 py-0 px-3"
+                          (click)="d.toggle()" type="button">
+                          <img width="20" src="assets/media/icons/calendar3.svg" alt="Icon">
+                      </button>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-3 col-xxl-3" *ngIf="filterElements?.dateRange">
+              <div class="form-group mb-3">
+                  <label class="text-primary">Date Range</label>
+                  <div class="input-group calendar">
+                      <mat-form-field appearance="outline">
+                          <mat-date-range-input [rangePicker]="fromTo">
+                              <input matStartDate placeholder="From" formControlName="from">
+                              <input matEndDate placeholder="To" formControlName="to" (dateChange)="filters($event)">
+                          </mat-date-range-input>
+                          <mat-datepicker-toggle matSuffix [for]="fromTo">
+                          </mat-datepicker-toggle>
+                          <mat-date-range-picker #fromTo></mat-date-range-picker>
+                      </mat-form-field>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-12 d-flex justify-content-end" *ngIf="clearButton">
+          <div class="col-3 d-flex justify-content-end align-items-center">
+              <div class="col-md-12 col-xxl-12 d-flex justify-content-end align-items-center">
+                  <div class="pr-3">
+                      <label for="example-search-input" class="text-primary d-block">&nbsp;</label>
+                      <button mat-button class="btn rounded ml-auto btn-primary  button-transparent "
+                          (click)="clearSearch()">
+                          Clear
+                      </button>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+
+  </div>
+
+
+
+
+
+</div>

@@ -14,18 +14,37 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ThemeModule } from '../../@theme/theme.module';
-
+import { MatSelectModule } from '@angular/material/select';
+import { FilterSystemComponent } from './components/filter-system/filter-system.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
-    SystemComponent
+    SystemComponent,
+    FilterSystemComponent
   ],
   imports: [
     CommonModule,
     SystemRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ThemeModule
+    ThemeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    NgSelectModule,
+    MatSelectModule,
+    MatSnackBarModule,
+  ],
+  exports:[
+    FilterSystemComponent
   ]
 })
 export class SystemModule { }

@@ -6,34 +6,41 @@
       إضافة مستشفي جديدة
     </button>
   </div>
+  <ngx-filter
+      (onFilterChange)="onFilterChange($event)"
+      [filterElements]="filterElements"
+    >
+    </ngx-filter>
   <div class="card-body">
     <!-- begin:Table -->
 
-    <div >
+    <div class="table-data">
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
-          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.codeNumber}} </td>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.hospitalTrasnlations[0].name}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
-          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.hospitalTrasnlations[0].address}} </td>
         </ng-container>
 
         <!-- Fruit Column -->
         <ng-container matColumnDef="img">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> صورة </th>
-          <td mat-cell *matCellDef="let row"> {{row.img}} </td>
+          <td mat-cell *matCellDef="let row">
+            <img width="40px" [src]="row.photo ? imgUrl +'small/'+row.photo :'/assets/images/hosspital.jpg'" [alt]="row.photo">
+          </td>
         </ng-container>
 
         <ng-container matColumnDef = 'action'>
@@ -57,7 +64,12 @@
 
       </table>
 
-      <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="اختر صفحة">
+      <mat-paginator #paginator
+      [length]="this.pagePaginator.length"
+      [pageIndex]="this.pagePaginator.pageIndex"
+      [pageSize]="this.pagePaginator.pageSize"
+      [pageSizeOptions]="[3,5, 25, 100]"
+      (page)="getServerData($event)" aria-label="اختر صفحة">
       </mat-paginator>
     </div>
 

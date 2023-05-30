@@ -1,6 +1,10 @@
+import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { StopHospitalComponent } from '../stop-hospital/stop-hospital.component';
+import { HospitalService } from '../../services/hospital.service';
+import { HospitalModel } from '../../models/hospital.model';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'ngx-view-hospital',
@@ -9,20 +13,40 @@ import { StopHospitalComponent } from '../stop-hospital/stop-hospital.component'
 })
 export class ViewHospitalComponent implements OnInit{
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private router:ActivatedRoute,
+    private _hospitalservice:HospitalService) {
 
   }
+  imgUrl=`${environment.imgUrl}`;
   images = [];
   slideIndex = 0;
+  id:number;
+  hospital:any
   ngOnInit(): void {
-   this.loadImages();
-   console.log(this.images)
+    this.router.params.subscribe((params)=>{
+      this.id = +params.id
+    })
+    this.getHospitalById(this.id)
+  }
+  getHospitalById(id){
+    let paylod ={
+      lang:'ar'
+    }
+    this._hospitalservice.getHospitalById(id,paylod).subscribe(
+      (res:any)=>{
+        this.hospital = res;
+        this.loadImages();
+      }
+    )
+    console.log(this.hospital)
   }
   loadImages(){
     this.images = [
       {
         id: 1,
-        url: "/assets/images/hospital.jpg"
+        url: this.hospital.photo
       },
       ]
    return this.images

@@ -1,0 +1,64 @@
+.card {
+  background-color: var(--card-background-color);
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--layout-background-color);
+  }
+  .filters {
+    background-color: var(--light-color-basic);
+    padding:1rem;
+    border-radius: 5px;
+  }
+  .card-body {
+    background-color: var(--light-color-basic);
+    margin-top: 1rem;
+    border-radius: 5px;
+
+    table {
+      width: 100%;
+    }
+
+    .mat-mdc-form-field {
+      font-size: 14px;
+      width: 100%;
+    }
+    .mat-form-field-flex {
+      background-color: transparent;
+    }
+    tr.mat-header-row {
+      background-color: var(--dark-color-basic);
+    }
+    td, th {
+      width: 25%;
+    }
+
+    .dropdown-menu.show {
+      direction: ltr;
+    }
+    .mat-radio-button {
+      margin-right: 2rem;
+    }
+    .recerve {
+      border:1px solid #ddd;
+      padding:1rem;
+      border-radius: 5px;
+    }
+    .recerve-stat {
+      background-color: #d7e5f5;
+      padding: 0.3rem 1rem;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.7rem;
+      margin-bottom:1rem;
+      span {
+        background-color: #3b71ca8f;
+        padding: 1rem;
+        border-radius: 5px;
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
