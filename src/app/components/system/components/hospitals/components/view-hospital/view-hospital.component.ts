@@ -23,7 +23,8 @@ export class ViewHospitalComponent implements OnInit{
   images = [];
   slideIndex = 0;
   id:number;
-  hospital:any
+  hospital:any;
+  loading:boolean=true;
   ngOnInit(): void {
     this.router.params.subscribe((params)=>{
       this.id = +params.id
@@ -38,6 +39,7 @@ export class ViewHospitalComponent implements OnInit{
       (res:any)=>{
         this.hospital = res;
         this.loadImages();
+        this.loading=false;
       }
     )
     console.log(this.hospital)

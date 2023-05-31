@@ -1,6 +1,7 @@
 <div class="card mt-4">
 
-  <div class="card-body">
+  <div class="card-body" *ngIf="!loading;else progressSpinner">
+
     <div class="row">
       <div class="col-md-4">
         <div class="image-row">
@@ -84,3 +85,18 @@
       </div> -->
   </div>
 </div>
+<ng-template #progressSpinner>
+<div class="overlay" >
+  <div class="center">
+
+  <mat-progress-spinner
+   diameter="100"
+   mode="indeterminate"
+   color="primary"
+   strokeWidth="10"
+   value="100">
+  </mat-progress-spinner>
+
+  </div>
+</div>
+</ng-template>

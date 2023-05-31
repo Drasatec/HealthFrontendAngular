@@ -17,6 +17,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { MatSelectModule } from '@angular/material/select';
 import { FilterSystemComponent } from './components/filter-system/filter-system.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NgSelectModule,
     MatSelectModule,
     MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   exports:[
     FilterSystemComponent

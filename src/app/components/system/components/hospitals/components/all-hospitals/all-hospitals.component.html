@@ -14,7 +14,7 @@
   <div class="card-body">
     <!-- begin:Table -->
 
-    <div class="table-data">
+    <div class="table-data" *ngIf="!loading;else progressSpinner">
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
@@ -77,3 +77,18 @@
   <!-- end: Table -->
   </div>
 </div>
+<ng-template #progressSpinner>
+  <div class="overlay" >
+    <div class="center">
+
+    <mat-progress-spinner
+     diameter="100"
+     mode="indeterminate"
+     color="primary"
+     strokeWidth="10"
+     value="100">
+    </mat-progress-spinner>
+
+    </div>
+  </div>
+  </ng-template>

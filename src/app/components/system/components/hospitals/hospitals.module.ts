@@ -9,7 +9,7 @@ import { ViewHospitalComponent } from './components/view-hospital/view-hospital.
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -20,8 +20,9 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { StopHospitalComponent } from './components/stop-hospital/stop-hospital.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FilterSystemComponent } from '../filter-system/filter-system.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SystemModule } from '../../system.module';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { SystemModule } from '../../system.module';
     StopHospitalComponent,
   ],
   imports: [
+
     HttpClientModule,
     CommonModule,
     HospitalsRoutingModule,
@@ -48,7 +50,9 @@ import { SystemModule } from '../../system.module';
     MatDialogModule,
     NgSelectModule,
     MatSelectModule,
-    SystemModule
+    SystemModule,
+    MatProgressSpinnerModule,
+    MatInputModule
   ]
 })
 export class HospitalsModule { }

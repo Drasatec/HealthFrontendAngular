@@ -5,7 +5,7 @@
 @import 'assets/scss/tab.scss';
 @import 'assets/scss/toolbar.scss';
 @import 'assets/scss/form.scss';
-
+@import 'assets/scss/spinner.scss';
 body {
   direction: rtl !important;
   color:#fff;
@@ -156,6 +156,31 @@ button.mat-menu-item {
     background-color: #ddd;
   }
 
-
+.mat-table {
+  background: inherit;
+}
+.mat-cell, .mat-footer-cell {
+color:inherit;
+}
+.mat-header-cell {
+  color:inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+.mat-table {
+  font-family: inherit;
+}
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger  {
+  background-color: inherit;
+  color:inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
+.mat-select-value {
+  color:inherit;
+}
+.mat-button.mat-primary.mat-button-disabled, .mat-button.mat-accent.mat-button-disabled, .mat-button.mat-warn.mat-button-disabled, .mat-button.mat-button-disabled.mat-button-disabled, .mat-icon-button.mat-primary.mat-button-disabled, .mat-icon-button.mat-accent.mat-button-disabled, .mat-icon-button.mat-warn.mat-button-disabled, .mat-icon-button.mat-button-disabled.mat-button-disabled, .mat-stroked-button.mat-primary.mat-button-disabled, .mat-stroked-button.mat-accent.mat-button-disabled, .mat-stroked-button.mat-warn.mat-button-disabled, .mat-stroked-button.mat-button-disabled.mat-button-disabled {
+  color:inherit;
+}
 
 

@@ -40,6 +40,7 @@ export class AllHospitalsComponent implements OnInit{
     pageSize : 10,
     pageIndex : 0,
   }
+  loading=true;
   constructor(private router:Router,private _hospitalservice:HospitalService
     ) {
 
@@ -60,6 +61,7 @@ export class AllHospitalsComponent implements OnInit{
       this.dataSource = new MatTableDataSource(this.hospitals);
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.loading=false
       }, err => {
         // this._SnackBarService.openSnackBar('Error, please try again!', 'Error', 'error');
       })
