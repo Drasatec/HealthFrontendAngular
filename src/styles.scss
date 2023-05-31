@@ -170,7 +170,7 @@ color:inherit;
 .mat-table {
   font-family: inherit;
 }
-.mat-paginator, .mat-paginator-page-size .mat-select-trigger  {
+.mat-paginator, .mat-paginator-page-size .mat-select-trigger {
   background-color: inherit;
   color:inherit;
   font-size: inherit;
@@ -179,8 +179,13 @@ color:inherit;
 .mat-select-value {
   color:inherit;
 }
-.mat-button.mat-primary.mat-button-disabled, .mat-button.mat-accent.mat-button-disabled, .mat-button.mat-warn.mat-button-disabled, .mat-button.mat-button-disabled.mat-button-disabled, .mat-icon-button.mat-primary.mat-button-disabled, .mat-icon-button.mat-accent.mat-button-disabled, .mat-icon-button.mat-warn.mat-button-disabled, .mat-icon-button.mat-button-disabled.mat-button-disabled, .mat-stroked-button.mat-primary.mat-button-disabled, .mat-stroked-button.mat-accent.mat-button-disabled, .mat-stroked-button.mat-warn.mat-button-disabled, .mat-stroked-button.mat-button-disabled.mat-button-disabled {
-  color:inherit;
-}
+  .mat-button.mat-primary.mat-button-disabled, .mat-button.mat-accent.mat-button-disabled,
+  .mat-button.mat-warn.mat-button-disabled, .mat-button.mat-button-disabled.mat-button-disabled,
+  .mat-icon-button.mat-primary.mat-button-disabled, .mat-icon-button.mat-accent.mat-button-disabled,
+  .mat-icon-button.mat-warn.mat-button-disabled, .mat-icon-button.mat-button-disabled.mat-button-disabled,
+  .mat-stroked-button.mat-primary.mat-button-disabled, .mat-stroked-button.mat-accent.mat-button-disabled,
+  .mat-stroked-button.mat-warn.mat-button-disabled, .mat-stroked-button.mat-button-disabled.mat-button-disabled {
+    color:inherit;
+  }
 
 
