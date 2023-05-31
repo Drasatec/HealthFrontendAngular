@@ -1,5 +1,4 @@
 .global-button {
-
   background-color: var(--dark-color-basic);
   color:#fff;
   border: 1px solid #afadad;
@@ -10,7 +9,7 @@
 
 }
 
-::ng-deep{
+::ng-deep {
   .ng-select .ng-select-container .ng-value-container .ng-placeholder {
     color:#fff;
   }
@@ -28,14 +27,14 @@
   }
 }
 
-.add_plus{
+.add_plus {
   height: 30px;
   width: 30px;
   border-radius: 50%;
   border: solid seagreen 2px;
     }
-    ::ng-deep{
-      .mat-form-field-flex{
+    ::ng-deep {
+      .mat-form-field-flex {
         display: inline-flex;
         align-items: center !important;
         box-sizing: border-box;
@@ -47,6 +46,6 @@
         border-color: #e4e6ef;
       }
     }
-    .mat-form-field{
+    .mat-form-field {
       width: 100%;
     }
