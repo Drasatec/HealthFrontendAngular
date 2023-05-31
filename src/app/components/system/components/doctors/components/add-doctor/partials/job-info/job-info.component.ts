@@ -10,6 +10,8 @@ export class JobInfoComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("")
+
   }
 
 }

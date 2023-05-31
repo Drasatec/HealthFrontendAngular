@@ -12,16 +12,15 @@ import { HelperService } from '../../../../@theme/services/helper.service';
   styleUrls: ['./filter-system.component.scss']
 })
 export class FilterSystemComponent implements OnInit{
-  @Output() onFilterChange: EventEmitter<any> = new EventEmitter();
+  @Output() FilterChange: EventEmitter<any> = new EventEmitter();
   @Output() eventYearBreakdown: EventEmitter<any> = new EventEmitter();
   @Output() eventCourseWorkName: EventEmitter<any> = new EventEmitter();
-  @Output() onAddGradeBook: EventEmitter<any> = new EventEmitter();
   @Output() toDisplayNoData: EventEmitter<any> = new EventEmitter();
 
   @Input() filterElements;
   @Input() teacherData;
   @Input() clearButton = true;
-  @Output() onAddElement: EventEmitter<any> = new EventEmitter();
+  @Output() AddElement: EventEmitter<any> = new EventEmitter();
   readonly DT_FORMAT = "DD-MM-YYYY";
   readonly DT_FORMAT_Two = "YYYY-MM-DD";
 
@@ -75,7 +74,7 @@ export class FilterSystemComponent implements OnInit{
   filters(value?: any) {
 
     let formData = this.prepareDataBeforeEmit(this.form.value);
-    this.onFilterChange.emit(formData);
+    this.FilterChange.emit(formData);
     this.toDisplayNoData.emit(true)
 
   }

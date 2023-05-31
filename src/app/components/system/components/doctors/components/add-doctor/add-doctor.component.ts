@@ -12,6 +12,8 @@ export class AddDoctorComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("")
   }
+
 
 }

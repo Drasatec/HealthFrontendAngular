@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
 import { MyCustomPaginatorIntl } from '../../../../../../../../pages/paginator/paginator.srvice';
@@ -13,7 +13,7 @@ import { UserData } from '../../../../../buildings/components/all-buildings/all-
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 
 })
-export class FilesUploadComponent implements OnInit {
+export class FilesUploadComponent implements OnInit,AfterViewInit {
   form: FormGroup;
   constructor(
     private _FormBuilder: FormBuilder,

@@ -10,6 +10,8 @@ export class DoctorsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log("")
+
   }
 
 }
