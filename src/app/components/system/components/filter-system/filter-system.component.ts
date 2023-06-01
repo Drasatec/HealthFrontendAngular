@@ -26,6 +26,7 @@ export class FilterSystemComponent implements OnInit{
 
   form: FormGroup;
   lookups = {
+    status:[],
     hospitals:[],
     specialize:[]
   };
@@ -55,7 +56,8 @@ export class FilterSystemComponent implements OnInit{
   };
   initilazeForm() {
     this.form = this._FormBuilder.group({
-      keyword: [null],
+      name: [null],
+      status:[null],
       hospital:[null],
       specialize:[null]
     });
@@ -72,7 +74,6 @@ export class FilterSystemComponent implements OnInit{
 
 
   filters(value?: any) {
-
     let formData = this.prepareDataBeforeEmit(this.form.value);
     this.FilterChange.emit(formData);
     this.toDisplayNoData.emit(true)
@@ -82,12 +83,21 @@ export class FilterSystemComponent implements OnInit{
   clearSearch() {
     this.form.reset();
     this.form.markAllAsTouched();
-
+    this.filters()
   }
 
   getAllLookups() {
+    this.getStatus();
     this.getHospitals();
     this.getSpecialize();
+  }
+  selectedStatus ='active'
+  getStatus(){
+    let status=[
+      {value:'active',name:'نشط'},
+      {value:'inactive',name:'غير نشط'}
+    ]
+    this.lookups.status= status
   }
   getHospitals(){
     let hospitals = [

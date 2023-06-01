@@ -3,11 +3,11 @@
       <div class="col-12 d-flex flex-wrap  justify-content-center filters ml-1"
           *ngIf="filterElements?.global_search">
           <div class="input-group col-md-8">
-              <button type="button" mat-raised-button class="global-button">بحث عام</button>
+              <button type="button" mat-raised-button class="global-button">بحث </button>
               <!-- appDebounceInputChange [debounceTime]="1000" (valueChanged)="filters($event)" -->
-              <input type="search" class="form-control rounded" placeholder="بحث" formControlName="keyword"
+              <input type="search" class="form-control rounded" placeholder="بحث بالأسم" formControlName="name"
                   aria-label="Search" aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                  (valueChanged)="filters($event)" />
+                  (change)="filters($event)" />
           </div>
       </div>
       <div class="col-12 d-flex justify-content-md-start flex-wrap filters" style="background: none;" >
@@ -27,6 +27,20 @@
                       name.</span> -->
               </div>
           </div>
+          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.status">
+            <div class="form-group">
+                <ng-select [items]="lookups.status" appendTo="body" placeholder="الحالة"
+                    bindValue="value" bindLabel="name" [virtualScroll]="true"
+                    aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                    formControlName="status" (change)="filters()" [(ngModel)]="selectedStatus"
+                    [multiple]="false" (clear)="DisplayNoData($event);">
+                </ng-select>
+                <!-- <span class="text-danger form-text mt-1"
+                    [ngStyle]="{
+                'display': formControls.grade_book_id?.errors  &&formControls.grade_book_id.touched ? 'block':'none'}">Please enter Grade Book
+                    name.</span> -->
+            </div>
+        </div>
           <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.specialize">
             <div class="form-group">
                 <!-- <label> المستشفيات</label> -->

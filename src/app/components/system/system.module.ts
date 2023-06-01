@@ -46,7 +46,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatProgressSpinnerModule
   ],
   exports:[
-    FilterSystemComponent
+    FilterSystemComponent,
   ]
 })
 export class SystemModule { }

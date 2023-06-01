@@ -188,4 +188,17 @@ color:inherit;
     color:inherit;
   }
 
+  .mat-snack-bar-container {
+    &.error {
+        .mat-simple-snackbar-action {
+            color: var(--danger)
+        }
+    }
+
+    &.success {
+        .mat-simple-snackbar-action {
+            color: var(--success)
+        }
+    }
+}
 

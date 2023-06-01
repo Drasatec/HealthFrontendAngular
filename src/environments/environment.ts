@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://alrahmacare.somee.com/api/',
-  imgUrl:'http://alrahmacare.somee.com/images/',
+  apiUrl:'http://www.alrahmacare.somee.com/api/',
+  imgUrl:'http://www.alrahmacare.somee.com/images/',
 
 };

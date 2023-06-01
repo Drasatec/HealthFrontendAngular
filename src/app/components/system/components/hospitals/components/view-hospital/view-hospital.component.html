@@ -27,17 +27,35 @@
               <i class="fa-solid fa-share-nodes mx-2"></i>
               <span>مشاركة</span>
             </button>
-            <button mat-menu-item (click)="openDialog()">
-              <i class="fa-regular fa-circle-stop mx-2"></i>
-              <span>إيقاف</span>
+            <button mat-menu-item (click)="statusAction(hospital.isDeleted)">
+              <span *ngIf="hospital.isDeleted"><i class="fa-regular fa-circle-xmark" ></i>تشغيل</span>
+              <spsn *ngIf="!hospital.isDeleted"><i class="fa-solid fa-circle-check" ></i> إيقاف</spsn>
             </button>
           </mat-menu>
         </div>
         <div class="content-view">
-          <p><i class="fa-solid fa-location-dot ms-2"></i>{{hospital?.hospitalTrasnlations[0]?.address}}</p>
-          <p><i class="fa-solid fa-phone ms-2"></i>{{hospital?.hospitalsContactData[0]?.telephoneNumber}}</p>
-          <p ><i class="fa-brands fa-whatsapp ms-2"></i>{{hospital?.hospitalsContactData[0]?.whatsAppNumber}} </p>
-          <p ><i class="fa-solid fa-envelope ms-2"></i>{{hospital?.hospitalsContactData[0]?.email}}</p>
+          <p><i class="fa-solid fa-location-dot ms-2"></i>
+            {{hospital?.hospitalTrasnlations[0]?.address}}
+          </p>
+          <p><i class="fa-solid fa-phone ms-2"></i>
+            <ng-container *ngIf="hospital.phoneNumbers.length > 0">
+              <span *ngFor="let tel of hospital.phoneNumbers">
+                {{tel?.telephoneNumber}} /
+              </span>
+            </ng-container>
+            <ng-container *ngIf="hospital.phoneNumbers.length === 0">
+              <span >
+                لا يوجد
+              </span>
+            </ng-container>
+
+          </p>
+          <p ><i class="fa-brands fa-whatsapp ms-2"></i>
+            {{hospital?.whatsAppNumber?hospital?.whatsAppNumber :'لا يوجد'}}
+          </p>
+          <p ><i class="fa-solid fa-envelope ms-2"></i>
+            {{hospital?.email?hospital?.email:"لا يوجد"}}
+          </p>
         </div>
 
       </div>

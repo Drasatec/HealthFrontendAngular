@@ -26,13 +26,13 @@
         <!-- Progress Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
-          <td mat-cell *matCellDef="let row"> {{row.hospitalTrasnlations[0].name}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.hospitalTrasnlations[0]?.name}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
-          <td mat-cell *matCellDef="let row"> {{row.hospitalTrasnlations[0].address}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.hospitalTrasnlations[0]?.address}} </td>
         </ng-container>
 
         <!-- Fruit Column -->
@@ -42,7 +42,13 @@
             <img width="40px" [src]="row.photo ? imgUrl +'small/'+row.photo :'/assets/images/hosspital.jpg'" [alt]="row.photo">
           </td>
         </ng-container>
-
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> نشط </th>
+          <td mat-cell *matCellDef="let row">
+            <i class="fa-regular fa-circle-xmark" *ngIf="row.isDeleted"></i>
+            <i class="fa-solid fa-circle-check" *ngIf="!row.isDeleted"></i>
+          </td>
+        </ng-container>
         <ng-container matColumnDef = 'action'>
           <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
           <!-- Action Menu Items -->
@@ -52,8 +58,14 @@
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           <mat-menu #mainMenu="matMenu">
-            <button mat-menu-item (click)="rowAction('action_1')" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
-            <button mat-menu-item (click)="rowAction('action_2')"> <i class="fa-solid fa-trash-can px-1"></i>حذف </button>
+            <button mat-menu-item (click)="rowAction('edit',row.id)" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
+            <button mat-menu-item (click)="rowAction('active',row.id)"  *ngIf="row.isDeleted">
+              <i class="fa-solid fa-circle-check" ></i>تشغيل
+            </button>
+            <button mat-menu-item (click)="rowAction('inactive',row.id)"  *ngIf="!row.isDeleted">
+              <i class="fa-regular fa-circle-xmark" ></i>إيقاف
+            </button>
+
           </mat-menu>
         </td>
         </ng-container>
@@ -64,13 +76,16 @@
 
       </table>
 
-      <mat-paginator #paginator
-      [length]="this.pagePaginator.length"
-      [pageIndex]="this.pagePaginator.pageIndex"
-      [pageSize]="this.pagePaginator.pageSize"
-      [pageSizeOptions]="[3,5, 25, 100]"
-      (page)="getServerData($event)" aria-label="اختر صفحة">
-      </mat-paginator>
+      <!-- <mat-paginator #paginator
+      [length]="length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageEvent = getServerData($event)" aria-label="اختر صفحة">
+      </mat-paginator> -->
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+        [pageSizeOptions]="[5, 10, 25, 100]"  (page)="pageChanged($event)">
+</mat-paginator>
     </div>
 
 

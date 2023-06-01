@@ -24,9 +24,12 @@ export class HospitalService {
     const url = `${this.baseURL}Hospital/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-
+  SearchHospitalsByName(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Hospital/search`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
   getHospitalById(id,paylod?){
-    const url = `${this.baseURL}Hospital/1?id=${id}`;
+    const url = `${this.baseURL}Hospital?id=${id}`;
     return this.http.get(url,{ params: paylod });
   }
 
@@ -36,8 +39,9 @@ export class HospitalService {
   }
 
 
-  deleteHospital(id) {
-    const url = `${this.baseURL}Hospital/delete/${id}`;
-    return this.http.delete(url);
+
+  activeHospital(id,status) {
+    const url = `${this.baseURL}Hospital/delete?id=${id}&status=${status}`;
+    return this.http.put(url,'');
   }
 }

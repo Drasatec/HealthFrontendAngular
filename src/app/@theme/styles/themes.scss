@@ -4,6 +4,8 @@
 @import '@nebular/theme/styles/themes';
 
 $nb-themes: nb-register-theme((
+  success:#053c1f,
+  danger:#570c0c,
   layout-padding-top: 2.25rem,
   sidebar-width-compact: 5.5rem,
   scrollbar-color:#6ba6d7,
@@ -98,6 +100,8 @@ $nb-themes: nb-register-theme((
 // ), corporate, corporate);
 
 $nb-themes: nb-register-theme((
+  success:#008e42,
+  danger:#c30000,
   layout-padding-top: 0rem,
   sidebar-width-compact: 5.5rem,
   layout-padding: 1rem 2.25rem 0.75rem,

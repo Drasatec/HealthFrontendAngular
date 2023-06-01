@@ -23,6 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SystemModule } from '../../system.module';
 import { MatInputModule } from '@angular/material/input';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -34,7 +35,7 @@ import { MatInputModule } from '@angular/material/input';
     StopHospitalComponent,
   ],
   imports: [
-
+    RouterModule,
     HttpClientModule,
     CommonModule,
     HospitalsRoutingModule,

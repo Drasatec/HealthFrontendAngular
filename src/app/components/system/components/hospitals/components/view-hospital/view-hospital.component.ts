@@ -5,6 +5,8 @@ import { StopHospitalComponent } from '../stop-hospital/stop-hospital.component'
 import { HospitalService } from '../../services/hospital.service';
 import { HospitalModel } from '../../models/hospital.model';
 import { environment } from '../../../../../../../environments/environment';
+import Swal from 'sweetalert2';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ngx-view-hospital',
@@ -16,7 +18,8 @@ export class ViewHospitalComponent implements OnInit{
   constructor(
     public dialog: MatDialog,
     private router:ActivatedRoute,
-    private _hospitalservice:HospitalService) {
+    private _hospitalservice:HospitalService,
+    private snackBar:MatSnackBar) {
 
   }
   imgUrl=`${environment.imgUrl}`;
@@ -88,16 +91,44 @@ export class ViewHospitalComponent implements OnInit{
    }
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(StopHospitalComponent, {
-      width: "800px",
-      data: {
+  statusAction(inactive){
+    let status
+    if(inactive){
+      status='inactive'
+    }else {
+      status='active'
+    }
+    Swal.fire({
+      title: "هل انت متأكد من تغيير حال المستشفي ؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "نعم",
+    }).then((result) => {
+      if (result.isConfirmed === true) {
+          this._hospitalservice.activeHospital(this.id,status).subscribe(
+            (response: any) => {
+              // TODO: handle error status
 
-      },
-    });
+              // Notify Success
+              this.snackBar.open("تم تشغيل المستشفي بنجاح ", "ُsuccess", {
+                duration: 3000,
+                panelClass: 'success'
+              });
+            },
+            (err) => {
+              let error = "Error";
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+              this.snackBar.open("من فضلك حاول مرة اخري", "error", {
+                duration: 3000,
+                panelClass: 'error'
+              });            }
+
+        );
+      }
+
+      // Remove Deleted Academic From List & Update the Service Academic Years
     });
   }
 }
