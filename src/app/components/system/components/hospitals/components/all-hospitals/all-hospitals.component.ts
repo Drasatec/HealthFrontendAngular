@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AllHospitalsComponent implements OnInit{
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','address','img','status','action'];
+  displayedColumns: string[] = ['id','name','address','status','img','action'];
   dataSource: MatTableDataSource<HospitalModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;

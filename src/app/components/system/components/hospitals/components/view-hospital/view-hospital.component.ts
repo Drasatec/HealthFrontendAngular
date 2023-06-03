@@ -1,9 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { StopHospitalComponent } from '../stop-hospital/stop-hospital.component';
 import { HospitalService } from '../../services/hospital.service';
-import { HospitalModel } from '../../models/hospital.model';
 import { environment } from '../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -94,9 +92,9 @@ export class ViewHospitalComponent implements OnInit{
   statusAction(inactive){
     let status
     if(inactive){
-      status='inactive'
-    }else {
       status='active'
+    }else {
+      status='inactive'
     }
     Swal.fire({
       title: "هل انت متأكد من تغيير حال المستشفي ؟",
@@ -105,6 +103,7 @@ export class ViewHospitalComponent implements OnInit{
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "نعم",
+      cancelButtonText: "الغاء",
     }).then((result) => {
       if (result.isConfirmed === true) {
           this._hospitalservice.activeHospital(this.id,status).subscribe(
@@ -112,10 +111,11 @@ export class ViewHospitalComponent implements OnInit{
               // TODO: handle error status
 
               // Notify Success
-              this.snackBar.open("تم تشغيل المستشفي بنجاح ", "ُsuccess", {
+              this.snackBar.open("تمت العملية بنجاح ", "ُsuccess", {
                 duration: 3000,
                 panelClass: 'success'
               });
+              this.getHospitalById(this.id)
             },
             (err) => {
               let error = "Error";

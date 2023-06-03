@@ -18,7 +18,6 @@ import { MatTableModule } from '@angular/material/table';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { MatSelectModule } from '@angular/material/select';
 
-import { StopHospitalComponent } from './components/stop-hospital/stop-hospital.component';
 import { HttpClientModule } from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SystemModule } from '../../system.module';
@@ -32,7 +31,6 @@ import { RouterModule } from '@angular/router';
     AllHospitalsComponent,
     AddHospitalComponent,
     ViewHospitalComponent,
-    StopHospitalComponent,
   ],
   imports: [
     RouterModule,
