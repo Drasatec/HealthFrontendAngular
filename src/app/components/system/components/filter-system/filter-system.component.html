@@ -32,7 +32,7 @@
                 <ng-select [items]="lookups.status" appendTo="body" placeholder="الحالة"
                     bindValue="value" bindLabel="name" [virtualScroll]="true"
                     aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                    formControlName="status" (change)="filters()" [(ngModel)]="selectedStatus"
+                    formControlName="status" (change)="filters()"
                     [multiple]="false" (clear)="DisplayNoData($event);">
                 </ng-select>
                 <!-- <span class="text-danger form-text mt-1"

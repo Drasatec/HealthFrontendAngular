@@ -60,3 +60,18 @@ input.ng-invalid.ng-touched {
   color: #fff;
 }
 }
+.mat-form-field-appearance-legacy .mat-form-field-label {
+  color: rgb(255 255 255 / 54%);
+}
+.mat-input-element {
+  caret-color: #ffffff;
+}
+.mat-form-field.mat-focused .mat-form-field-label {
+  color:var(--dark-color-basic);
+}
+.mat-input-element {
+  color:#fff !important;
+}
+.mat-select-value {
+  color:#fff !important;
+}

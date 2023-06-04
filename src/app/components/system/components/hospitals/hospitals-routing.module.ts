@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: HospitalsComponent,
     children:[
       {path:'add-hospital',component : AddHospitalComponent},
+      {path:'edit-hospital/:id',component : AddHospitalComponent},
       {path:'all-hospital',component : AllHospitalsComponent},
       {path:'view-hospital/:id',component : ViewHospitalComponent},
       {path: '',redirectTo: "all-hospital",pathMatch:'full'},

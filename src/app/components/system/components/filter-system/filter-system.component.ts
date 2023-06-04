@@ -83,7 +83,7 @@ export class FilterSystemComponent implements OnInit{
   clearSearch() {
     this.form.reset();
     this.form.markAllAsTouched();
-    this.filters()
+    this.filters();
   }
 
   getAllLookups() {

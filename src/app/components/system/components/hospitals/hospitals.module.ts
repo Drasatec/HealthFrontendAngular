@@ -23,6 +23,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { SystemModule } from '../../system.module';
 import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
+import { AddInfoTranslateComponent } from './components/add-info-translate/add-info-translate.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { RouterModule } from '@angular/router';
     AllHospitalsComponent,
     AddHospitalComponent,
     ViewHospitalComponent,
+    AddInfoTranslateComponent,
   ],
   imports: [
     RouterModule,

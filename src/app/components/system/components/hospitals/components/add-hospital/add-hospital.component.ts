@@ -1,14 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-export interface DialogDataModel {
-  localisedEntities: {
-    code: string;
-    title: string;
-    value: string;
-    canEdit?: boolean;
-  }[];
-}
+import { AddInfoTranslateComponent } from '../add-info-translate/add-info-translate.component';
+import { HospitalService } from '../../services/hospital.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'ngx-add-hospital',
   templateUrl: './add-hospital.component.html',
@@ -16,50 +13,14 @@ export interface DialogDataModel {
 })
 export class AddHospitalComponent implements OnInit {
   form: FormGroup;
-  public codes = ['Ar', 'En', 'Fr'];
-  public validationMsgs = {
-    'emailAddress': [{ type: 'email', message: 'Enter a valid email' }]
-  }
-  // standardName: 'Chicken Curry';
-  // data={
-  //   localisedEntities: [
-  //     {
-  //       code: 'en',
-  //       title: 'English',
-  //       value: '',
-  //       address:'',
-  //       canEdit: false
-  //     },
-  //     {
-  //       code: 'fr',
-  //       title: 'French',
-  //       value: null,
-  //       address:'',
-  //       canEdit: false
-  //     },
-  //     {
-  //       code: 'ar',
-  //       title: 'Arabic',
-  //       address:'',
-  //       value: null,
-  //       canEdit: false
-  //     },
-  //   ],
-  // }
+
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
-    // public dialogRef: MatDialogRef<AddHospitalComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: DialogDataModel
+    public dialog: MatDialog,
+    private _hospitalservice:HospitalService,
+    public snackBar: MatSnackBar
   ) {
-  //   this.dialogData = this.data
-  //   this.rows = this.dialogData.localisedEntities.filter((lang) => lang.value == '');
-  //   this.languages = this.dialogData.localisedEntities.map((item) => ({
-  //     code: item.code,
-  //     title: item.title,
-  //     canEdit: item.canEdit,
-  //   }));
-  //   console.log(this.rows,this.languages)
   }
 
   ngOnInit(): void {
@@ -68,42 +29,119 @@ export class AddHospitalComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      title: [null,Validators.required],
       address: [null],
+      name:[],
+      description:[],
       email:[],
-      mobile:[],
-      whatsapp:[],
-      languages: this._FormBuilder.array([this.createEmailFormGroup()])
-
-
+      PhoneNumbers: this._FormBuilder.array([this.createPhoneFormGroup()]),
+      whatsAppNumber:[],
     });
+  }
+  private createPhoneFormGroup(): FormGroup {
+    return this._FormBuilder.group({
+      'TelephoneNumber': new FormControl(''),
+
+    })
+  }
+  get phonenumberArray(): FormArray {
+    return this.form.get('PhoneNumbers') as FormArray;
+  }
+  public addPhone() {
+
+    const emails = this.form.get('PhoneNumbers') as FormArray
+    emails.push(this.createPhoneFormGroup())
+  }
+
+  public removeOrClearPhone(i: number) {
+    const phones = this.form.get('PhoneNumbers') as FormArray
+    if (phones.length > 1) {
+      phones.removeAt(i)
+    } else {
+      phones.reset()
+    }
   }
   get formControls() {
     return this.form.controls;
   }
-  public addEmailFormGroup() {
-    const emails = this.form.get('languages') as FormArray
-    emails.push(this.createEmailFormGroup())
+  translateData;
+  openTranslateDialog(){
+    const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
+      width: "1200px",
+      disableClose: true,
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+      }
+    });
   }
+  save(){
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.prepareDataBeforeSend(this.form.value);
+      this._hospitalservice.createHospital(this.sendData).subscribe(
+        (res)=>{
+          this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+          this.router.navigate(["/dashboard/system/hospitals/all-hospital"]);
+        },
+        (err) => {
+          this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
+            duration: 3000,
+            panelClass: 'error'
+          });
 
-  public removeOrClearEmail(i: number) {
-    const languages = this.form.get('languages') as FormArray
-    if (languages.length > 1) {
-      languages.removeAt(i)
-    } else {
-      languages.reset()
+        }
+      )
     }
   }
-
-  private createEmailFormGroup(): FormGroup {
-    return new FormGroup({
-      'code': new FormControl('', Validators.required),
-      'name': new FormControl(''),
-      'address': new FormControl(''),
-
-    })
+  sendData;
+  prepareDataBeforeSend(data){
+    console.log(data)
+    let paylod={
+      ...data,
+      HospitalTrasnlations:[{
+        Name:data.name,
+        Address:data.address,
+        Description:data.description,
+        LangCode:'ar',
+      }],
+      file:this.files[0],
+    }
+    this.sendData=this.formData(paylod)
   }
-  save(){}
+  formData(obj) {
+    console.log(obj)
+
+    let body = new FormData();
+    let bodyObj = {}
+    const formVal = obj;
+    Object.keys(formVal).forEach((key) => {
+      if (formVal[key]) {
+        bodyObj[key] = formVal[key]
+        if (key == "HospitalTrasnlations") {
+          for (let i = 0; i < formVal['HospitalTrasnlations'].length; i++) {
+            body.append('HospitalTrasnlations['+(i)+'][Name]', formVal.HospitalTrasnlations[i].Name);
+            body.append('HospitalTrasnlations['+(i)+'][Address]', formVal.HospitalTrasnlations[i].Address);
+            body.append('HospitalTrasnlations['+(i)+'][LangCode]', formVal.HospitalTrasnlations[i].LangCode);
+            body.append('HospitalTrasnlations['+(i)+'][Description]', formVal.HospitalTrasnlations[i].Description);
+          }
+        }
+        else if (key == "PhoneNumbers") {
+          for (let i = 0; i < formVal['PhoneNumbers'].length; i++) {
+            body.append('PhoneNumbers['+(i)+'][TelephoneNumber]', formVal.PhoneNumbers[i].TelephoneNumber);
+          }
+        }
+        else {
+          body.append(key, formVal[key]);
+        }
+
+      }
+    });
+    return body;
+  }
   cancel(){
     this.form.reset()
   }
@@ -180,65 +218,4 @@ export class AddHospitalComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-
-
-
-  // dialogData: DialogDataModel;
-
-  // languages: any[];
-
-  // rows: any[];
-
-  // item!: any[];
-
-  // addNewLanguage() {
-  //   this.rows.push({
-  //     code: null,
-  //     title: null,
-  //     value: null,
-  //     address:null,
-  //     canEdit: true,
-  //   });
-  // }
-
-  // onChangeValue(ev: any) {
-  //   this.rows = this.rows.map((row) => {
-  //     if (row.code == ev.value) {
-  //       const lang = this.languages.find((lang) => lang.code == ev.value);
-  //       row.title = lang.title;
-  //     }
-  //     return row;
-  //   });
-  //   //console.log(this.rows);
-
-  //   this.languages = this.languages.map((lang) => {
-  //     if (lang.code == ev.value) {
-  //       lang.canEdit = false;
-  //     }
-  //     return lang;
-  //   });
-
-  //   //console.log(this.languages)
-  // }
-
-  // isDisabled() {
-  //   return this.rows.filter((item) => item.value == '' || item.code == '')
-  //     .length > 0
-  //     ? true
-  //     : false;
-  // }
-
-  // removeBtn(index: any) {
-  //   console.log(this.rows);
-  //   this.rows.splice(index, 1);
-  // }
-
-  // submit(ev: any) {
-  //   // this.dialogRef.close({ data: this.rows });
-  //   console.log(this.rows);
-  // }
-
-  // back() {
-  //   // this.dialogRef.close();
-  // }
 }

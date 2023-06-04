@@ -9,6 +9,8 @@ import { HospitalService } from '../../services/hospital.service';
 import { Subscription } from 'rxjs';
 import { HospitalModel } from '../../models/hospital.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
+import { AddInfoTranslateComponent } from '../add-info-translate/add-info-translate.component';
 
 @Component({
   selector: 'ngx-all-hospitals',
@@ -28,12 +30,13 @@ export class AllHospitalsComponent implements OnInit{
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   filterElements = {
-    // global_search: true,
+    global_search: true,
     status:true
   };
   loading=true;
   constructor(private router:Router,private _hospitalservice:HospitalService,
-    public snackBar: MatSnackBar
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
     ) {
 
   }
@@ -89,7 +92,9 @@ export class AllHospitalsComponent implements OnInit{
     }
   }
   rowAction(action,id){
-    if(action === 'active' || 'inactive'){
+    if(action === 'active' || action ==='inactive'){
+      console.log("act")
+
       this._hospitalservice.activeHospital(id,action).subscribe(
         (res: any) => {
           if(action === 'active'){
@@ -114,16 +119,36 @@ export class AllHospitalsComponent implements OnInit{
 
         }
       )
+    }else if (action === 'edit'){
+      console.log("edit")
+      this.router.navigate(['/dashboard/system/hospitals/edit-hospital',id])
+    }else if(action === 'translate'){
+      this.openTranslateDialog(id);
     }
+  }
+  translateData;
+  openTranslateDialog(id){
+    const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:id
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.status)
+      }
+    });
   }
   onClickPublisher(id){
     console.log(id)
     this.router.navigate(['/dashboard/system/hospitals/view-hospital/',id])
   }
   searchHospital(pay){
-    this._hospitalservice.SearchHospitalsByName(pay).subscribe(
+    this._hospitalservice.SearchHospital(pay).subscribe(
       (res)=>{
-        this.hospitals = res.value;
+        this.hospitals = res.hospitals;
+        console.log(this.hospitals)
       this.dataSource = new MatTableDataSource(this.hospitals);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
@@ -132,20 +157,24 @@ export class AllHospitalsComponent implements OnInit{
     )
   }
   onFilterChange(e) {
-    console.log(e)
+    console.log(e.target)
     this.status = e.status;
-    if(e.status){
+
+    if(e.status && !e.name){
       this.getTableData(e.status)
     }
-    if(e.name){
+    else if(e.name && !e.status){
       let pay={
-        name:e.name
+        searchTerm:e.name,
+        lang:'ar'
       }
       this.searchHospital(pay)
     }
-    if(!e){
+    else{
+    this.status='active';
       this.getTableData(this.status)
     }
   }
+
 }
 

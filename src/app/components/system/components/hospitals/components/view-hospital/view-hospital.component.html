@@ -6,7 +6,7 @@
       <div class="col-md-4">
         <div class="image-row">
           <div class="image-column" *ngFor="let image of images; let i = index">
-              <img [src]="imgUrl+'small/'+image.url" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
+              <img [src]="image.url ? imgUrl+'small/'+image.url : '/assets/images/hospital.jpg'" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
           </div>
         </div>
       </div>
@@ -92,7 +92,7 @@
   <span class="close cursor" (click)="closeModal()">&times;</span>
   <div class="slide-modal-content">
       <div class="img-slides" *ngFor="let image of images; let i = index">
-          <img [src]="imgUrl+'medium/'+image.url">
+          <img [src]="image.url ? imgUrl+'medium/'+image.url : '/assets/images/hospital.jpg'">
       </div>
       <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
       <a class="next" (click)="plusSlides(1)">&#10095;</a> -->
