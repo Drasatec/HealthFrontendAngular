@@ -5,5 +5,6 @@
  */
 export const environment = {
   production: true,
-  apiUrl:''
+  apiUrl:'http://www.alrahmacare.somee.com/api/',
+  imgUrl:'http://www.alrahmacare.somee.com/images/',
 };

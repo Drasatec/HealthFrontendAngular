@@ -24,7 +24,7 @@ export class HelperService {
                 delete obj[key]
             }
             if (obj[key] === null) {
-                obj[key] = ""
+                obj[key] = 0
             }
         })
         return obj
@@ -39,11 +39,12 @@ export class HelperService {
         return obj
     }
     deleteNullValuesFetchCriteria(obj) {
+      console.log('obj',obj)
         Object.keys(obj).forEach(key => {
+          console.log('key',key)
             if (obj[key] === undefined || obj[key] === null || obj[key] === '') {
                 delete obj[key]
             }
-
         })
         return obj
     }

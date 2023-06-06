@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HospitalService } from '../../services/hospital.service';
@@ -17,7 +17,8 @@ export class ViewHospitalComponent implements OnInit{
     public dialog: MatDialog,
     private router:ActivatedRoute,
     private _hospitalservice:HospitalService,
-    private snackBar:MatSnackBar) {
+    private snackBar:MatSnackBar,
+    private route:Router) {
 
   }
   imgUrl=`${environment.imgUrl}`;
@@ -26,12 +27,15 @@ export class ViewHospitalComponent implements OnInit{
   id:number;
   hospital:any;
   loading:boolean=true;
+   timestamp = new Date().getTime();
+
   ngOnInit(): void {
     this.router.params.subscribe((params)=>{
       this.id = +params.id
     })
     this.getHospitalById(this.id)
   }
+
   getHospitalById(id){
     let paylod ={
       lang:'ar'
@@ -130,5 +134,9 @@ export class ViewHospitalComponent implements OnInit{
 
       // Remove Deleted Academic From List & Update the Service Academic Years
     });
+  }
+  edit(id){
+    this.route.navigate(["/dashboard/system/hospitals/edit-hospital",this.id]);
+
   }
 }

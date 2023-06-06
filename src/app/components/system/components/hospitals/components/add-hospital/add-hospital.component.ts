@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AddInfoTranslateComponent } from '../add-info-translate/add-info-translate.component';
 import { HospitalService } from '../../services/hospital.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HelperService } from '../../../../../../@theme/services/helper.service';
+import { environment } from '../../../../../../../environments/environment';
 
 @Component({
   selector: 'ngx-add-hospital',
@@ -13,18 +15,58 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AddHospitalComponent implements OnInit {
   form: FormGroup;
+  imgUrl=`${environment.imgUrl}`;
 
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
     public dialog: MatDialog,
     private _hospitalservice:HospitalService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private route:ActivatedRoute,
+    private _helpservice:HelperService
   ) {
   }
-
+  id:number;
+  hospital:any;
   ngOnInit(): void {
+    this.route.params.subscribe(
+      (param)=>{
+    console.log(param)
+
+        this.id =param.id;
+      }
+    )
     this.createForm();
+    if(this.id){
+      this.getHospitalById(this.id);
+    }
+  }
+  getHospitalById(id){
+    let paylod={
+      lang:'ar'
+    }
+    this._hospitalservice.getHospitalById(id,paylod).subscribe(
+      (res:any)=>{
+        this.hospital = res;
+        this.phoneNumbers=res.phoneNumbers;
+        this.patchForm();
+        this.phoneNumbers?.forEach(el => {
+          this.addPhone(el);
+        })
+      }
+    )
+  }
+  phoneNumbers;
+  patchForm(){
+    this.form.patchValue({
+      codeNumber:this.hospital.codeNumber?this.hospital.codeNumber:null,
+      email:this.hospital.email?this.hospital.email:null,
+      whatsAppNumber:this.hospital.whatsAppNumber?this.hospital.whatsAppNumber:null,
+      address:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].address:null,
+      name:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].name:null,
+      description:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].description:null,
+  })
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
@@ -37,19 +79,20 @@ export class AddHospitalComponent implements OnInit {
       whatsAppNumber:[],
     });
   }
-  private createPhoneFormGroup(): FormGroup {
+  private createPhoneFormGroup(data?): FormGroup {
     return this._FormBuilder.group({
-      'TelephoneNumber': new FormControl(''),
+      'id':new FormControl(data?.id),
+      'TelephoneNumber': new FormControl(data?.telephoneNumber),
 
     })
   }
   get phonenumberArray(): FormArray {
     return this.form.get('PhoneNumbers') as FormArray;
   }
-  public addPhone() {
+  public addPhone(data?) {
 
     const emails = this.form.get('PhoneNumbers') as FormArray
-    emails.push(this.createPhoneFormGroup())
+    emails.push(this.createPhoneFormGroup(data))
   }
 
   public removeOrClearPhone(i: number) {
@@ -79,30 +122,56 @@ export class AddHospitalComponent implements OnInit {
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.prepareDataBeforeSend(this.form.value);
-      this._hospitalservice.createHospital(this.sendData).subscribe(
-        (res)=>{
-          this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
-            duration: 5000,
-            panelClass: 'success'
-          });
-          this.router.navigate(["/dashboard/system/hospitals/all-hospital"]);
-        },
-        (err) => {
-          this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
-            duration: 3000,
-            panelClass: 'error'
-          });
+      if(!this.id){
+        this._hospitalservice.createHospital(this.sendData).subscribe(
+          (res)=>{
+            this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
+              duration: 5000,
+              panelClass: 'success'
+            });
+            this.router.navigate(["/dashboard/system/hospitals/all-hospital"]);
+          },
+          (err) => {
+            this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
+              duration: 3000,
+              panelClass: 'error'
+            });
 
-        }
-      )
+          }
+        )
+      }else{
+        this._hospitalservice.editHospital(this.id,this.sendData).subscribe(
+          (res)=>{
+            this.snackBar.open("تم تعديل المستشفي بنجاح ", "ُsuccess", {
+              duration: 5000,
+              panelClass: 'success'
+            });
+            this.router.navigate(["/dashboard/system/hospitals/view-hospital",this.id]);
+          },
+          (err) => {
+            this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
+              duration: 3000,
+              panelClass: 'error'
+            });
+
+          }
+        )
+      }
+
     }
   }
   sendData;
   prepareDataBeforeSend(data){
     console.log(data)
+    data.PhoneNumbers =
+    data?.PhoneNumbers.map((el) => {
+      return this._helpservice.deleteNullValues(el);
+    });
+    console.log(data)
     let paylod={
       ...data,
       HospitalTrasnlations:[{
+        id:this.hospital.hospitalTrasnlations[0].id,
         Name:data.name,
         Address:data.address,
         Description:data.description,
@@ -123,6 +192,7 @@ export class AddHospitalComponent implements OnInit {
         bodyObj[key] = formVal[key]
         if (key == "HospitalTrasnlations") {
           for (let i = 0; i < formVal['HospitalTrasnlations'].length; i++) {
+            body.append('HospitalTrasnlations['+(i)+'][id]', formVal.HospitalTrasnlations[i].id );
             body.append('HospitalTrasnlations['+(i)+'][Name]', formVal.HospitalTrasnlations[i].Name);
             body.append('HospitalTrasnlations['+(i)+'][Address]', formVal.HospitalTrasnlations[i].Address);
             body.append('HospitalTrasnlations['+(i)+'][LangCode]', formVal.HospitalTrasnlations[i].LangCode);
@@ -131,6 +201,7 @@ export class AddHospitalComponent implements OnInit {
         }
         else if (key == "PhoneNumbers") {
           for (let i = 0; i < formVal['PhoneNumbers'].length; i++) {
+            body.append('PhoneNumbers['+(i)+'][id]', formVal.PhoneNumbers[i].id);
             body.append('PhoneNumbers['+(i)+'][TelephoneNumber]', formVal.PhoneNumbers[i].TelephoneNumber);
           }
         }

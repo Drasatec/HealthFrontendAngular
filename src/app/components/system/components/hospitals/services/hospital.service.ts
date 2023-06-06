@@ -33,19 +33,22 @@ export class HospitalService {
     return this.http.get(url,{ params: paylod });
   }
   addTranslation(id,body){
-    const url = `${this.baseURL}Hospital/add-translations-form/${id}`;
-    return this.http.post(url,body);
+    const url = `${this.baseURL}Hospital/edit-translations/${id}`;
+    return this.http.put(url,body);
   }
 
   createHospital(body: any,): Observable<any> {
     const url = `${this.baseURL}Hospital/add`;
     return this.http.post(url,body);
   }
-
+  editHospital(id,body: any,): Observable<any> {
+    const url = `${this.baseURL}Hospital/edit/${id}`;
+    return this.http.put(url,body);
+  }
 
 
   activeHospital(id,status) {
-    const url = `${this.baseURL}Hospital/delete?id=${id}&status=${status}`;
+    const url = `${this.baseURL}Hospital/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
 }

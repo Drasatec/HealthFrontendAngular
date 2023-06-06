@@ -205,3 +205,6 @@ color:inherit;
 .mat-icon-button.mat-primary, .mat-stroked-button.mat-primary {
   color: #3a6dc1;
 }
+div.cdk-overlay-container .cdk-overlay-pane {
+  overflow-y: scroll;
+}

@@ -6,7 +6,7 @@
       <div class="col-md-4">
         <div class="image-row">
           <div class="image-column" *ngFor="let image of images; let i = index">
-              <img [src]="image.url ? imgUrl+'small/'+image.url : '/assets/images/hospital.jpg'" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
+              <img [src]="image.url ? imgUrl+'small/'+image.url+'?timestamp='+timestamp  : '/assets/images/hospital.jpg'" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
           </div>
         </div>
       </div>
@@ -19,7 +19,7 @@
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="edit(hospital.id)">
               <i class="fa-solid fa-pen mx-2"></i>
               <span>تعديل</span>
             </button>
@@ -62,10 +62,9 @@
 
 
     </div>
-    <!-- <div class="row">
-      <p class="my-5">معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب معلومات حول هذه الطبيب
-      </p>
-    </div> -->
+    <div class="row">
+      <p class="my-5">{{hospital?.hospitalTrasnlations[0]?.description}}</p>
+    </div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="stat d-flex align-items-center flex-column mx-3">
         <img width="50" src="assets/images/hospital-icons/Group.svg">
@@ -92,7 +91,7 @@
   <span class="close cursor" (click)="closeModal()">&times;</span>
   <div class="slide-modal-content">
       <div class="img-slides" *ngFor="let image of images; let i = index">
-          <img [src]="image.url ? imgUrl+'medium/'+image.url : '/assets/images/hospital.jpg'">
+          <img [src]="image.url ? imgUrl+'small/'+image.url+'?timestamp='+timestamp : '/assets/images/hospital.jpg'">
       </div>
       <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
       <a class="next" (click)="plusSlides(1)">&#10095;</a> -->

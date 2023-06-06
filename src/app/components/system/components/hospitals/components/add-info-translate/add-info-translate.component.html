@@ -1,4 +1,4 @@
-<div class="card ">
+<div class="card trans">
   <!-- Header -->
   <div
     class="card-header  d-flex justify-content-between align-items-center"
@@ -15,57 +15,65 @@
   <!-- Body -->
   <div class="card-body px-6 px-lg-10 pt-3 pb-0">
     <div [formGroup]="formTrans">
-      <div formArrayName="translations">
-        <button class="float-left" mat-icon-button color="primary" aria-label="Add"
-          (click)="addEmailFormGroup()" matTooltip="Add">
-          <mat-icon>add_circle_outline</mat-icon>
-        </button>
-        <div class="row" *ngFor="let lang of myFormArray['controls']; let i = index"
+      <div formArrayName="translations" class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <button mat-fab extended aria-label="Add"
+            (click)="addEmailFormGroup()" matTooltip="Add">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+        <div class="row translation" *ngFor="let lang of myFormArray['controls']; let i = index"
             [formGroupName]="i">
-          <mat-form-field class="col-2">
-            <mat-label>اللغة</mat-label>
-            <mat-select formControlName="LangCode">
-              <mat-option *ngFor="let label of codes" [value]="label">
-                {{label}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
 
-          <mat-form-field class="col-5">
-            <input matInput formControlName="Name" placeholder="الاسم" autocomplete="email">
-            <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
-              <div *ngIf="email.get('emailAddress').hasError(validation.type)">
-                {{validation.message}}
-              </div>
-            </mat-error> -->
-          </mat-form-field>
-          <mat-form-field class="col-5">
-            <input matInput formControlName="Address" placeholder="العنوان" autocomplete="email">
-            <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
-              <div *ngIf="email.get('emailAddress').hasError(validation.type)">
-                {{validation.message}}
-              </div>
-            </mat-error> -->
-          </mat-form-field>
-          <mat-form-field class="col-10">
-            <textarea matInput formControlName="desc" placeholder="التفاصيل" autocomplete="email"></textarea>
-            <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
-              <div *ngIf="email.get('emailAddress').hasError(validation.type)">
-                {{validation.message}}
-              </div>
-            </mat-error> -->
-          </mat-form-field>
-          <div class="col-2">
-            <button class="float-left" mat-icon-button color="primary" aria-label="Remove/clear"
-                (click)="removeOrClearEmail(i)" matTooltip="Remove">
-              <mat-icon>highlight_off</mat-icon>
-            </button>
-          </div>
+            <div class="col-11 row">
+              <mat-form-field class="col-2">
+                <mat-label>اللغة</mat-label>
+                <mat-select formControlName="LangCode">
+                  <mat-option *ngFor="let label of codes" [value]="label.value">
+                    {{label.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-4">
+                <input matInput formControlName="Name" placeholder="الاسم" autocomplete="email">
+                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
+                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
+                    {{validation.message}}
+                  </div>
+                </mat-error> -->
+              </mat-form-field>
+              <mat-form-field class="col-4">
+                <input matInput formControlName="Address" placeholder="العنوان" autocomplete="email">
+                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
+                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
+                    {{validation.message}}
+                  </div>
+                </mat-error> -->
+              </mat-form-field>
+              <mat-form-field class="col-10">
+                <textarea matInput formControlName="description" placeholder="التفاصيل" autocomplete="email"></textarea>
+                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
+                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
+                    {{validation.message}}
+                  </div>
+                </mat-error> -->
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <button mat-fab extended aria-label="Remove/clear"
+                  (click)="removeOrClearEmail(i)" matTooltip="Remove">
+                <mat-icon>highlight_off</mat-icon>
+              </button>
+            </div>
+
         </div>
       </div>
-      <button class="float-left" mat-icon-button color="primary" aria-label="Add"
+      <div class="col-12 d-flex justify-content-end">
+        <button  mat-fab extended aria-label="Add"
           (click)="save()" matTooltip="Add">حفظ
         </button>
+      </div>
     </div>
   </div>
 </div>

@@ -45,6 +45,8 @@ export class AllHospitalsComponent implements OnInit{
     pageSize:10,
   }
   status:string='active';
+  timestamp = new Date().getTime();
+
   ngOnInit() {
     this.getTableData(this.status)
     // this.dataSource.paginator = this.paginator;
