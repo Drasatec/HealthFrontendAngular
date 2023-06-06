@@ -13,9 +13,9 @@ export class SystemComponent implements AfterContentChecked {
   active:boolean;
   icons=[
     {name:'مستشفيات',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals/all-hospital',active:false},
-    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings/all-building',active:false},
-    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
-    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/booking/all-booking',active:false},
+    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings',active:false},
+    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/bookings',active:false},
+    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/bookings/all-booking',active:false},
     {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
     {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctors/all-doctor',active:false},
     {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},

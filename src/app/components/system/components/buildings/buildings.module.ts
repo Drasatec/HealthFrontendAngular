@@ -40,6 +40,7 @@ import { ViewBuildingComponent } from './components/view-building/view-building.
     MatPaginatorModule,
     MatDialogModule,
     NgSelectModule,
+    SystemModule,
   ]
 })
 export class BuildingsModule { }

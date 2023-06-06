@@ -1,6 +1,6 @@
 <div class="toolbar">
   <div class="toolbar-icons" *ngFor="let icon of icons">
-    <a [routerLink]="icon.link" routerLinkActive="active"  [ngClass]="icon.active?'active': '' ">
+    <a [routerLink]="icon.link" routerLinkActive="active">
       <img [src]="icon.src" [alt]="icon.name" >
       <p>{{icon.name}}</p>
     </a>

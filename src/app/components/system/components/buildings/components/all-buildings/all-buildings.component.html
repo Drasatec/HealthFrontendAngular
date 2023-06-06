@@ -1,45 +1,58 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="text-base-color text-bold">كل المباني</h5>
-    <button class="btn btn-primary background-primary" [routerLink]="['/dashboard/system/buildings/add-building']" routerLinkActive="active" >
+    <h5 class="text-base-color text-bold"> المباني</h5>
+    <button class="btn btn-primary background-primary" [routerLink]="['/dashboard/system/buildings/add-building']"  >
       <i class="fa-solid fa-circle-plus"></i>
-      إضافة مبني
+      إضافة مبني جديدة
     </button>
   </div>
+  <ngx-filter
+      (FilterChange)="onFilterChange($event)"
+      [filterElements]="filterElements"
+    >
+    </ngx-filter>
   <div class="card-body">
     <!-- begin:Table -->
 
-    <div >
+    <div class="table-data" *ngIf="!loading;else progressSpinner">
       <table mat-table [dataSource]="dataSource" matSort>
 
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
-          <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.codeNumber}} </td>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
-          <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.hospitalTrasnlations[0]?.name}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="address">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> عنوان </th>
-          <td mat-cell *matCellDef="let row"> {{row.address}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.hospitalTrasnlations[0]?.address}} </td>
         </ng-container>
-
+        <ng-container matColumnDef="hospital">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> مستشفي </th>
+          <td mat-cell *matCellDef="let row"> {{row?.hospital}} </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> نشط </th>
+          <td mat-cell *matCellDef="let row">
+            <i class="fa-regular fa-circle-xmark" *ngIf="row.isDeleted"></i>
+            <i class="fa-solid fa-circle-check" *ngIf="!row.isDeleted"></i>
+          </td>
+        </ng-container>
         <!-- Fruit Column -->
         <ng-container matColumnDef="img">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> صورة </th>
-          <td mat-cell *matCellDef="let row"> {{row.img}} </td>
+          <td mat-cell *matCellDef="let row">
+            <img width="40px" [src]="row.photo ? imgUrl +'small/'+row.photo+'?timestamp='+timestamp :'/assets/images/building.jpg'" [alt]="row.photo">
+          </td>
         </ng-container>
-        <!-- Fruit Column -->
-        <ng-container matColumnDef="other">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> المستشفي </th>
-          <td mat-cell *matCellDef="let row"> {{row.other}} </td>
-        </ng-container>
+
         <ng-container matColumnDef = 'action'>
           <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
           <!-- Action Menu Items -->
@@ -49,8 +62,16 @@
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           <mat-menu #mainMenu="matMenu">
-            <button mat-menu-item (click)="rowAction('action_1')" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
-            <button mat-menu-item (click)="rowAction('action_2')"> <i class="fa-solid fa-trash-can px-1"></i>حذف </button>
+            <button mat-menu-item (click)="rowAction('edit',row.id)" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
+            <button mat-menu-item (click)="rowAction('active',row.id)"  *ngIf="row.isDeleted">
+              <i class="fa-solid fa-circle-check" ></i>تشغيل
+            </button>
+            <button mat-menu-item (click)="rowAction('inactive',row.id)"  *ngIf="!row.isDeleted">
+              <i class="fa-regular fa-circle-xmark" ></i>إيقاف
+            </button>
+            <button mat-menu-item (click)="rowAction('translate',row.id)">
+              <i class="fa-solid fa-globe"></i>إضافة ترجمة
+            </button>
           </mat-menu>
         </td>
         </ng-container>
@@ -61,11 +82,34 @@
 
       </table>
 
-      <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="اختر صفحة">
-      </mat-paginator>
+      <!-- <mat-paginator #paginator
+      [length]="length"
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="pageEvent = getServerData($event)" aria-label="اختر صفحة">
+      </mat-paginator> -->
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+        [pageSizeOptions]="[5, 10, 25, 100]"  (page)="pageChanged($event)">
+</mat-paginator>
     </div>
 
 
   <!-- end: Table -->
   </div>
 </div>
+<ng-template #progressSpinner>
+  <div class="overlay" >
+    <div class="center">
+
+    <mat-progress-spinner
+     diameter="100"
+     mode="indeterminate"
+     color="primary"
+     strokeWidth="10"
+     value="100">
+    </mat-progress-spinner>
+
+    </div>
+  </div>
+  </ng-template>
