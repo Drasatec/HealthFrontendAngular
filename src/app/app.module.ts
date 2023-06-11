@@ -24,6 +24,7 @@ import { MenuModule } from 'primeng/menu';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { TieredMenuModule } from 'primeng/tieredmenu';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [AppComponent],
@@ -46,7 +47,8 @@ import { TieredMenuModule } from 'primeng/tieredmenu';
     TieredMenuModule,
     MenuModule,
     MessageModule,
-    MessagesModule
+    MessagesModule,
+    MatDialogModule
   ],
   bootstrap: [AppComponent],
 })

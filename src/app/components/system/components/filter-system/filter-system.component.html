@@ -2,13 +2,15 @@
   <div [formGroup]="form" class="row justify-content-md-start">
       <div class="col-12 d-flex flex-wrap  justify-content-center filters ml-1"
           *ngIf="filterElements?.global_search">
-          <div class="input-group col-md-8">
+          <div class="col-md-6">
+            <div class="input-group ">
               <button type="button" mat-raised-button class="global-button">بحث </button>
-              <!-- appDebounceInputChange [debounceTime]="1000" (valueChanged)="filters($event)" -->
-              <input type="search" class="form-control rounded" placeholder="بحث بالأسم" formControlName="name"
+              <input type="search" class="form-control rounded" placeholder="بحث " formControlName="name"
                   aria-label="Search" aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                  (change)="filters($event)" />
+                  (valueChanged)="filters($event)" />
+            </div>
           </div>
+
       </div>
       <div class="col-12 d-flex justify-content-md-start flex-wrap filters" style="background: none;" >
           <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.hospitals">
@@ -17,7 +19,7 @@
                   <ng-select [items]="lookups.hospitals" appendTo="body" placeholder="مستشفيات"
                       bindValue="id" bindLabel="name" [virtualScroll]="true"
                       aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                      formControlName="hospital"
+                      formControlName="hosId"
                       [multiple]="false"
                       (clear)="DisplayNoData($event);">
                   </ng-select>

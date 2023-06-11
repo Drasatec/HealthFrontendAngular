@@ -24,6 +24,10 @@ export class HospitalService {
     const url = `${this.baseURL}Hospital/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
   SearchHospital(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}Hospital/search`;
     return this.http.get(url,{ params: fetchCriteria });

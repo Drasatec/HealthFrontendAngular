@@ -7,41 +7,41 @@ import { filter } from 'rxjs/operators';
   templateUrl: './system.component.html',
   styleUrls: ['./system.component.scss']
 })
-export class SystemComponent implements AfterContentChecked {
+export class SystemComponent  {
 
   constructor(private router:Router) { }
   active:boolean;
   icons=[
-    {name:'مستشفيات',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals/all-hospital',active:false},
-    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings',active:false},
-    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/bookings',active:false},
-    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/bookings/all-booking',active:false},
-    {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
-    {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctors/all-doctor',active:false},
-    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
-    {name:'خدمات',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/booking/all-booking',active:false},
+    {name:'مستشفيات',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals'},
+    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings'},
+    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/floors'},
+    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/rooms'},
+    {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/clinics'},
+    {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctors'},
+    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/specializations'},
+    {name:'خدمات',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/services'},
 
   ]
-  getLink(){
-    for(let i=0;i<this.icons.length;i++){
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(res => {
-        const route = this.router.url.replace(/[^\/]*$/, "")
-        if (route === this.icons[i].link.replace(/[^\/]*$/, "")) {
-          this.icons[i].active = true;
-        }
+  // getLink(){
+  //   for(let i=0;i<this.icons.length;i++){
+  //     this.router.events.pipe(
+  //       filter(event => event instanceof NavigationEnd)
+  //     ).subscribe(res => {
+  //       const route = this.router.url.replace(/[^\/]*$/, "")
+  //       if (route === this.icons[i].link.replace(/[^\/]*$/, "")) {
+  //         this.icons[i].active = true;
+  //       }
 
-        else {
-          this.icons[i].active = false;
-        }
-      });
-    }
-    // console.log(this.icons)
-  }
-  ngAfterContentChecked (): void {
-    this.getLink()
+  //       else {
+  //         this.icons[i].active = false;
+  //       }
+  //     });
+  //   }
+  //   // console.log(this.icons)
+  // }
+  // ngAfterContentChecked (): void {
+  //   this.getLink()
 
 
-  }
+  // }
 }

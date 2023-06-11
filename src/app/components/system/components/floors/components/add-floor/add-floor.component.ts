@@ -1,22 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { AddHospitalComponent } from '../../../hospitals/components/add-hospital/add-hospital.component';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../../../environments/environment';
 import { HelperService } from '../../../../../../@theme/services/helper.service';
+import { AddBuildingComponent } from '../../../buildings/components/add-building/add-building.component';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
-import { HospitalService } from '../../../hospitals/services/hospital.service';
-import { BuildingService } from '../../services/building.service';
-import { LookupService } from '../../../../../../@theme/services/lookup.service';
+import { FloorService } from '../../services/floor.service';
 
 @Component({
-  selector: 'ngx-add-building',
-  templateUrl: './add-building.component.html',
-  styleUrls: ['./add-building.component.scss']
+  selector: 'ngx-add-floor',
+  templateUrl: './add-floor.component.html',
+  styleUrls: ['./add-floor.component.scss']
 })
-export class AddBuildingComponent implements OnInit {
+export class AddFloorComponent implements OnInit {
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
 
@@ -24,16 +22,14 @@ export class AddBuildingComponent implements OnInit {
     private _FormBuilder: FormBuilder,
     private router:Router,
     public dialog: MatDialog,
-    private _buildingService:BuildingService,
+    private _floorService:FloorService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
-    private _helpservice:HelperService,
-    private _lookpservice:LookupService,
-
+    private _helpservice:HelperService
   ) {
   }
   id:number;
-  building:any;
+  hospital:any;
   ngOnInit(): void {
     this.route.params.subscribe(
       (param)=>{
@@ -44,28 +40,21 @@ export class AddBuildingComponent implements OnInit {
     )
     this.createForm();
     if(this.id){
-      this.getBuildingById(this.id);
+      this.getFloorById(this.id);
     }
-    this.getHospitals()
+    this.getBuildings()
   }
-  hospitals=[]
-  getHospitals(){
-    let payload={
-      pageSize:30
-    }
-    this._lookpservice.getAllHospitalsNames(payload).subscribe(
-      (res)=>{
-        this.hospitals = res
-      }
-    )
+  buildings=[]
+  getBuildings(){
+    return this.buildings
   }
-  getBuildingById(id){
+  getFloorById(id){
     let paylod={
       lang:'ar'
     }
-    this._buildingService.getBuildingsById(id,paylod).subscribe(
+    this._floorService.getHospitalById(id,paylod).subscribe(
       (res:any)=>{
-        this.building = res;
+        this.hospital = res;
         this.phoneNumbers=res.phoneNumbers;
         this.patchForm();
       }
@@ -74,18 +63,17 @@ export class AddBuildingComponent implements OnInit {
   phoneNumbers;
   patchForm(){
     this.form.patchValue({
-      codeNumber:this.building.codeNumber?this.building.codeNumber:null,
-      name:this.building.BuildingTranslation > 0?this.building.BuildingTranslation[0].name:null,
-      Description:this.building.BuildingTranslation > 0?this.building.BuildingTranslation[0].description:null,
-      HospitalId:this.building.hospitalId ?this.building.hospitalId : null
+      codeNumber:this.hospital.codeNumber?this.hospital.codeNumber:null,
+      name:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].name:null,
+      hospital:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].description:null,
   })
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      HospitalId: [null],
-      name:[null],
-      description:[null]
+      hospital: [null],
+      name:[],
+
     });
   }
   get formControls() {
@@ -108,13 +96,13 @@ export class AddBuildingComponent implements OnInit {
     if (this.form.valid) {
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-        this._buildingService.createBuildings(this.sendData).subscribe(
+        this._floorService.createHospital(this.sendData).subscribe(
           (res)=>{
-            this.snackBar.open("تم اضافة المبني بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم اضافة طابق بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/buildings/all-building"]);
+            this.router.navigate(["/dashboard/system/floors/all-floor"]);
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -125,13 +113,13 @@ export class AddBuildingComponent implements OnInit {
           }
         )
       }else{
-        this._buildingService.editBuildings(this.id,this.sendData).subscribe(
+        this._floorService.editHospital(this.id,this.sendData).subscribe(
           (res)=>{
-            this.snackBar.open("تم تعديل المبني بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تعديل طابق بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/buildings/view-building",this.id]);
+            this.router.navigate(["/dashboard/system/floors/view-floor",this.id]);
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -148,11 +136,17 @@ export class AddBuildingComponent implements OnInit {
   sendData;
   prepareDataBeforeSend(data){
     console.log(data)
+    data.PhoneNumbers =
+    data?.PhoneNumbers.map((el) => {
+      return this._helpservice.deleteNullValues(el);
+    });
+    console.log(data)
     let paylod={
       ...data,
-      BuildingTranslation:[{
-        id:this.id?this.building.BuildingTranslation[0].id:0,
+      HospitalTrasnlations:[{
+        id:this.hospital.hospitalTrasnlations[0].id,
         Name:data.name,
+        Address:data.address,
         Description:data.description,
         LangCode:'ar',
       }],
@@ -169,13 +163,13 @@ export class AddBuildingComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "BuildingTranslation") {
-          for (let i = 0; i < formVal['BuildingTranslation'].length; i++) {
-            body.append('BuildingTranslation['+(i)+'][id]', formVal.BuildingTranslation[i].id );
-            body.append('BuildingTranslation['+(i)+'][Name]', formVal.BuildingTranslation[i].Name);
-            body.append('BuildingTranslation['+(i)+'][Address]', formVal.BuildingTranslation[i].Address);
-            body.append('BuildingTranslation['+(i)+'][LangCode]', formVal.BuildingTranslation[i].LangCode);
-            body.append('BuildingTranslation['+(i)+'][Description]', formVal.BuildingTranslation[i].Description);
+        if (key == "HospitalTrasnlations") {
+          for (let i = 0; i < formVal['HospitalTrasnlations'].length; i++) {
+            body.append('HospitalTrasnlations['+(i)+'][id]', formVal.HospitalTrasnlations[i].id );
+            body.append('HospitalTrasnlations['+(i)+'][Name]', formVal.HospitalTrasnlations[i].Name);
+            body.append('HospitalTrasnlations['+(i)+'][Address]', formVal.HospitalTrasnlations[i].Address);
+            body.append('HospitalTrasnlations['+(i)+'][LangCode]', formVal.HospitalTrasnlations[i].LangCode);
+            body.append('HospitalTrasnlations['+(i)+'][Description]', formVal.HospitalTrasnlations[i].Description);
           }
         }
         else if (key == "PhoneNumbers") {
@@ -268,19 +262,11 @@ export class AddBuildingComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-  openDialog(){
-    const dialogRef = this.dialog.open(AddHospitalComponent,{
-      width: "1200px",
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
-      if(result){
-        this.getHospitals()
-      this.form.patchValue({
-        'HospitalId':result
-      })
-      }
+  openDialog() {
+    const dialogRef = this.dialog.open(AddBuildingComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
-
 }

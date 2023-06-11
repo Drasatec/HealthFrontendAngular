@@ -6,7 +6,7 @@ import { environment } from '../../../../../../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class BuildingService {
+export class FloorService {
 
   baseURL: string = environment.apiUrl;
 
@@ -15,35 +15,35 @@ export class BuildingService {
 
   constructor(private http: HttpClient) {}
 
-  getAllBuildingss(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}buildings/all`;
+  getAllHospitals(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Hospital/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  SearchBuildings(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}buildings/search`;
+  SearchHospital(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Hospital/search`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  getBuildingsById(id,paylod?){
-    const url = `${this.baseURL}building?id=${id}`;
+  getHospitalById(id,paylod?){
+    const url = `${this.baseURL}Hospital?id=${id}`;
     return this.http.get(url,{ params: paylod });
   }
   addTranslation(id,body){
-    const url = `${this.baseURL}building/edit-translations/${id}`;
+    const url = `${this.baseURL}Hospital/edit-translations/${id}`;
     return this.http.put(url,body);
   }
 
-  createBuildings(body: any,): Observable<any> {
-    const url = `${this.baseURL}building/add`;
+  createHospital(body: any,): Observable<any> {
+    const url = `${this.baseURL}Hospital/add`;
     return this.http.post(url,body);
   }
-  editBuildings(id,body: any,): Observable<any> {
-    const url = `${this.baseURL}building/edit/${id}`;
+  editHospital(id,body: any,): Observable<any> {
+    const url = `${this.baseURL}Hospital/edit/${id}`;
     return this.http.put(url,body);
   }
 
 
-  activeBuildings(id,status) {
-    const url = `${this.baseURL}building/deactivate?id=${id}&status=${status}`;
+  activeHospital(id,status) {
+    const url = `${this.baseURL}Hospital/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
 }

@@ -1,29 +1,25 @@
-import { environment } from './../../../../../../../environments/environment';
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginatorIntl, MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { MyCustomPaginatorIntl } from '../../../../../../pages/paginator/paginator.srvice';
-import { HospitalService } from '../../services/hospital.service';
 import { Subscription } from 'rxjs';
-import { HospitalModel } from '../../models/hospital.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
-import { AddInfoTranslateComponent } from '../add-info-translate/add-info-translate.component';
-import { AddHospitalComponent } from '../add-hospital/add-hospital.component';
+import { environment } from '../../../../../../../environments/environment';
+import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
+import { FloorModel } from '../../models/floors.model';
+import { FloorService } from '../../services/floor.service';
 
 @Component({
-  selector: 'ngx-all-hospitals',
-  templateUrl: './all-hospitals.component.html',
-  styleUrls: ['./all-hospitals.component.scss'],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
-
+  selector: 'ngx-all-floors',
+  templateUrl: './all-floors.component.html',
+  styleUrls: ['./all-floors.component.scss']
 })
-export class AllHospitalsComponent implements OnInit{
+export class AllFloorsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','address','status','img','action'];
-  dataSource: MatTableDataSource<HospitalModel>;
+  displayedColumns: string[] = ['id','name','hospital','building','status','img','action'];
+  dataSource: MatTableDataSource<FloorModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
   pageSize: number = 10;
@@ -35,7 +31,7 @@ export class AllHospitalsComponent implements OnInit{
     status:true
   };
   loading=true;
-  constructor(private router:Router,private _hospitalservice:HospitalService,
+  constructor(private router:Router,private _floorservice:FloorService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     ) {
@@ -71,7 +67,7 @@ export class AllHospitalsComponent implements OnInit{
       }
 
     this.subscriptions.add(
-      this._hospitalservice.getAllHospitals(para).subscribe((res: any) => {
+      this._floorservice.getAllHospitals(para).subscribe((res: any) => {
 
       this.hospitals = res.hospitals;
       this.dataSource = new MatTableDataSource(this.hospitals);
@@ -98,15 +94,15 @@ export class AllHospitalsComponent implements OnInit{
     if(action === 'active' || action ==='inactive'){
       console.log("act")
 
-      this._hospitalservice.activeHospital(id,action).subscribe(
+      this._floorservice.activeHospital(id,action).subscribe(
         (res: any) => {
           if(action === 'active'){
-            this.snackBar.open("تم تشغيل المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تشغيل الطابق بنجاح ", "ُsuccess", {
               duration: 3000,
               panelClass: 'success'
             });
           }else{
-            this.snackBar.open("تم ايقاف المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم ايقاف الطابق بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
@@ -124,7 +120,7 @@ export class AllHospitalsComponent implements OnInit{
       )
     }else if (action === 'edit'){
       console.log("edit")
-      this.router.navigate(['/dashboard/system/hospitals/edit-hospital',id])
+      this.router.navigate(['/dashboard/system/floors/edit-floor',id])
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
     }
@@ -143,25 +139,12 @@ export class AllHospitalsComponent implements OnInit{
       }
     });
   }
-  openAddHospital(){
-    const dialogRef = this.dialog.open(AddHospitalComponent,{
-      width: "1200px",
-      maxHeight:'80%',
-      disableClose: true,
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
-      if(result){
-        this.getTableData(this.status)
-      }
-    });
-  }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/hospitals/view-hospital/',id])
+    this.router.navigate(['/dashboard/system/floors/view-floor/',id])
   }
   searchHospital(pay){
-    this._hospitalservice.SearchHospital(pay).subscribe(
+    this._floorservice.SearchHospital(pay).subscribe(
       (res)=>{
         this.hospitals = res.hospitals;
         console.log(this.hospitals)

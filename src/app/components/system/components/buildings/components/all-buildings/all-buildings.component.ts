@@ -12,6 +12,8 @@ import { Subscription } from 'rxjs';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
 import { HospitalService } from '../../../hospitals/services/hospital.service';
 import { BuildingService } from '../../services/building.service';
+import { AddBuildTranslateComponent } from '../add-build-translate/add-build-translate.component';
+import { AddBuildingComponent } from '../add-building/add-building.component';
  export class UserData{
   id:string;
   name:string;
@@ -28,7 +30,7 @@ import { BuildingService } from '../../services/building.service';
 })
 export class AllBuildingsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','address','hospital','status','img','action'];
+  displayedColumns: string[] = ['id','name','hospital','status','img','action'];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
@@ -38,7 +40,8 @@ export class AllBuildingsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   filterElements = {
     global_search: true,
-    status:true
+    status:true,
+    hospitals:true
   };
   loading=true;
   constructor(private router:Router,private _buildingservice:BuildingService,
@@ -66,7 +69,7 @@ export class AllBuildingsComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getTableData(this.status);
   }
-  hospitals:any;
+  buildings:any;
   getTableData(status){
     let para
       para={
@@ -77,10 +80,10 @@ export class AllBuildingsComponent implements OnInit {
       }
 
     this.subscriptions.add(
-      this._buildingservice.getAllHospitals(para).subscribe((res: any) => {
+      this._buildingservice.getAllBuildingss(para).subscribe((res: any) => {
 
-      this.hospitals = res.hospitals;
-      this.dataSource = new MatTableDataSource(this.hospitals);
+      this.buildings = res.buildings;
+      this.dataSource = new MatTableDataSource(this.buildings);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -104,7 +107,7 @@ export class AllBuildingsComponent implements OnInit {
     if(action === 'active' || action ==='inactive'){
       console.log("act")
 
-      this._buildingservice.activeHospital(id,action).subscribe(
+      this._buildingservice.activeBuildings(id,action).subscribe(
         (res: any) => {
           if(action === 'active'){
             this.snackBar.open("تم تشغيل المبني بنجاح ", "ُsuccess", {
@@ -137,7 +140,7 @@ export class AllBuildingsComponent implements OnInit {
   }
   translateData;
   openTranslateDialog(id){
-    const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
+    const dialogRef = this.dialog.open(AddBuildTranslateComponent,{
       width: "1200px",
       disableClose: true,
       data:id
@@ -154,23 +157,40 @@ export class AllBuildingsComponent implements OnInit {
     this.router.navigate(['/dashboard/system/buildings/view-building/',id])
   }
   searchBuilding(pay){
-    this._buildingservice.SearchHospital(pay).subscribe(
+    this._buildingservice.SearchBuildings(pay).subscribe(
       (res)=>{
-        this.hospitals = res.hospitals;
-        console.log(this.hospitals)
-      this.dataSource = new MatTableDataSource(this.hospitals);
+        this.buildings = res.buildings;
+        console.log(this.buildings)
+      this.dataSource = new MatTableDataSource(this.buildings);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
       }
     )
   }
+  openAddBuilding(){
+    const dialogRef = this.dialog.open(AddBuildingComponent,{
+      width: "1200px",
+      maxHeight:'80%',
+      disableClose: true,
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.status)
+      }
+    });
+  }
   onFilterChange(e) {
     console.log(e.target)
     this.status = e.status;
 
-    if(e.status && !e.name){
-      this.getTableData(e.status)
+    if(e.status && !e.name || e.hosId){
+      let payload={
+        status:e.status ?e.status :this.status,
+        hosId : e.hosId ?e.hosId : null
+      }
+      this.getTableData(payload)
     }
     else if(e.name && !e.status){
       let pay={

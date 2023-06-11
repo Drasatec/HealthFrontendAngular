@@ -1,9 +1,12 @@
-<mat-dialog-content>
+
   <div class="card">
     <div class="card-header">
-      <h5 class="text-base-color text-bold"> {{id ?"تعديل مستشفي":'إضافةمستشفي'}} </h5>
+      <h5 mat-dialog-title class="text-base-color text-bold"> {{id ?"تعديل مستشفي":'إضافةمستشفي'}} </h5>
+      <button mat-button (click)="closeDialog()">
+        <i mat-dialog-close class="fas fa-times text-primary" ></i>
+      </button>
     </div>
-    <div class="card-body">
+    <div class="card-body ">
       <div [formGroup]="form" class="row d-flex flex-wrap justify-content-md-start mb-7 align-items-center">
         <div class="row justify-content-center align-items-center">
           <div class="col-md-3 col-xxl-3 filter-border mt-3" *ngIf="hospital?.photo">
@@ -142,7 +145,5 @@
             </div>
         </div>
       </div>
-
     </div>
   </div>
-</mat-dialog-content>

@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddInfoTranslateComponent } from '../add-info-translate/add-info-translate.component';
 import { HospitalService } from '../../services/hospital.service';
@@ -20,11 +20,13 @@ export class AddHospitalComponent implements OnInit {
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
-    public dialog: MatDialog,
     private _hospitalservice:HospitalService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
-    private _helpservice:HelperService
+    private _helpservice:HelperService,
+    public dialogRef: MatDialogRef<AddHospitalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+
   ) {
   }
   id:number;
@@ -63,9 +65,9 @@ export class AddHospitalComponent implements OnInit {
       codeNumber:this.hospital.codeNumber?this.hospital.codeNumber:null,
       email:this.hospital.email?this.hospital.email:null,
       whatsAppNumber:this.hospital.whatsAppNumber?this.hospital.whatsAppNumber:null,
-      address:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].address:null,
-      name:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].name:null,
-      description:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].description:null,
+      address:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].address:null,
+      name:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].name:null,
+      description:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].description:null,
   })
   }
   createForm(): void {
@@ -107,17 +109,18 @@ export class AddHospitalComponent implements OnInit {
     return this.form.controls;
   }
   translateData;
-  openTranslateDialog(){
-    const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
-      width: "1200px",
-      disableClose: true,
-    })
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log(result)
-      if(result){
-      }
-    });
-  }
+  // openTranslateDialog(){
+  //   const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
+  //     width: "1200px",
+  //     disableClose: true,
+  //   })
+  //   dialogRef.afterClosed().subscribe((result) => {
+  //     console.log(result)
+  //     if(result){
+  //     }
+  //   });
+  // }
+  newHospitalId;
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
@@ -125,11 +128,12 @@ export class AddHospitalComponent implements OnInit {
       if(!this.id){
         this._hospitalservice.createHospital(this.sendData).subscribe(
           (res)=>{
+            this.newHospitalId = res.id
             this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/hospitals/all-hospital"]);
+            this.closeDialog()
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -171,7 +175,7 @@ export class AddHospitalComponent implements OnInit {
     let paylod={
       ...data,
       HospitalTrasnlations:[{
-        id:this.hospital.hospitalTrasnlations[0].id,
+        id:this.id?this.hospital.hospitalTrasnlations[0].id:0,
         Name:data.name,
         Address:data.address,
         Description:data.description,
@@ -288,5 +292,8 @@ export class AddHospitalComponent implements OnInit {
     const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  }
+  closeDialog() {
+    this.dialogRef.close(this.newHospitalId);
   }
 }

@@ -18,13 +18,17 @@ import { MatSelectModule } from '@angular/material/select';
 import { FilterSystemComponent } from './components/filter-system/filter-system.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { MatInputModule } from '@angular/material/input';
+import { DebounceInputChangeDirective } from '../../@theme/directives/input-change-debounce.directive';
 
 @NgModule({
   declarations: [
+    DebounceInputChangeDirective,
     SystemComponent,
     FilterSystemComponent
   ],
   imports: [
+
     CommonModule,
     SystemRoutingModule,
     FormsModule,
@@ -43,10 +47,29 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     NgSelectModule,
     MatSelectModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatInputModule
   ],
   exports:[
     FilterSystemComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    ThemeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatFormFieldModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    NgSelectModule,
+    MatSelectModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatInputModule
   ]
 })
 export class SystemModule { }

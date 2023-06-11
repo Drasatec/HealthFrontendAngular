@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { BuildingService } from '../../services/building.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../../../../environments/environment';
+import { FloorService } from '../../services/floor.service';
 
 @Component({
-  selector: 'ngx-view-building',
-  templateUrl: './view-building.component.html',
-  styleUrls: ['./view-building.component.scss']
+  selector: 'ngx-view-floor',
+  templateUrl: './view-floor.component.html',
+  styleUrls: ['./view-floor.component.scss']
 })
-export class ViewBuildingComponent implements OnInit {
+export class ViewFloorComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
     private router:ActivatedRoute,
-    private _buildingservice:BuildingService,
+    private _floorservice:FloorService,
     private snackBar:MatSnackBar,
     private route:Router) {
 
@@ -33,14 +33,14 @@ export class ViewBuildingComponent implements OnInit {
     this.router.params.subscribe((params)=>{
       this.id = +params.id
     })
-    this.getHospitalById(this.id)
+    this.getFloorById(this.id)
   }
 
-  getHospitalById(id){
+  getFloorById(id){
     let paylod ={
       lang:'ar'
     }
-    this._buildingservice.getBuildingsById(id,paylod).subscribe(
+    this._floorservice.getHospitalById(id,paylod).subscribe(
       (res:any)=>{
         this.hospital = res;
         this.loadImages();
@@ -101,7 +101,7 @@ export class ViewBuildingComponent implements OnInit {
       status='inactive'
     }
     Swal.fire({
-      title: "هل انت متأكد من تغيير حال المبني ؟",
+      title: "هل انت متأكد من تغيير حال الطابق ؟",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -110,7 +110,7 @@ export class ViewBuildingComponent implements OnInit {
       cancelButtonText: "الغاء",
     }).then((result) => {
       if (result.isConfirmed === true) {
-          this._buildingservice.activeBuildings(this.id,status).subscribe(
+          this._floorservice.activeHospital(this.id,status).subscribe(
             (response: any) => {
               // TODO: handle error status
 
@@ -119,7 +119,7 @@ export class ViewBuildingComponent implements OnInit {
                 duration: 3000,
                 panelClass: 'success'
               });
-              this.getHospitalById(this.id)
+              this.getFloorById(this.id)
             },
             (err) => {
               let error = "Error";
@@ -136,7 +136,7 @@ export class ViewBuildingComponent implements OnInit {
     });
   }
   edit(id){
-    this.route.navigate(["/dashboard/system/buildings/edit-building",this.id]);
+    this.route.navigate(["/dashboard/system/floors/edit-floor",this.id]);
 
   }
 }

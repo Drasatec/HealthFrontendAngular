@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as moment from "moment";
 import { HelperService } from '../../../../@theme/services/helper.service';
+import { LookupService } from '../../../../@theme/services/lookup.service';
 
 @Component({
   selector: 'ngx-filter',
@@ -39,6 +40,7 @@ export class FilterSystemComponent implements OnInit{
     private helpers: HelperService,
     private route: ActivatedRoute,
     private router: Router,
+    private lookupservice:LookupService
   ) { }
   ngOnInit(): void {
     this.initilazeForm();
@@ -58,7 +60,7 @@ export class FilterSystemComponent implements OnInit{
     this.form = this._FormBuilder.group({
       name: [null],
       status:[null],
-      hospital:[null],
+      hosId:[null],
       specialize:[null]
     });
   }
@@ -79,7 +81,9 @@ export class FilterSystemComponent implements OnInit{
     this.toDisplayNoData.emit(true)
 
   }
-
+  DisplayNoData(e){
+    console.log(e)
+  }
   clearSearch() {
     this.form.reset();
     this.form.markAllAsTouched();
@@ -100,14 +104,15 @@ export class FilterSystemComponent implements OnInit{
     this.lookups.status= status
   }
   getHospitals(){
-    let hospitals = [
-      {id:1,name:'مستشفي الرحمة'},
-      {id:2,name:'مستشفي الخير'},
-      {id:3,name:'مستشفي الاندلس'},
-      {id:4,name:'مستشفي الجمل'},
+    let payload={
+      pageSize:30
+    }
+    this.lookupservice.getAllHospitalsNames(payload).subscribe(
+      (res)=>{
+        this.lookups.hospitals = res
+      }
+    )
 
-    ]
-    this.lookups.hospitals = hospitals
   }
   getSpecialize(){
     let specialize = [
