@@ -29,6 +29,7 @@ export class FilterSystemComponent implements OnInit{
   lookups = {
     status:[],
     hospitals:[],
+    buildings:[],
     specialize:[]
   };
 
@@ -61,6 +62,7 @@ export class FilterSystemComponent implements OnInit{
       name: [null],
       status:[null],
       hosId:[null],
+      buildId:[null],
       specialize:[null]
     });
   }
@@ -113,6 +115,17 @@ export class FilterSystemComponent implements OnInit{
       }
     )
 
+  }
+  chooseBuilding(e){
+    console.log(e.id)
+    let payload={
+      hosId:e.id
+    }
+    this.lookupservice.getAllBuildingsNames(payload).subscribe(
+      (res)=>{
+        this.lookups.buildings=res
+      }
+    )
   }
   getSpecialize(){
     let specialize = [

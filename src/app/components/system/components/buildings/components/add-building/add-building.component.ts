@@ -29,19 +29,21 @@ export class AddBuildingComponent implements OnInit {
     private route:ActivatedRoute,
     private _helpservice:HelperService,
     private _lookpservice:LookupService,
-
+    public dialogRef: MatDialogRef<AddBuildingComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
   id:number;
   building:any;
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (param)=>{
-    console.log(param)
+    // this.route.params.subscribe(
+    //   (param)=>{
+    // console.log(param)
 
-        this.id =param.id;
-      }
-    )
+    //     this.id =param.id;
+    //   }
+    // )
+    this.id=this.data.id
     this.createForm();
     if(this.id){
       this.getBuildingById(this.id);
@@ -66,7 +68,6 @@ export class AddBuildingComponent implements OnInit {
     this._buildingService.getBuildingsById(id,paylod).subscribe(
       (res:any)=>{
         this.building = res;
-        this.phoneNumbers=res.phoneNumbers;
         this.patchForm();
       }
     )
@@ -75,10 +76,11 @@ export class AddBuildingComponent implements OnInit {
   patchForm(){
     this.form.patchValue({
       codeNumber:this.building.codeNumber?this.building.codeNumber:null,
-      name:this.building.BuildingTranslation > 0?this.building.BuildingTranslation[0].name:null,
-      Description:this.building.BuildingTranslation > 0?this.building.BuildingTranslation[0].description:null,
+      name:this.building.buildingTranslation.length > 0?this.building.buildingTranslation[0].name:null,
+      description:this.building.buildingTranslation.length > 0?this.building.buildingTranslation[0].description:null,
       HospitalId:this.building.hospitalId ?this.building.hospitalId : null
   })
+  console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
@@ -103,6 +105,8 @@ export class AddBuildingComponent implements OnInit {
       }
     });
   }
+  newBuildId;
+
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
@@ -110,11 +114,12 @@ export class AddBuildingComponent implements OnInit {
       if(!this.id){
         this._buildingService.createBuildings(this.sendData).subscribe(
           (res)=>{
+            this.newBuildId = res.id
             this.snackBar.open("تم اضافة المبني بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/buildings/all-building"]);
+            this.closeDialog()
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -131,7 +136,7 @@ export class AddBuildingComponent implements OnInit {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/buildings/view-building",this.id]);
+            this.closeEditDialog()
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -145,13 +150,19 @@ export class AddBuildingComponent implements OnInit {
 
     }
   }
+  closeDialog() {
+    this.dialogRef.close(this.newBuildId);
+  }
+  closeEditDialog() {
+    this.dialogRef.close({isAdd:true});
+  }
   sendData;
   prepareDataBeforeSend(data){
     console.log(data)
     let paylod={
       ...data,
       BuildingTranslation:[{
-        id:this.id?this.building.BuildingTranslation[0].id:0,
+        id:this.id ? this.building.buildingTranslation[0].id:0,
         Name:data.name,
         Description:data.description,
         LangCode:'ar',

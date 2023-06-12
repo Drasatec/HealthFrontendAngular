@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../../../../environments/environment';
 import { FloorService } from '../../services/floor.service';
+import { AddFloorComponent } from '../add-floor/add-floor.component';
 
 @Component({
   selector: 'ngx-view-floor',
@@ -25,7 +26,7 @@ export class ViewFloorComponent implements OnInit {
   images = [];
   slideIndex = 0;
   id:number;
-  hospital:any;
+  floor:any;
   loading:boolean=true;
    timestamp = new Date().getTime();
 
@@ -40,20 +41,20 @@ export class ViewFloorComponent implements OnInit {
     let paylod ={
       lang:'ar'
     }
-    this._floorservice.getHospitalById(id,paylod).subscribe(
+    this._floorservice.getFloorById(id,paylod).subscribe(
       (res:any)=>{
-        this.hospital = res;
+        this.floor = res;
         this.loadImages();
         this.loading=false;
       }
     )
-    console.log(this.hospital)
+    console.log(this.floor)
   }
   loadImages(){
     this.images = [
       {
         id: 1,
-        url: this.hospital.photo
+        url: this.floor.photo
       },
       ]
    return this.images
@@ -110,7 +111,7 @@ export class ViewFloorComponent implements OnInit {
       cancelButtonText: "الغاء",
     }).then((result) => {
       if (result.isConfirmed === true) {
-          this._floorservice.activeHospital(this.id,status).subscribe(
+          this._floorservice.activeFloor(this.id,status).subscribe(
             (response: any) => {
               // TODO: handle error status
 
@@ -136,7 +137,22 @@ export class ViewFloorComponent implements OnInit {
     });
   }
   edit(id){
-    this.route.navigate(["/dashboard/system/floors/edit-floor",this.id]);
+    this.openEditDialog(id)
 
+  }
+  openEditDialog(id){
+    const dialogRef = this.dialog.open(AddFloorComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:{
+        id:id,
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getFloorById(this.id)
+      }
+    });
   }
 }

@@ -1,6 +1,7 @@
+import { AddBuildTranslateComponent } from './../../../buildings/components/add-build-translate/add-build-translate.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,15 +11,19 @@ import { environment } from '../../../../../../../environments/environment';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
 import { FloorModel } from '../../models/floors.model';
 import { FloorService } from '../../services/floor.service';
+import { AddFloorComponent } from '../add-floor/add-floor.component';
+import { MyCustomPaginatorIntl } from '../../../../../../pages/paginator/paginator.srvice';
 
 @Component({
   selector: 'ngx-all-floors',
   templateUrl: './all-floors.component.html',
-  styleUrls: ['./all-floors.component.scss']
+  styleUrls: ['./all-floors.component.scss'],
+  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+
 })
 export class AllFloorsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','hospital','building','status','img','action'];
+  displayedColumns: string[] = ['id','name','status','img','action'];
   dataSource: MatTableDataSource<FloorModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
@@ -28,7 +33,9 @@ export class AllFloorsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   filterElements = {
     global_search: true,
-    status:true
+    status:true,
+    hospitals:true,
+    buildings:true
   };
   loading=true;
   constructor(private router:Router,private _floorservice:FloorService,
@@ -38,14 +45,13 @@ export class AllFloorsComponent implements OnInit {
 
   }
   fetch={
-    pageIndex:1,
-    pageSize:10,
+    status:'active'
   }
   status:string='active';
   timestamp = new Date().getTime();
 
   ngOnInit() {
-    this.getTableData(this.status)
+    this.getTableData(this.fetch)
     // this.dataSource.paginator = this.paginator;
     // this.dataSource.sort = this.sort;
     // console.log(this.length,this.pageIndex,this.pageSize)
@@ -54,23 +60,23 @@ export class AllFloorsComponent implements OnInit {
     console.log(event)
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    this.getTableData(this.status);
+    this.getTableData(this.fetch);
   }
-  hospitals:any;
-  getTableData(status){
+  floors:any;
+  getTableData(fetch){
     let para
       para={
         lang:'ar',
-        status:status,
+        ...fetch,
         page:this.pageIndex+1,
         pageSize:this.pageSize
       }
 
     this.subscriptions.add(
-      this._floorservice.getAllHospitals(para).subscribe((res: any) => {
+      this._floorservice.getAllFloors(para).subscribe((res: any) => {
 
-      this.hospitals = res.hospitals;
-      this.dataSource = new MatTableDataSource(this.hospitals);
+      this.floors = res.floors;
+      this.dataSource = new MatTableDataSource(this.floors);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -94,7 +100,7 @@ export class AllFloorsComponent implements OnInit {
     if(action === 'active' || action ==='inactive'){
       console.log("act")
 
-      this._floorservice.activeHospital(id,action).subscribe(
+      this._floorservice.activeFloor(id,action).subscribe(
         (res: any) => {
           if(action === 'active'){
             this.snackBar.open("تم تشغيل الطابق بنجاح ", "ُsuccess", {
@@ -108,7 +114,7 @@ export class AllFloorsComponent implements OnInit {
             });
           }
 
-          this.getTableData(this.status);
+          this.getTableData(this.fetch);
         },
         (err) => {
           this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -120,17 +126,35 @@ export class AllFloorsComponent implements OnInit {
       )
     }else if (action === 'edit'){
       console.log("edit")
-      this.router.navigate(['/dashboard/system/floors/edit-floor',id])
+      this.openEditDialog(id)
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
     }
   }
-  translateData;
-  openTranslateDialog(id){
-    const dialogRef = this.dialog.open(AddInfoTranslateComponent,{
+  openEditDialog(id){
+    const dialogRef = this.dialog.open(AddFloorComponent,{
       width: "1200px",
       disableClose: true,
-      data:id
+      data:{
+        id:id,
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.fetch)
+      }
+    });
+  }
+  translateData;
+  openTranslateDialog(id){
+    const dialogRef = this.dialog.open(AddBuildTranslateComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:{
+        id:id,
+        type:'floor'
+      }
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
@@ -144,11 +168,11 @@ export class AllFloorsComponent implements OnInit {
     this.router.navigate(['/dashboard/system/floors/view-floor/',id])
   }
   searchHospital(pay){
-    this._floorservice.SearchHospital(pay).subscribe(
+    this._floorservice.SearchFloor(pay).subscribe(
       (res)=>{
-        this.hospitals = res.hospitals;
-        console.log(this.hospitals)
-      this.dataSource = new MatTableDataSource(this.hospitals);
+        this.floors = res.floors;
+        console.log(this.floors)
+      this.dataSource = new MatTableDataSource(this.floors);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -156,11 +180,15 @@ export class AllFloorsComponent implements OnInit {
     )
   }
   onFilterChange(e) {
-    console.log(e.target)
-    this.status = e.status;
+    this.status = e.status ? e.status : this.status;
 
-    if(e.status && !e.name){
-      this.getTableData(e.status)
+    if((e.status && !e.name) || e.buildId){
+      let payload={
+        status:e.status ? e.status :this.status,
+        buildId : e.buildId ? e.buildId : null
+      }
+      console.log(payload)
+      this.getTableData(payload)
     }
     else if(e.name && !e.status){
       let pay={
@@ -171,9 +199,21 @@ export class AllFloorsComponent implements OnInit {
     }
     else{
     this.status='active';
-      this.getTableData(this.status)
+      this.getTableData(this.fetch)
     }
   }
-
+  openAddFloor(){
+    const dialogRef = this.dialog.open(AddFloorComponent,{
+      width: "1200px",
+      maxHeight:'80%',
+      disableClose: true,
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.fetch)
+      }
+    });
+  }
 }
 

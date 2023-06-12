@@ -15,35 +15,35 @@ export class FloorService {
 
   constructor(private http: HttpClient) {}
 
-  getAllHospitals(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}Hospital/all`;
+  getAllFloors(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Floor/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  SearchHospital(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}Hospital/search`;
+  SearchFloor(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Floor/search`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  getHospitalById(id,paylod?){
-    const url = `${this.baseURL}Hospital?id=${id}`;
+  getFloorById(id,paylod?){
+    const url = `${this.baseURL}Floor?id=${id}`;
     return this.http.get(url,{ params: paylod });
   }
   addTranslation(id,body){
-    const url = `${this.baseURL}Hospital/edit-translations/${id}`;
+    const url = `${this.baseURL}Floor/edit-translations/${id}`;
     return this.http.put(url,body);
   }
 
-  createHospital(body: any,): Observable<any> {
-    const url = `${this.baseURL}Hospital/add`;
+  createFloor(body: any,): Observable<any> {
+    const url = `${this.baseURL}Floor/add`;
     return this.http.post(url,body);
   }
-  editHospital(id,body: any,): Observable<any> {
-    const url = `${this.baseURL}Hospital/edit/${id}`;
+  editFloor(id,body: any,): Observable<any> {
+    const url = `${this.baseURL}Floor/edit/${id}`;
     return this.http.put(url,body);
   }
 
 
-  activeHospital(id,status) {
-    const url = `${this.baseURL}Hospital/deactivate?id=${id}&status=${status}`;
+  activeFloor(id,status) {
+    const url = `${this.baseURL}Floor/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
 }

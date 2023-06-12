@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@ang
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HelperService } from '../../../../../../@theme/services/helper.service';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
+import { FloorService } from '../../../floors/services/floor.service';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -20,6 +21,8 @@ export class AddBuildTranslateComponent implements OnInit {
     public dialogRef: MatDialogRef<AddInfoTranslateComponent>,
     private _FormBuilder:FormBuilder,
     private _buildingService:BuildingService,
+    private _floorService:FloorService,
+
     private __helper:HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
@@ -28,17 +31,34 @@ export class AddBuildTranslateComponent implements OnInit {
   ngOnInit(): void {
     this.createForm()
     console.log(this.data)
-    this.getHospitalById(this.data)
+    if(this.data.type === "building"){
+      this.getBuildingById(this.data.id)
+    }else if(this.data.type === "floor"){
+      this.getFloorById(this.data.id)
+
+    }
   }
   get formControls() {
     return this.formTrans.controls;
   }
-  hospital;
-  getHospitalById(id){
+  builbing;
+  getBuildingById(id){
     this._buildingService.getBuildingsById(id).subscribe(
       (res:any)=>{
-        this.hospital=res;
+        this.builbing=res;
         this.translationData=res.buildingTranslation;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  floor;
+  getFloorById(id){
+    this._floorService.getFloorById(id).subscribe(
+      (res:any)=>{
+        this.floor=res;
+        this.translationData=res.floorTranslations;
         this.translationData?.forEach(el => {
           this.addTrans(el);
         })
@@ -78,7 +98,7 @@ export class AddBuildTranslateComponent implements OnInit {
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
-      'buildingId':new FormControl(this.data),
+      'buildingId':new FormControl(this.data.id),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
       'Name': new FormControl(data?.name ? data?.name :null),
@@ -104,7 +124,11 @@ export class AddBuildTranslateComponent implements OnInit {
         bodyObj[key] = formVal[key]
         if (key == "translations") {
           for (let i = 0; i < formVal['translations'].length; i++) {
-            body.append('translations['+(i)+'][BuildeingId]', this.data);
+            if(this.data.type === 'building'){
+              body.append('translations['+(i)+'][BuildeingId]', this.data.id);
+            }else if(this.data.type === 'floor'){
+              body.append('translations['+(i)+'][FloorId]', this.data.id);
+            }
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
@@ -123,10 +147,19 @@ export class AddBuildTranslateComponent implements OnInit {
   dataSend;
   save(){
     this.dataSend=this.formData(this.formTrans.value)
-    this._buildingService.addTranslation(this.data,this.dataSend).subscribe(
-      (res)=>{
-        this.closeDialog()
-      }
-    )
+    if(this.data.type === 'building'){
+      this._buildingService.addTranslation(this.data.id,this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'floor'){
+      this._floorService.addTranslation(this.data.id,this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }
+
   }
 }

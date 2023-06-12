@@ -19,7 +19,7 @@
                   <ng-select [items]="lookups.hospitals" appendTo="body" placeholder="مستشفيات"
                       bindValue="id" bindLabel="name" [virtualScroll]="true"
                       aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                      formControlName="hosId"
+                      formControlName="hosId" (change)="chooseBuilding($event);filters()"
                       [multiple]="false"
                       (clear)="DisplayNoData($event);">
                   </ng-select>
@@ -29,6 +29,22 @@
                       name.</span> -->
               </div>
           </div>
+          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.buildings">
+            <div class="form-group">
+                <!-- <label> المستشفيات</label> -->
+                <ng-select [items]="lookups.buildings" appendTo="body" placeholder="المباني"
+                    bindValue="id" bindLabel="name" [virtualScroll]="true"
+                    aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                    formControlName="buildId" (change)="filters()"
+                    [multiple]="false"
+                    (clear)="DisplayNoData($event);">
+                </ng-select>
+                <!-- <span class="text-danger form-text mt-1"
+                    [ngStyle]="{
+                'display': formControls.grade_book_id?.errors  &&formControls.grade_book_id.touched ? 'block':'none'}">Please enter Grade Book
+                    name.</span> -->
+            </div>
+        </div>
           <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.status">
             <div class="form-group">
                 <ng-select [items]="lookups.status" appendTo="body" placeholder="الحالة"

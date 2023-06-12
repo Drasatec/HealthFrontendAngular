@@ -14,6 +14,7 @@ import { HospitalService } from '../../../hospitals/services/hospital.service';
 import { BuildingService } from '../../services/building.service';
 import { AddBuildTranslateComponent } from '../add-build-translate/add-build-translate.component';
 import { AddBuildingComponent } from '../add-building/add-building.component';
+import { AddFloorComponent } from '../../../floors/components/add-floor/add-floor.component';
  export class UserData{
   id:string;
   name:string;
@@ -30,7 +31,7 @@ import { AddBuildingComponent } from '../add-building/add-building.component';
 })
 export class AllBuildingsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','hospital','status','img','action'];
+  displayedColumns: string[] = ['id','name','status','img','action'];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
@@ -51,30 +52,27 @@ export class AllBuildingsComponent implements OnInit {
 
   }
   fetch={
-    pageIndex:1,
-    pageSize:10,
+    status:'active'
   }
   status:string='active';
   timestamp = new Date().getTime();
 
   ngOnInit() {
-    this.getTableData(this.status)
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
-    // console.log(this.length,this.pageIndex,this.pageSize)
+    this.getTableData(this.fetch)
+
   }
   pageChanged(event: PageEvent) {
     console.log(event)
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
-    this.getTableData(this.status);
+    this.getTableData(this.fetch);
   }
   buildings:any;
-  getTableData(status){
+  getTableData(payload?){
     let para
       para={
         lang:'ar',
-        status:status,
+        ...payload,
         page:this.pageIndex+1,
         pageSize:this.pageSize
       }
@@ -121,7 +119,7 @@ export class AllBuildingsComponent implements OnInit {
             });
           }
 
-          this.getTableData(this.status);
+          this.getTableData(this.fetch);
         },
         (err) => {
           this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -133,22 +131,41 @@ export class AllBuildingsComponent implements OnInit {
       )
     }else if (action === 'edit'){
       console.log("edit")
-      this.router.navigate(['/dashboard/system/buildings/edit-building',id])
+      this.openEditDialog(id)
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
     }
   }
   translateData;
-  openTranslateDialog(id){
-    const dialogRef = this.dialog.open(AddBuildTranslateComponent,{
+  openEditDialog(id){
+    const dialogRef = this.dialog.open(AddBuildingComponent,{
       width: "1200px",
       disableClose: true,
-      data:id
+      data:{
+        id:id,
+      }
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
       if(result){
-        this.getTableData(this.status)
+        this.getTableData(this.fetch)
+      }
+    });
+  }
+  openTranslateDialog(id){
+    const dialogRef = this.dialog.open(AddBuildTranslateComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:{
+        id:id,
+        type:'building'
+
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.fetch)
       }
     });
   }
@@ -177,19 +194,20 @@ export class AllBuildingsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
       if(result){
-        this.getTableData(this.status)
+        this.getTableData(this.fetch)
       }
     });
   }
   onFilterChange(e) {
-    console.log(e.target)
-    this.status = e.status;
+    console.log(e)
+    this.status = e.status ? e.status : this.status;
 
-    if(e.status && !e.name || e.hosId){
+    if((e.status && !e.name) || e.hosId){
       let payload={
-        status:e.status ?e.status :this.status,
-        hosId : e.hosId ?e.hosId : null
+        status:e.status ? e.status :this.status,
+        hosId : e.hosId ? e.hosId : null
       }
+      console.log(payload)
       this.getTableData(payload)
     }
     else if(e.name && !e.status){
@@ -200,8 +218,10 @@ export class AllBuildingsComponent implements OnInit {
       this.searchBuilding(pay)
     }
     else{
-    this.status='active';
-      this.getTableData(this.status)
+    this.fetch={
+      status:'active'
+    }
+      this.getTableData(this.fetch)
     }
   }
 

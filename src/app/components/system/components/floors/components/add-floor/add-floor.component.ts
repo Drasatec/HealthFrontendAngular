@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../../../environments/environment';
@@ -8,6 +8,7 @@ import { HelperService } from '../../../../../../@theme/services/helper.service'
 import { AddBuildingComponent } from '../../../buildings/components/add-building/add-building.component';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
 import { FloorService } from '../../services/floor.service';
+import { LookupService } from '../../../../../../@theme/services/lookup.service';
 
 @Component({
   selector: 'ngx-add-floor',
@@ -25,37 +26,51 @@ export class AddFloorComponent implements OnInit {
     private _floorService:FloorService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
-    private _helpservice:HelperService
+    private _helpservice:HelperService,
+    private _lookpservice:LookupService,
+    public dialogRef: MatDialogRef<AddFloorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
   id:number;
-  hospital:any;
+  floor:any;
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (param)=>{
-    console.log(param)
+    // this.route.params.subscribe(
+    //   (param)=>{
+    // console.log(param)
 
-        this.id =param.id;
-      }
-    )
+    //     this.id =param.id;
+    //   }
+    // )
+    this.id=this.data.id
     this.createForm();
     if(this.id){
       this.getFloorById(this.id);
     }
-    this.getBuildings()
+    this.getHospitals()
+
   }
   buildings=[]
-  getBuildings(){
-    return this.buildings
+
+  hospitals=[]
+  getHospitals(){
+    let payload={
+      pageSize:30
+    }
+    this._lookpservice.getAllHospitalsNames(payload).subscribe(
+      (res)=>{
+        this.hospitals = res
+      }
+    )
   }
   getFloorById(id){
     let paylod={
       lang:'ar'
     }
-    this._floorService.getHospitalById(id,paylod).subscribe(
+    this._floorService.getFloorById(id,paylod).subscribe(
       (res:any)=>{
-        this.hospital = res;
-        this.phoneNumbers=res.phoneNumbers;
+        this.floor = res;
+        this.chooseBuilding('',this.floor.buildId)
         this.patchForm();
       }
     )
@@ -63,17 +78,22 @@ export class AddFloorComponent implements OnInit {
   phoneNumbers;
   patchForm(){
     this.form.patchValue({
-      codeNumber:this.hospital.codeNumber?this.hospital.codeNumber:null,
-      name:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].name:null,
-      hospital:this.hospital.hospitalTrasnlations > 0?this.hospital.hospitalTrasnlations[0].description:null,
+      codeNumber:this.floor.codeNumber?this.floor.codeNumber:null,
+      name:this.floor.floorTranslations.length > 0?this.floor.floorTranslations[0].name:null,
+      description:this.floor.floorTranslations.length > 0?this.floor.floorTranslations[0].description:null,
+      HospitalId:this.floor.hospitalId ?this.floor.hospitalId : null,
+      BuildId:this.floor.buildId ?this.floor.buildId : null
+
   })
+  console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      hospital: [null],
-      name:[],
-
+      HospitalId: [null],
+      BuildId:[null],
+      name:[null],
+      description:[null]
     });
   }
   get formControls() {
@@ -91,18 +111,21 @@ export class AddFloorComponent implements OnInit {
       }
     });
   }
+  newFloorId;
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-        this._floorService.createHospital(this.sendData).subscribe(
+
+        this._floorService.createFloor(this.sendData).subscribe(
           (res)=>{
-            this.snackBar.open("تم اضافة طابق بنجاح ", "ُsuccess", {
-              duration: 5000,
-              panelClass: 'success'
-            });
-            this.router.navigate(["/dashboard/system/floors/all-floor"]);
+              this.newFloorId=res.id;
+              this.snackBar.open("تم اضافة الطابق بنجاح ", "ُsuccess", {
+                duration: 5000,
+                panelClass: 'success'
+              });
+              this.closeDialog()
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -113,13 +136,13 @@ export class AddFloorComponent implements OnInit {
           }
         )
       }else{
-        this._floorService.editHospital(this.id,this.sendData).subscribe(
+        this._floorService.editFloor(this.id,this.sendData).subscribe(
           (res)=>{
-            this.snackBar.open("تم تعديل طابق بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تعديل المبني بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/floors/view-floor",this.id]);
+            this.closeEditDialog()
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -133,20 +156,21 @@ export class AddFloorComponent implements OnInit {
 
     }
   }
+
+  closeDialog() {
+    this.dialogRef.close(this.newFloorId);
+  }
+  closeEditDialog() {
+    this.dialogRef.close({isAdd:true});
+  }
   sendData;
   prepareDataBeforeSend(data){
     console.log(data)
-    data.PhoneNumbers =
-    data?.PhoneNumbers.map((el) => {
-      return this._helpservice.deleteNullValues(el);
-    });
-    console.log(data)
     let paylod={
       ...data,
-      HospitalTrasnlations:[{
-        id:this.hospital.hospitalTrasnlations[0].id,
+      FloorTranslations:[{
+        id:this.id ? this.floor.floorTranslations[0].id:0,
         Name:data.name,
-        Address:data.address,
         Description:data.description,
         LangCode:'ar',
       }],
@@ -163,19 +187,12 @@ export class AddFloorComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "HospitalTrasnlations") {
-          for (let i = 0; i < formVal['HospitalTrasnlations'].length; i++) {
-            body.append('HospitalTrasnlations['+(i)+'][id]', formVal.HospitalTrasnlations[i].id );
-            body.append('HospitalTrasnlations['+(i)+'][Name]', formVal.HospitalTrasnlations[i].Name);
-            body.append('HospitalTrasnlations['+(i)+'][Address]', formVal.HospitalTrasnlations[i].Address);
-            body.append('HospitalTrasnlations['+(i)+'][LangCode]', formVal.HospitalTrasnlations[i].LangCode);
-            body.append('HospitalTrasnlations['+(i)+'][Description]', formVal.HospitalTrasnlations[i].Description);
-          }
-        }
-        else if (key == "PhoneNumbers") {
-          for (let i = 0; i < formVal['PhoneNumbers'].length; i++) {
-            body.append('PhoneNumbers['+(i)+'][id]', formVal.PhoneNumbers[i].id);
-            body.append('PhoneNumbers['+(i)+'][TelephoneNumber]', formVal.PhoneNumbers[i].TelephoneNumber);
+        if (key == "FloorTranslations") {
+          for (let i = 0; i < formVal['FloorTranslations'].length; i++) {
+            if(this.id){body.append('FloorTranslations['+(i)+'][id]', formVal.FloorTranslations[i].id );}
+            body.append('FloorTranslations['+(i)+'][Name]', formVal.FloorTranslations[i].Name);
+            body.append('FloorTranslations['+(i)+'][LangCode]', formVal.FloorTranslations[i].LangCode);
+            body.append('FloorTranslations['+(i)+'][Description]', formVal.FloorTranslations[i].Description);
           }
         }
         else {
@@ -262,11 +279,31 @@ export class AddFloorComponent implements OnInit {
     const i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(AddBuildingComponent);
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+  openDialog(){
+    const dialogRef = this.dialog.open(AddBuildingComponent,{
+      width: "1200px",
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.chooseBuilding(this.buildFetch)
+      this.form.patchValue({
+        'BuildId':result
+      })
+      }
     });
+  }
+  buildFetch;
+  chooseBuilding(e,id?){
+    console.log(e.id)
+
+    this.buildFetch={
+      hosId:e.id ? e.id : id
+    }
+    this._lookpservice.getAllBuildingsNames(this.buildFetch).subscribe(
+      (res)=>{
+        this.buildings=res
+      }
+    )
   }
 }

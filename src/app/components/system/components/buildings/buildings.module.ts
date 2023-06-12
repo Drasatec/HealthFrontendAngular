@@ -27,6 +27,9 @@ import { HospitalsModule } from '../hospitals/hospitals.module';
     BuildingsRoutingModule,
     SystemModule,
     HospitalsModule
+  ],
+  exports:[
+    AddBuildingComponent,
   ]
 })
 export class BuildingsModule { }

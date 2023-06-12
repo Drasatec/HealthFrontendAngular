@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../../../../environments/environment';
+import { AddBuildingComponent } from '../add-building/add-building.component';
 
 @Component({
   selector: 'ngx-view-building',
@@ -25,7 +26,7 @@ export class ViewBuildingComponent implements OnInit {
   images = [];
   slideIndex = 0;
   id:number;
-  hospital:any;
+  building:any;
   loading:boolean=true;
    timestamp = new Date().getTime();
 
@@ -33,27 +34,27 @@ export class ViewBuildingComponent implements OnInit {
     this.router.params.subscribe((params)=>{
       this.id = +params.id
     })
-    this.getHospitalById(this.id)
+    this.getBuildingById(this.id)
   }
 
-  getHospitalById(id){
+  getBuildingById(id){
     let paylod ={
       lang:'ar'
     }
     this._buildingservice.getBuildingsById(id,paylod).subscribe(
       (res:any)=>{
-        this.hospital = res;
+        this.building = res;
         this.loadImages();
         this.loading=false;
       }
     )
-    console.log(this.hospital)
+    console.log(this.building)
   }
   loadImages(){
     this.images = [
       {
         id: 1,
-        url: this.hospital.photo
+        url: this.building.photo
       },
       ]
    return this.images
@@ -119,7 +120,7 @@ export class ViewBuildingComponent implements OnInit {
                 duration: 3000,
                 panelClass: 'success'
               });
-              this.getHospitalById(this.id)
+              this.getBuildingById(this.id)
             },
             (err) => {
               let error = "Error";
@@ -136,7 +137,21 @@ export class ViewBuildingComponent implements OnInit {
     });
   }
   edit(id){
-    this.route.navigate(["/dashboard/system/buildings/edit-building",this.id]);
-
+    this.openEditDialog(id)
+  }
+  openEditDialog(id){
+    const dialogRef = this.dialog.open(AddBuildingComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:{
+        id:id,
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getBuildingById(this.id)
+      }
+    });
   }
 }

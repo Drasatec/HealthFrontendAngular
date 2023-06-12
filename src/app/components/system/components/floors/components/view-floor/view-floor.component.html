@@ -13,13 +13,13 @@
       <div class="col-md-8">
         <div class="header-view d-flex justify-content-between ">
           <h5 class="text-base-color text-bold">
-            {{hospital?.hospitalTrasnlations[0]?.name}}
+            {{floor?.floorTranslations[0]?.name}}
           </h5>
           <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
             <i class="fa-solid fa-ellipsis-vertical"></i>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="edit(hospital.id)">
+            <button mat-menu-item (click)="edit(floor.id)">
               <i class="fa-solid fa-pen mx-2"></i>
               <span>تعديل</span>
             </button>
@@ -27,34 +27,15 @@
               <i class="fa-solid fa-share-nodes mx-2"></i>
               <span>مشاركة</span>
             </button>
-            <button mat-menu-item (click)="statusAction(hospital.isDeleted)">
-              <span *ngIf="hospital.isDeleted"><i class="fa-regular fa-circle-xmark" ></i>تشغيل</span>
-              <spsn *ngIf="!hospital.isDeleted"><i class="fa-solid fa-circle-check" ></i> إيقاف</spsn>
+            <button mat-menu-item (click)="statusAction(floor.isDeleted)">
+              <span *ngIf="floor.isDeleted"><i class="fa-regular fa-circle-xmark" ></i>تشغيل</span>
+              <spsn *ngIf="!floor.isDeleted"><i class="fa-solid fa-circle-check" ></i> إيقاف</spsn>
             </button>
           </mat-menu>
         </div>
         <div class="content-view">
-          <p><i class="fa-solid fa-location-dot ms-2"></i>
-            {{hospital?.hospitalTrasnlations[0]?.address}}
-          </p>
-          <p><i class="fa-solid fa-phone ms-2"></i>
-            <ng-container *ngIf="hospital.phoneNumbers.length > 0">
-              <span *ngFor="let tel of hospital.phoneNumbers">
-                {{tel?.telephoneNumber}} /
-              </span>
-            </ng-container>
-            <ng-container *ngIf="hospital.phoneNumbers.length === 0">
-              <span >
-                لا يوجد
-              </span>
-            </ng-container>
-
-          </p>
-          <p ><i class="fa-brands fa-whatsapp ms-2"></i>
-            {{hospital?.whatsAppNumber?hospital?.whatsAppNumber :'لا يوجد'}}
-          </p>
-          <p ><i class="fa-solid fa-envelope ms-2"></i>
-            {{hospital?.email?hospital?.email:"لا يوجد"}}
+          <p><i class="fa-solid fa-hospital ms-2"></i>
+            {{floor?.hospitalId}}
           </p>
         </div>
 
@@ -63,7 +44,7 @@
 
     </div>
     <div class="row">
-      <p class="my-5">{{hospital?.hospitalTrasnlations[0]?.description}}</p>
+      <p class="my-5">{{floor?.floorTranslations[0]?.description}}</p>
     </div>
     <div class="d-flex justify-content-center align-items-center">
       <div class="stat d-flex align-items-center flex-column mx-3">

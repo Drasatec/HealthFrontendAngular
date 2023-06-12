@@ -9,6 +9,9 @@ import { ViewFloorComponent } from './components/view-floor/view-floor.component
 import { SystemModule } from '../../system.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { BuildingsModule } from '../buildings/buildings.module';
 
 
 @NgModule({
@@ -22,7 +25,11 @@ import { MatMenuModule } from '@angular/material/menu';
     CommonModule,
     FloorsRoutingModule,
     SystemModule,
-
+    RouterModule,
+    HttpClientModule,
+    CommonModule,
+    SystemModule,
+    BuildingsModule
   ]
 })
 export class FloorsModule { }

@@ -1,24 +1,17 @@
 export class BuildingModel {
-  id: number;
-  photo: string;
-  codeNumber: string;
-  isDeleted: boolean;
-  hospitalsContactData: [
-      {
-          id: number;
-          telephoneNumber: string;
-          email: string;
-          whatsAppNumber: string;
-          hospitalId: 1
-      }
+  buildingTranslation:[
+    {
+      buildeingId: number,
+    description:string,
+    id:number,
+    langCode:string,
+    name:string,
+  }
   ];
-  hospitalTrasnlations: [
-      {
-          id: number;
-          name: string;
-          address: string;
-          hospitalId: number;
-          langCode: string;
-      },
-    ]
+
+codeNumber:string;
+hospitalId:number;
+id:number;
+isDeleted:boolean;
+photo:string
 }
