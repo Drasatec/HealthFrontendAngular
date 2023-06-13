@@ -2,7 +2,9 @@
   <div class="card">
     <div class="card-header">
       <h5 class="text-base-color text-bold"> {{id ?"تعديل مبني":'إضافة مبني'}} </h5>
-
+      <button mat-button (click)="closeEditDialog()">
+        <i mat-dialog-close class="fas fa-times text-primary" ></i>
+      </button>
     </div>
     <div class="card-body">
       <div [formGroup]="form" class="row d-flex flex-wrap justify-content-md-start mb-7 align-items-center">
@@ -83,7 +85,7 @@
                   <ng-select class="pr-3 my-2"
                     [items]="hospitals"
                     bindLabel="name"
-                    bindValue="id"
+                    bindValue="hospitalId"
                     labelForId="state"
                     [multiple]="false"
                     placeholder=""

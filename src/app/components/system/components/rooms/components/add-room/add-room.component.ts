@@ -1,21 +1,22 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { RoomService } from '../../services/room.service';
+import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../../../../../../environments/environment';
 import { HelperService } from '../../../../../../@theme/services/helper.service';
-import { AddBuildingComponent } from '../../../buildings/components/add-building/add-building.component';
-import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
-import { FloorService } from '../../services/floor.service';
 import { LookupService } from '../../../../../../@theme/services/lookup.service';
+import { AddBuildingComponent } from '../../../buildings/components/add-building/add-building.component';
+import { AddFloorComponent } from '../../../floors/components/add-floor/add-floor.component';
 
 @Component({
-  selector: 'ngx-add-floor',
-  templateUrl: './add-floor.component.html',
-  styleUrls: ['./add-floor.component.scss']
+  selector: 'ngx-add-room',
+  templateUrl: './add-room.component.html',
+  styleUrls: ['./add-room.component.scss']
 })
-export class AddFloorComponent implements OnInit {
+export class AddRoomComponent implements OnInit {
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
 
@@ -23,17 +24,17 @@ export class AddFloorComponent implements OnInit {
     private _FormBuilder: FormBuilder,
     private router:Router,
     public dialog: MatDialog,
-    private _floorService:FloorService,
+    private _roomService:RoomService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
     private _helpservice:HelperService,
     private _lookpservice:LookupService,
-    public dialogRef: MatDialogRef<AddFloorComponent>,
+    public dialogRef: MatDialogRef<AddRoomComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
   id:number;
-  floor:any;
+  room:any;
   ngOnInit(): void {
     // this.route.params.subscribe(
     //   (param)=>{
@@ -42,13 +43,13 @@ export class AddFloorComponent implements OnInit {
     //     this.id =param.id;
     //   }
     // )
-    this.id=this.data ? this.data.id :null;
+    this.id=this.data ? this.data.id : null
     this.createForm();
     if(this.id){
-      this.getFloorById(this.id);
+      this.getRoomById(this.id);
     }
     this.getHospitals()
-
+    this.getRoomTypes()
   }
   buildings=[]
 
@@ -63,26 +64,41 @@ export class AddFloorComponent implements OnInit {
       }
     )
   }
-  getFloorById(id){
+  getRoomById(id){
     let paylod={
       lang:'ar'
     }
-    this._floorService.getFloorById(id,paylod).subscribe(
+    this._roomService.getRoomById(id,paylod).subscribe(
       (res:any)=>{
-        this.floor = res;
-        this.chooseBuilding('',this.floor.hospitalId)
+        this.room = res;
+        this.chooseBuilding('',this.room.buildId)
+        this.chooseFloor('',this.room.floorId)
         this.patchForm();
       }
     )
   }
+  roomTypes=[];
+  getRoomTypes(){
+    this.roomTypes =[
+      {id:1,name:'مخزن'},
+      {id:2,name:'كشف'},
+      {id:3,name:'عيادة'},
+      {id:4,name:'صيدلية'},
+      {id:5,name:'معمل'},
+
+    ]
+    return this.roomTypes
+  }
   phoneNumbers;
   patchForm(){
     this.form.patchValue({
-      codeNumber:this.floor.codeNumber?this.floor.codeNumber:null,
-      name:this.floor.floorTranslations.length > 0?this.floor.floorTranslations[0].name:null,
-      description:this.floor.floorTranslations.length > 0?this.floor.floorTranslations[0].description:null,
-      HospitalId:this.floor.hospitalId ?this.floor.hospitalId : null,
-      BuildId:this.floor.buildId ?this.floor.buildId : null
+      codeNumber:this.room.codeNumber?this.room.codeNumber:null,
+      name:this.room.roomTranslations.length > 0?this.room.roomTranslations[0].name:null,
+      description:this.room.roomTranslations.length > 0?this.room.roomTranslations[0].description:null,
+      HospitalId:this.room.hospitalId ?this.room.hospitalId : null,
+      BuildId:this.room.buildId ?this.room.buildId : null,
+      FloorId:this.room.floorId ?this.room.floorId : null,
+      RoomTypeId:this.room.roomTypeId ? this.room.roomTypeId :null
 
   })
   console.log(this.form.value)
@@ -92,8 +108,10 @@ export class AddFloorComponent implements OnInit {
       codeNumber: [null],
       HospitalId: [null],
       BuildId:[null],
+      FloorId:[null],
       name:[null],
-      description:[null]
+      description:[null],
+      RoomTypeId:[null]
     });
   }
   get formControls() {
@@ -111,17 +129,17 @@ export class AddFloorComponent implements OnInit {
       }
     });
   }
-  newFloorId;
+  newRoomId;
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
 
-        this._floorService.createFloor(this.sendData).subscribe(
+        this._roomService.createRoom(this.sendData).subscribe(
           (res)=>{
-              this.newFloorId=res.id;
-              this.snackBar.open("تم اضافة الطابق بنجاح ", "ُsuccess", {
+              this.newRoomId=res.id;
+              this.snackBar.open("تم اضافة الغرفة بنجاح ", "ُsuccess", {
                 duration: 5000,
                 panelClass: 'success'
               });
@@ -136,9 +154,9 @@ export class AddFloorComponent implements OnInit {
           }
         )
       }else{
-        this._floorService.editFloor(this.id,this.sendData).subscribe(
+        this._roomService.editRoom(this.id,this.sendData).subscribe(
           (res)=>{
-            this.snackBar.open("تم تعديل المبني بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تعديل الغرفة بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
@@ -158,7 +176,7 @@ export class AddFloorComponent implements OnInit {
   }
 
   closeDialog() {
-    this.dialogRef.close(this.newFloorId);
+    this.dialogRef.close(this.newRoomId);
   }
   closeEditDialog() {
     this.dialogRef.close({isAdd:true});
@@ -168,8 +186,8 @@ export class AddFloorComponent implements OnInit {
     console.log(data)
     let paylod={
       ...data,
-      FloorTranslations:[{
-        id:this.id ? this.floor.floorTranslations[0].id:0,
+      RoomTranslations:[{
+        id:this.id ? this.room.roomTranslations[0].id:0,
         Name:data.name,
         Description:data.description,
         LangCode:'ar',
@@ -187,12 +205,12 @@ export class AddFloorComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "FloorTranslations") {
-          for (let i = 0; i < formVal['FloorTranslations'].length; i++) {
-            if(this.id){body.append('FloorTranslations['+(i)+'][id]', formVal.FloorTranslations[i].id );}
-            body.append('FloorTranslations['+(i)+'][Name]', formVal.FloorTranslations[i].Name);
-            body.append('FloorTranslations['+(i)+'][LangCode]', formVal.FloorTranslations[i].LangCode);
-            body.append('FloorTranslations['+(i)+'][Description]', formVal.FloorTranslations[i].Description);
+        if (key == "RoomTranslations") {
+          for (let i = 0; i < formVal['RoomTranslations'].length; i++) {
+            if(this.id){body.append('RoomTranslations['+(i)+'][id]', formVal.RoomTranslations[i].id );}
+            body.append('RoomTranslations['+(i)+'][Name]', formVal.RoomTranslations[i].Name);
+            body.append('RoomTranslations['+(i)+'][LangCode]', formVal.RoomTranslations[i].LangCode);
+            body.append('RoomTranslations['+(i)+'][Description]', formVal.RoomTranslations[i].Description);
           }
         }
         else {
@@ -280,28 +298,23 @@ export class AddFloorComponent implements OnInit {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
   }
   openDialog(){
-    const dialogRef = this.dialog.open(AddBuildingComponent,{
+    const dialogRef = this.dialog.open(AddFloorComponent,{
       width: "1200px",
-      maxHeight:'80%',
-      data:{
-        selectedHos:this.selectedHosId
-      }
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
       if(result){
-        this.chooseBuilding('',this.selectedHosId)
+        // this.chooseFloor('',result)
       this.form.patchValue({
-        'BuildId':result
+        'FloorId':result
       })
       }
     });
   }
   buildFetch;
-  selectedHosId;
   chooseBuilding(e,id?){
     console.log(e.id)
-    this.selectedHosId = e.hospitalId ? e.hospitalId : id;
+
     this.buildFetch={
       hosId:e.hospitalId ? e.hospitalId : id
     }
@@ -311,4 +324,18 @@ export class AddFloorComponent implements OnInit {
       }
     )
   }
+  floorFetch;
+  chooseFloor(e,id?){
+    console.log(e.id)
+
+    this.floorFetch={
+      buildId:e.buildeingId ? e.buildeingId : id
+    }
+    this._lookpservice.getAllFloorssNames(this.floorFetch).subscribe(
+      (res)=>{
+        this.buildings=res
+      }
+    )
+  }
 }
+

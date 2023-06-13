@@ -30,6 +30,7 @@ export class FilterSystemComponent implements OnInit{
     status:[],
     hospitals:[],
     buildings:[],
+    floors:[],
     specialize:[]
   };
 
@@ -63,6 +64,8 @@ export class FilterSystemComponent implements OnInit{
       status:[null],
       hosId:[null],
       buildId:[null],
+      floorId:[null],
+      roomId:[null],
       specialize:[null]
     });
   }
@@ -89,6 +92,9 @@ export class FilterSystemComponent implements OnInit{
   clearSearch() {
     this.form.reset();
     this.form.markAllAsTouched();
+    this.lookups.buildings=[]
+    this.lookups.floors=[]
+
     this.filters();
   }
 
@@ -117,15 +123,40 @@ export class FilterSystemComponent implements OnInit{
 
   }
   chooseBuilding(e){
-    console.log(e.id)
+    console.log(e)
     let payload={
-      hosId:e.id
+      hosId:e.hospitalId
     }
     this.lookupservice.getAllBuildingsNames(payload).subscribe(
       (res)=>{
         this.lookups.buildings=res
       }
     )
+  }
+  clearHos(){
+    console.log("cleeean")
+    this.form.reset()
+    this.lookups.buildings=[];
+
+  }
+  chooseFloor(e){
+    console.log(e)
+    let payload={
+      buildId:e.buildeingId
+    }
+    this.lookupservice.getAllFloorssNames(payload).subscribe(
+      (res)=>{
+        this.lookups.floors=res
+      }
+    )
+  }
+  cleanBuild(){
+    this.form.patchValue({
+      floorId:null,
+      roomId:null
+    })
+    this.lookups.floors=[];
+
   }
   getSpecialize(){
     let specialize = [

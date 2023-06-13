@@ -1,22 +1,20 @@
 
 <div class="card">
   <div class="card-header">
-    <h5 class="text-base-color text-bold"> {{id ?"تعديل طابق":'إضافة طابق'}} </h5>
-    <button mat-button (click)="closeEditDialog()">
-      <i mat-dialog-close class="fas fa-times text-primary" ></i>
-    </button>
+    <h5 class="text-base-color text-bold"> {{id ?"تعديل غرفة":'إضافة غرفة'}} </h5>
+
   </div>
   <div class="card-body">
     <div [formGroup]="form" class="row d-flex flex-wrap justify-content-md-start mb-7 align-items-center">
       <div class="row justify-content-center align-items-center">
-        <div class="col-md-3 col-xxl-3 filter-border mt-3" *ngIf="floor?.photo">
+        <div class="col-md-3 col-xxl-3 filter-border mt-3" *ngIf="room?.photo">
           <img [src]="imgUrl+'small/'+hospital?.photo">
         </div>
         <div class="col-md-3 col-xxl-3 filter-border attachment mt-3">
           <div class="container" appDnd (fileDropped)="onFileDropped($event)">
             <input type="file" #fileDropRef id="fileDropRef"  (change)="fileBrowseHandler($event.target.files)" />
             <i class="fa-solid fa-camera fa-xl"></i>
-            <h6> {{id?'تعديل صورة الطابق':'أضافة صورة الطابق'}} </h6>
+            <h6> {{id?'تعديل صورة الغرفة':'أضافة صورة الغرفة'}} </h6>
           </div>
           <div class="files-list">
             <div class="single-file" *ngFor="let file of files; let i = index">
@@ -68,16 +66,37 @@
         <div class="row mt-4">
           <div class="col-6 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">كودالطابق<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold">كود الغرفة<span class="text-danger">*</span></label>
                 <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
             </div>
           </div>
           <div class="col-6 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">اسم الطابق<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold">اسم الغرفة<span class="text-danger">*</span></label>
                 <input type="text" formControlName="name" class="form-control pr-3 my-2" >
             </div>
           </div>
+          <div class="col-md-4 col-xxl-4 filter-border">
+            <div class="form-group mb-3">
+              <label for="state" class="text-base-color text-bold">نوع الغرفة</label>
+              <div class="add-btn">
+                <ng-select class="pr-3 my-2"
+                  [items]="roomTypes"
+                  bindLabel="name"
+                  bindValue="id"
+                  labelForId="state"
+                  [multiple]="false"
+                  placeholder=""
+                  clearAllText="Clear"
+                  formControlName="RoomTypeId">
+                </ng-select>
+                <!-- <button class="btn background-primary" (click)="openHospDialog()">
+                  <i class="fa-solid fa-plus fa-xl"></i>
+                </button> -->
+              </div>
+
+            </div>
+        </div>
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
               <label for="state" class="text-base-color text-bold">المستشفي</label>
@@ -112,18 +131,40 @@
                   [multiple]="false"
                   placeholder=""
                   clearAllText="Clear"
+                  (change)="chooseFloor($event)"
                   formControlName="BuildId">
                 </ng-select>
-                <button class="btn background-primary" (click)="openDialog()">
+                <!-- <button class="btn background-primary" (click)="openDialog()">
                   <i class="fa-solid fa-plus fa-xl"></i>
-                </button>
+                </button> -->
               </div>
 
             </div>
         </div>
+        <div class="col-md-4 col-xxl-4 filter-border">
+          <div class="form-group mb-3">
+            <label for="state" class="text-base-color text-bold">الطابق</label>
+            <div class="add-btn">
+              <ng-select class="pr-3 my-2"
+                [items]="buildings"
+                bindLabel="name"
+                bindValue="floorId"
+                labelForId="state"
+                [multiple]="false"
+                placeholder=""
+                clearAllText="Clear"
+                formControlName="FloorId">
+              </ng-select>
+              <button class="btn background-primary" (click)="openDialog()">
+                <i class="fa-solid fa-plus fa-xl"></i>
+              </button>
+            </div>
+
+          </div>
+      </div>
         <div class="col-12 filter-border">
           <div class="form-group mb-3">
-              <label for="example-search-input" class="text-base-color text-bold">تفاصيل عن الطابق<span class="text-danger">*</span></label>
+              <label for="example-search-input" class="text-base-color text-bold">تفاصيل عن الغرفة<span class="text-danger">*</span></label>
               <textarea formControlName="description" class="form-control pr-3 my-2" row="3"></textarea>
           </div>
         </div>

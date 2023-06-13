@@ -10,11 +10,14 @@
 }
 
 ::ng-deep {
+  .ng-select {
+    padding:0.3rem;
+  }
   .ng-select .ng-select-container .ng-value-container .ng-placeholder {
     color:#fff;
   }
   .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
-    border-bottom: 1px solid #afadad;
+    border-bottom: none
 
   }
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {

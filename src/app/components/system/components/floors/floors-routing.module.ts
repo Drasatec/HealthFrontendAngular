@@ -8,7 +8,6 @@ import { ViewFloorComponent } from './components/view-floor/view-floor.component
 const routes: Routes = [
   { path: '', component: FloorsComponent,children:[
     {path:'add-floor',component : AddFloorComponent},
-    {path:'edit-floor/:id',component : AddFloorComponent},
     {path:'all-floor',component : AllFloorsComponent},
     {path:'view-floor/:id',component : ViewFloorComponent},
     {path: '',redirectTo: "all-floor",pathMatch:'full'},

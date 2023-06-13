@@ -27,8 +27,6 @@ import { BuildingsModule } from '../buildings/buildings.module';
     SystemModule,
     RouterModule,
     HttpClientModule,
-    CommonModule,
-    SystemModule,
     BuildingsModule
   ]
 })

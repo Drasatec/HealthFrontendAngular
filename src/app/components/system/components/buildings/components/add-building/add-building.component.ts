@@ -43,7 +43,7 @@ export class AddBuildingComponent implements OnInit {
     //     this.id =param.id;
     //   }
     // )
-    this.id=this.data.id
+    this.id=this.data? this.data.id :null
     this.createForm();
     if(this.id){
       this.getBuildingById(this.id);
@@ -57,9 +57,14 @@ export class AddBuildingComponent implements OnInit {
     }
     this._lookpservice.getAllHospitalsNames(payload).subscribe(
       (res)=>{
-        this.hospitals = res
+        this.hospitals = res;
       }
     )
+    if(this.data.selectedHos){
+      this.form.patchValue({
+        HospitalId:this.data.selectedHos
+      })
+    }
   }
   getBuildingById(id){
     let paylod={
@@ -150,6 +155,7 @@ export class AddBuildingComponent implements OnInit {
 
     }
   }
+
   closeDialog() {
     this.dialogRef.close(this.newBuildId);
   }
@@ -282,6 +288,7 @@ export class AddBuildingComponent implements OnInit {
   openDialog(){
     const dialogRef = this.dialog.open(AddHospitalComponent,{
       width: "1200px",
+      maxHeight:'80%'
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
