@@ -182,9 +182,14 @@ export class AllFloorsComponent implements OnInit {
   onFilterChange(e) {
     this.status = e.status ? e.status : this.status;
 
-    if((e.status && !e.name) || e.buildId){
+    if((e.status && !e.name)){
       let payload={
         status:e.status ? e.status :this.status,
+      }
+      console.log(payload)
+      this.getTableData(payload)
+    }else if(e.buildId){
+      let payload={
         buildId : e.buildId ? e.buildId : null
       }
       console.log(payload)

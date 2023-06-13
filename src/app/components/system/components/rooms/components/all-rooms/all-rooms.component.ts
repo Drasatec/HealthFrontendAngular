@@ -183,10 +183,15 @@ export class AllRoomsComponent implements OnInit {
   onFilterChange(e) {
     this.status = e.status ? e.status : this.status;
 
-    if((e.status && !e.name) || e.floorId){
+    if((e.status && !e.name)){
       let payload={
         status:e.status ? e.status :this.status,
-        floorId : e.floorId ? e.floorId : null
+      }
+      console.log(payload)
+      this.getTableData(payload)
+    }else if( e.floorId){
+      let payload={
+        floorId : e.floorId
       }
       console.log(payload)
       this.getTableData(payload)

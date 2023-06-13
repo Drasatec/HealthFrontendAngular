@@ -202,9 +202,14 @@ export class AllBuildingsComponent implements OnInit {
     console.log(e)
     this.status = e.status ? e.status : this.status;
 
-    if((e.status && !e.name) || e.hosId){
+    if((e.status && !e.name)){
       let payload={
         status:e.status ? e.status :this.status,
+      }
+      console.log(payload)
+      this.getTableData(payload)
+    }else if( e.hosId){
+      let payload={
         hosId : e.hosId ? e.hosId : null
       }
       console.log(payload)
