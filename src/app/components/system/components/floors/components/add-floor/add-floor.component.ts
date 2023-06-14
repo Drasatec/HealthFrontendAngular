@@ -48,7 +48,13 @@ export class AddFloorComponent implements OnInit {
       this.getFloorById(this.id);
     }
     this.getHospitals()
-
+    if(this.data.selectedBuild && this.data.selectedHos){
+      this.chooseBuilding('', this.data.selectedHos)
+      this.form.patchValue({
+        HospitalId:this.data.selectedHos,
+        BuildId:this.data.selectedBuild
+      })
+    }
   }
   buildings=[]
 

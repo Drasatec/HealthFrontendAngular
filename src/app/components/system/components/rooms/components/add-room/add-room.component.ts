@@ -71,8 +71,8 @@ export class AddRoomComponent implements OnInit {
     this._roomService.getRoomById(id,paylod).subscribe(
       (res:any)=>{
         this.room = res;
-        this.chooseBuilding('',this.room.buildId)
-        this.chooseFloor('',this.room.floorId)
+        this.chooseBuilding('',this.room.hospitalId)
+        this.chooseFloor('',this.room.buildId)
         this.patchForm();
       }
     )
@@ -116,6 +116,24 @@ export class AddRoomComponent implements OnInit {
   }
   get formControls() {
     return this.form.controls;
+  }
+  clearHos(){
+    console.log("cleeean")
+    this.form.patchValue({
+      HospitalId: null,
+      BuildId:null,
+      FloorId:null,
+    })
+    this.buildings=[];
+
+  }
+  cleanBuild(){
+    this.form.patchValue({
+      BuildId:null,
+      FloorId:null,
+    })
+    this.floors=[];
+
   }
   translateData;
   openTranslateDialog(){
@@ -181,6 +199,7 @@ export class AddRoomComponent implements OnInit {
   closeEditDialog() {
     this.dialogRef.close({isAdd:true});
   }
+
   sendData;
   prepareDataBeforeSend(data){
     console.log(data)
@@ -300,11 +319,15 @@ export class AddRoomComponent implements OnInit {
   openDialog(){
     const dialogRef = this.dialog.open(AddFloorComponent,{
       width: "1200px",
+      data:{
+        selectedHos:this.selectedHosId,
+        selectedBuild:this.selectedBuildId
+      }
     })
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
       if(result){
-        // this.chooseFloor('',result)
+        this.chooseFloor('',this.selectedBuildId)
       this.form.patchValue({
         'FloorId':result
       })
@@ -312,8 +335,9 @@ export class AddRoomComponent implements OnInit {
     });
   }
   buildFetch;
+  selectedHosId;
   chooseBuilding(e,id?){
-    console.log(e.id)
+    this.selectedHosId=e.hospitalId ? e.hospitalId : id;
 
     this.buildFetch={
       hosId:e.hospitalId ? e.hospitalId : id
@@ -324,16 +348,18 @@ export class AddRoomComponent implements OnInit {
       }
     )
   }
+  selectedBuildId;
   floorFetch;
+  floors;
   chooseFloor(e,id?){
-    console.log(e.id)
+    this.selectedBuildId=e.buildeingId ? e.buildeingId : id
 
     this.floorFetch={
       buildId:e.buildeingId ? e.buildeingId : id
     }
     this._lookpservice.getAllFloorssNames(this.floorFetch).subscribe(
       (res)=>{
-        this.buildings=res
+        this.floors=res
       }
     )
   }
