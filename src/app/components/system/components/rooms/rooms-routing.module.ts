@@ -11,7 +11,9 @@ const routes: Routes = [
     {path:'all-room',component : AllRoomsComponent},
     {path:'view-room/:id',component : ViewRoomComponent},
     {path: '',redirectTo: "all-room",pathMatch:'full'},
-  ] }];
+    ]
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

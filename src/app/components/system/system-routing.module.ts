@@ -9,6 +9,7 @@ const routes: Routes = [
     { path: 'doctors', loadChildren: () => import('./components/doctors/doctors.module').then(m => m.DoctorsModule) },
     { path: 'floors', loadChildren: () => import('./components/floors/floors.module').then(m => m.FloorsModule) },
     { path: 'rooms', loadChildren: () => import('./components/rooms/rooms.module').then(m => m.RoomsModule) },
+    { path: 'specialities', loadChildren: () => import('./components/specialities/specialities.module').then(m => m.SpecialitiesModule) },
 
 
     {path:'',redirectTo:'hospitals',pathMatch:'full'}

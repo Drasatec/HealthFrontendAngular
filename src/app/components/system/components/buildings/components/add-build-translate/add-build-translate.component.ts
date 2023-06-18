@@ -6,6 +6,7 @@ import { HelperService } from '../../../../../../@theme/services/helper.service'
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
 import { FloorService } from '../../../floors/services/floor.service';
 import { RoomService } from '../../../rooms/services/room.service';
+import { SpecialService } from '../../../specialities/services/special.service';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -24,6 +25,7 @@ export class AddBuildTranslateComponent implements OnInit {
     private _buildingService:BuildingService,
     private _floorService:FloorService,
     private _roomService:RoomService,
+    private _specialService:SpecialService,
     private __helper:HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
@@ -38,6 +40,8 @@ export class AddBuildTranslateComponent implements OnInit {
       this.getFloorById(this.data.id)
     }else if(this.data.type === "room"){
       this.getRoomById(this.data.id)
+    }else if(this.data.type === "special"){
+      this.getSpecialById(this.data.id)
     }
   }
   get formControls() {
@@ -73,6 +77,18 @@ export class AddBuildTranslateComponent implements OnInit {
       (res:any)=>{
         this.room=res;
         this.translationData=res.roomTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  special;
+  getSpecialById(id){
+    this._specialService.getMedicalSpecialById(id).subscribe(
+      (res:any)=>{
+        this.special=res;
+        this.translationData=res.medicalSpecialtyTranslations;
         this.translationData?.forEach(el => {
           this.addTrans(el);
         })
@@ -144,6 +160,8 @@ export class AddBuildTranslateComponent implements OnInit {
               body.append('translations['+(i)+'][FloorId]', this.data.id);
             }else if(this.data.type === 'room'){
               body.append('translations['+(i)+'][RoomId]', this.data.id);
+            }else if(this.data.type === 'special'){
+              body.append('translations['+(i)+'][MedicalSpecialtyId]', this.data.id);
             }
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
@@ -177,6 +195,12 @@ export class AddBuildTranslateComponent implements OnInit {
       )
     }else if(this.data.type === 'room'){
       this._roomService.addTranslation(this.data.id,this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'special'){
+      this._specialService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }

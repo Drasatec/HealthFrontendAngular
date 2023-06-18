@@ -16,9 +16,9 @@ export class SystemComponent  {
     {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings'},
     {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/floors'},
     {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/rooms'},
+    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/specialities'},
     {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/clinics'},
     {name:'دكاترة',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctors'},
-    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/specializations'},
     {name:'خدمات',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/services'},
 
   ]
