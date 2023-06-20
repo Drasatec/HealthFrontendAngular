@@ -1,0 +1,103 @@
+<div class="card mt-4">
+
+  <div class="card-body" *ngIf="!loading;else progressSpinner">
+
+    <div class="row">
+      <div class="col-md-4">
+        <div class="image-row">
+          <div class="image-column" *ngFor="let image of images; let i = index">
+              <img [src]="image.url ? imgUrl+'small/'+image.url+'?timestamp='+timestamp  : '/assets/images/hospital.jpg'" (click)="openModal();currentSlide(i+1)" class="hover-shadow cursor">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="header-view d-flex justify-content-between ">
+          <h5 class="text-base-color text-bold">
+            {{clinic?.clinicTranslations[0]?.name}}
+          </h5>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <i class="fa-solid fa-ellipsis-vertical"></i>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="edit(clinic.id)">
+              <i class="fa-solid fa-pen mx-2"></i>
+              <span>تعديل</span>
+            </button>
+            <button mat-menu-item disabled>
+              <i class="fa-solid fa-share-nodes mx-2"></i>
+              <span>مشاركة</span>
+            </button>
+            <button mat-menu-item (click)="statusAction(clinic.isDeleted)">
+              <span *ngIf="clinic.isDeleted"><i class="fa-regular fa-circle-xmark" ></i>تشغيل</span>
+              <spsn *ngIf="!clinic.isDeleted"><i class="fa-solid fa-circle-check" ></i> إيقاف</spsn>
+            </button>
+          </mat-menu>
+        </div>
+        <div class="content-view">
+          <p><i class="fa-solid fa-hospital ms-2"></i>
+            {{clinic?.phone}}
+          </p>
+          <p><i class="fa-solid fa-hospital ms-2"></i>
+            {{clinic?.workingHours}}
+          </p>
+        </div>
+
+      </div>
+
+
+    </div>
+    <div class="row">
+      <p class="my-5">{{clinic?.clinicTranslations[0]?.description}}</p>
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="stat d-flex align-items-center flex-column mx-3">
+        <img width="50" src="assets/images/hospital-icons/Group.svg">
+        <p class="mt-2">500 غرفة</p>
+      </div>
+      <div class="stat d-flex align-items-center flex-column mx-3">
+        <img width="50" src="assets/images/hospital-icons/Group-1.svg">
+        <p class="mt-2">500 غرفة</p>
+      </div>
+      <div class="stat d-flex align-items-center flex-column mx-3">
+        <img width="50" src="assets/images/hospital-icons/Group-2.svg">
+        <p class="mt-2">500 غرفة</p>
+      </div>
+      <div class="stat d-flex align-items-center flex-column mx-3">
+        <img width="50" src="assets/images/hospital-icons/Group-3.svg">
+        <p class="mt-2">500 غرفة</p>
+      </div>
+    </div>
+
+</div>
+</div>
+
+<div id="imgModal" class="slide-modal">
+  <span class="close cursor" (click)="closeModal()">&times;</span>
+  <div class="slide-modal-content">
+      <div class="img-slides" *ngFor="let image of images; let i = index">
+          <img [src]="image.url ? imgUrl+'small/'+image.url+'?timestamp='+timestamp : '/assets/images/hospital.jpg'">
+      </div>
+      <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+      <a class="next" (click)="plusSlides(1)">&#10095;</a> -->
+      <!-- <div class="image-row">
+          <div class="image-column" *ngFor="let image of images; let i = index">
+              <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
+          </div>
+      </div> -->
+  </div>
+</div>
+<ng-template #progressSpinner>
+<div class="overlay" >
+  <div class="center">
+
+  <mat-progress-spinner
+    diameter="100"
+    mode="indeterminate"
+    color="primary"
+    strokeWidth="10"
+    value="100">
+  </mat-progress-spinner>
+
+  </div>
+</div>
+</ng-template>

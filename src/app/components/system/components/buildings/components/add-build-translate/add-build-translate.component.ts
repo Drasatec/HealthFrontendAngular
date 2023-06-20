@@ -7,6 +7,7 @@ import { AddInfoTranslateComponent } from '../../../hospitals/components/add-inf
 import { FloorService } from '../../../floors/services/floor.service';
 import { RoomService } from '../../../rooms/services/room.service';
 import { SpecialService } from '../../../specialities/services/special.service';
+import { ClinicService } from '../../../clinics/services/clinic.service';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -26,6 +27,7 @@ export class AddBuildTranslateComponent implements OnInit {
     private _floorService:FloorService,
     private _roomService:RoomService,
     private _specialService:SpecialService,
+    private _clinicService:ClinicService,
     private __helper:HelperService,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
@@ -42,6 +44,8 @@ export class AddBuildTranslateComponent implements OnInit {
       this.getRoomById(this.data.id)
     }else if(this.data.type === "special"){
       this.getSpecialById(this.data.id)
+    }else if(this.data.type === "clinic"){
+      this.getClinicById(this.data.id)
     }
   }
   get formControls() {
@@ -89,6 +93,18 @@ export class AddBuildTranslateComponent implements OnInit {
       (res:any)=>{
         this.special=res;
         this.translationData=res.medicalSpecialtyTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  clinic;
+  getClinicById(id){
+    this._clinicService.getClinicById(id).subscribe(
+      (res:any)=>{
+        this.clinic=res;
+        this.translationData=res.clinicTranslations;
         this.translationData?.forEach(el => {
           this.addTrans(el);
         })
@@ -162,6 +178,8 @@ export class AddBuildTranslateComponent implements OnInit {
               body.append('translations['+(i)+'][RoomId]', this.data.id);
             }else if(this.data.type === 'special'){
               body.append('translations['+(i)+'][MedicalSpecialtyId]', this.data.id);
+            }else if(this.data.type === 'clinic'){
+              body.append('translations['+(i)+'][ClinicId]', this.data.id);
             }
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
@@ -201,6 +219,12 @@ export class AddBuildTranslateComponent implements OnInit {
       )
     }else if(this.data.type === 'special'){
       this._specialService.addTranslation(this.data.id,this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'clinic'){
+      this._clinicService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }

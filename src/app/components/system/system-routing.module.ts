@@ -10,10 +10,11 @@ const routes: Routes = [
     { path: 'floors', loadChildren: () => import('./components/floors/floors.module').then(m => m.FloorsModule) },
     { path: 'rooms', loadChildren: () => import('./components/rooms/rooms.module').then(m => m.RoomsModule) },
     { path: 'specialities', loadChildren: () => import('./components/specialities/specialities.module').then(m => m.SpecialitiesModule) },
-
+    { path: 'clinics', loadChildren: () => import('./components/clinics/clinics.module').then(m => m.ClinicsModule) },
 
     {path:'',redirectTo:'hospitals',pathMatch:'full'}
   ] },
+
 
   ];
 
