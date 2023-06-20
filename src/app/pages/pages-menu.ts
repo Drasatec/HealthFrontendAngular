@@ -19,7 +19,7 @@ export const items = [
       {
         title: ' الاعدادات',
         icon:'fa-solid fa-notes-medical',
-        link:'/dashboard/system/ettings/all-seeting'
+        link:'/dashboard/settings/room-types'
       },
       {
         title: 'البيانات الاساسية',

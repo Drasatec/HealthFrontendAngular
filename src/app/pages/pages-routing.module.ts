@@ -16,6 +16,7 @@ const routes: Routes = [{
     { path: 'system', loadChildren: () => import('../components/system/system.module').then(m => m.SystemModule) },
 
     { path: 'booking', loadChildren: () => import('../components/Reception/booking/booking.module').then(m => m.BookingModule) },
+    { path: 'settings', loadChildren: () => import('../components/setting/setting.module').then(m => m.SettingModule) },
 
     {
       path: '',

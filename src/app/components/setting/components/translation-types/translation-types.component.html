@@ -1,0 +1,64 @@
+<div class="card trans">
+  <!-- Header -->
+  <div
+    class="card-header  d-flex justify-content-between align-items-center"
+  >
+    <!-- begin:: card title  -->
+    <h3 class="card-title align-items-start flex-column mr-3 mb-5 mt-0">
+      <span class="card-label text-primary">اضافة لغة</span>
+    </h3>
+    <button mat-button (click)="closeDialog()">
+      <i mat-dialog-close class="fas fa-times text-primary" ></i>
+    </button>
+
+  </div>
+  <!-- Body -->
+  <div class="card-body px-6 px-lg-10 pt-3 pb-0">
+    <div [formGroup]="formTrans">
+      <div formArrayName="translations" class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <button mat-fab extended aria-label="Add"
+            (click)="addEmailFormGroup()" matTooltip="Add">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+        <div class="row translation" *ngFor="let lang of myFormArray['controls']; let i = index"
+            [formGroupName]="i">
+
+            <div class="col-11 row">
+              <mat-form-field class="col-2">
+                <mat-label>اللغة</mat-label>
+                <mat-select formControlName="LangCode">
+                  <mat-option *ngFor="let label of codes" [value]="label.value">
+                    {{label.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-4">
+                <input matInput formControlName="Name" placeholder="الاسم" autocomplete="email">
+                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
+                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
+                    {{validation.message}}
+                  </div>
+                </mat-error> -->
+              </mat-form-field>
+
+            </div>
+            <div class="col">
+              <button mat-fab extended aria-label="Remove/clear"
+                  (click)="removeOrClearEmail(i)" matTooltip="Remove">
+                <mat-icon>highlight_off</mat-icon>
+              </button>
+            </div>
+
+        </div>
+      </div>
+      <div class="col-12 d-flex justify-content-end">
+        <button  mat-fab extended aria-label="Add"
+          (click)="save()" matTooltip="Add">حفظ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
