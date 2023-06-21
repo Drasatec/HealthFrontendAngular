@@ -83,7 +83,7 @@ export class TranslationTypesComponent implements OnInit {
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
-      'buildingId':new FormControl(this.data.id),
+      'RoomTypeId':new FormControl(this.data.id),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
       'Name': new FormControl(data?.name ? data?.name :null),
@@ -127,6 +127,7 @@ export class TranslationTypesComponent implements OnInit {
   }
   dataSend;
   save(){
+    console.log(this.formTrans.value)
     this.dataSend=this.formData(this.formTrans.value)
     if(this.data.type === 'roomType'){
       console.log(this.dataSend)
