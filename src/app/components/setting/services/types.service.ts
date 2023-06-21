@@ -16,7 +16,7 @@ export class TypesService {
 
   roomTypesTranslation(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}RoomType/edit-translations`;
-    return this.http.put(url,{ params: fetchCriteria });
+    return this.http.put(url,fetchCriteria );
   }
   getRoomTypesById(id,fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}RoomType?id=${id}`;

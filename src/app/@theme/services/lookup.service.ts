@@ -35,4 +35,8 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}MedicalSpecialty/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllRoomTypesNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}RoomType/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
 }

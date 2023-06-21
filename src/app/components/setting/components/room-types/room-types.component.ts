@@ -30,7 +30,6 @@ export class RoomTypesComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   filterElements = {
     global_search: true,
-    status:true,
   };
   loading=true;
   constructor(private router:Router,

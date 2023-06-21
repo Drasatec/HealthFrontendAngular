@@ -79,15 +79,14 @@ export class AddRoomComponent implements OnInit {
   }
   roomTypes=[];
   getRoomTypes(){
-    this.roomTypes =[
-      {id:1,name:'مخزن'},
-      {id:2,name:'كشف'},
-      {id:3,name:'عيادة'},
-      {id:4,name:'صيدلية'},
-      {id:5,name:'معمل'},
-
-    ]
-    return this.roomTypes
+      let payload={
+        pageSize:30
+      }
+      this._lookpservice.getAllRoomTypesNames(payload).subscribe(
+        (res)=>{
+          this.roomTypes = res
+        }
+      )
   }
   phoneNumbers;
   patchForm(){

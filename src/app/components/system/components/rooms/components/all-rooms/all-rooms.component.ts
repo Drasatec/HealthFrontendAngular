@@ -36,7 +36,8 @@ export class AllRoomsComponent implements OnInit {
     status:true,
     hospitals:true,
     buildings:true,
-    floors:true
+    floors:true,
+    roomType:true
   };
   loading=true;
   constructor(private router:Router,private _roomservice:RoomService,
@@ -181,6 +182,7 @@ export class AllRoomsComponent implements OnInit {
     )
   }
   onFilterChange(e) {
+    console.log(e)
     this.status = e.status ? e.status : this.status;
 
     if((e.status && !e.name)){
@@ -192,6 +194,12 @@ export class AllRoomsComponent implements OnInit {
     }else if( e.floorId){
       let payload={
         floorId : e.floorId
+      }
+      console.log(payload)
+      this.getTableData(payload)
+    }else if( e.roomTypeId){
+      let payload={
+        roomTypeId : e.roomTypeId
       }
       console.log(payload)
       this.getTableData(payload)

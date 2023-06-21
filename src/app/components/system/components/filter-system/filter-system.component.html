@@ -92,6 +92,23 @@
                     name.</span> -->
             </div>
         </div>
+        <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.roomType">
+          <div class="form-group">
+              <!-- <label> المستشفيات</label> -->
+              <ng-select [items]="lookups.roomType" appendTo="body" placeholder="انواع الغرف"
+                  bindValue="id" bindLabel="name" [virtualScroll]="true"
+                  aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+                  formControlName="roomTypeId" (change)="filters()"
+                  [multiple]="false"
+                  (clear)="DisplayNoData($event);">
+              </ng-select>
+              <!-- <span class="text-danger form-text mt-1"
+                  [ngStyle]="{
+              'display': formControls.grade_book_id?.errors  &&formControls.grade_book_id.touched ? 'block':'none'}">Please enter Grade Book
+                  name.</span> -->
+          </div>
+      </div>
+
           <div class="col-md-3 col-xxl-3" *ngIf="filterElements?.hiring_date">
               <div class="form-group mb-3">
                   <label class="text-primary">Hiring Date</label>

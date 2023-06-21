@@ -31,7 +31,8 @@ export class FilterSystemComponent implements OnInit{
     hospitals:[],
     buildings:[],
     floors:[],
-    specialize:[]
+    specialize:[],
+    roomType:[]
   };
 
   subscriptions: Subscription = new Subscription();
@@ -66,7 +67,8 @@ export class FilterSystemComponent implements OnInit{
       buildId:[null],
       floorId:[null],
       roomId:[null],
-      specialize:[null]
+      specialize:[null],
+      roomTypeId:[null]
     });
   }
   get formControls() {
@@ -102,6 +104,7 @@ export class FilterSystemComponent implements OnInit{
     this.getStatus();
     this.getHospitals();
     this.getSpecialize();
+    this.getRoomType();
   }
   selectedStatus ='active'
   getStatus(){
@@ -157,6 +160,17 @@ export class FilterSystemComponent implements OnInit{
     })
     this.lookups.floors=[];
 
+  }
+
+  getRoomType(){
+    let payload={
+      pageSize:30
+    }
+    this.lookupservice.getAllRoomTypesNames(payload).subscribe(
+      (res)=>{
+        this.lookups.roomType = res
+      }
+    )
   }
   getSpecialize(){
     let specialize = [
