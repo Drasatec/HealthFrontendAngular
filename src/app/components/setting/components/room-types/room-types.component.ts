@@ -11,6 +11,7 @@ import { Subscription } from 'rxjs';
 import { MyCustomPaginatorIntl } from '../../../../pages/paginator/paginator.srvice';
 import { BuildingModel } from '../../../system/components/buildings/models/building.model';
 import { AddRoomtypesComponent } from './add-roomtypes/add-roomtypes.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'ngx-room-types',
@@ -90,33 +91,42 @@ export class RoomTypesComponent implements OnInit {
     }
   }
   rowAction(action,id){
-    if(action === 'active' || action ==='inactive'){
+    if(action === 'delete'){
       console.log("act")
+      Swal.fire({
+        title: "هل انت متأكد من حذف نوع الغرفة ؟",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "نعم",
+        cancelButtonText: "الغاء",
+      }).then((result) => {
+        if (result.isConfirmed === true) {
+          this._roomtypeservice.deleteRoomTypes(id).subscribe(
+            (res: any) => {
+              if(action === 'active'){
+                this.snackBar.open("تم الحذف بنجاح ", "ُsuccess", {
+                  duration: 3000,
+                  panelClass: 'success'
+                });
+              }
 
-      this._roomtypeservice.activeRoomTypes(id,action).subscribe(
-        (res: any) => {
-          if(action === 'active'){
-            this.snackBar.open("تم تشغيل النوع  بنجاح ", "ُsuccess", {
-              duration: 3000,
-              panelClass: 'success'
-            });
-          }else{
-            this.snackBar.open("تم ايقاف النوع بنجاح ", "ُsuccess", {
-              duration: 5000,
-              panelClass: 'success'
-            });
-          }
+              this.getTableData(this.fetch);
+            },
+            (err) => {
+              this.snackBar.open("هذا النوع مرتبط بغرفة او له ترجمات", "ُError", {
+                duration: 3000,
+                panelClass: 'error'
+              });
 
-          this.getTableData(this.fetch);
-        },
-        (err) => {
-          this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
-            duration: 3000,
-            panelClass: 'error'
-          });
-
+            }
+          )
         }
-      )
+
+        // Remove Deleted Academic From List & Update the Service Academic Years
+      });
+
     }else if (action === 'edit'){
       console.log("edit")
       this.openEditDialog(id)

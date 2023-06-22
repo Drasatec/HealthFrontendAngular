@@ -47,12 +47,10 @@
           </button>
           <mat-menu #mainMenu="matMenu">
             <button mat-menu-item (click)="rowAction('edit',row.id)" > <i class="fa-solid fa-pen-to-square px-1"></i>تعديل </button>
-            <button mat-menu-item (click)="rowAction('active',row.id)"  *ngIf="row.isDeleted">
-              <i class="fa-solid fa-circle-check" ></i>تشغيل
+            <button mat-menu-item (click)="rowAction('delete',row.id)">
+              <i class="fa-solid fa-circle-check" ></i>حذف
             </button>
-            <button mat-menu-item (click)="rowAction('inactive',row.id)"  *ngIf="!row.isDeleted">
-              <i class="fa-regular fa-circle-xmark" ></i>إيقاف
-            </button>
+
             <button mat-menu-item (click)="rowAction('translate',row.id)">
               <i class="fa-solid fa-globe"></i>إضافة ترجمة
             </button>

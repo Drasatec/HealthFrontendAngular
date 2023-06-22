@@ -26,9 +26,9 @@ export class TypesService {
     const url = `${this.baseURL}RoomType/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  activeRoomTypes(id,status) {
-    const url = `${this.baseURL}RoomType/deactivate?id=${id}&status=${status}`;
-    return this.http.put(url,'');
+  deleteRoomTypes(id) {
+    const url = `${this.baseURL}RoomType/delete?id=${id}`;
+    return this.http.delete(url);
   }
   SearchRoomTypes(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}RoomType/search`;
