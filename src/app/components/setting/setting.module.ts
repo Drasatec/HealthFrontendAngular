@@ -14,6 +14,8 @@ import { SsnTypesComponent } from './components/ssn-types/ssn-types.component';
 import { AddSsntypesComponent } from './components/ssn-types/add-ssntypes/add-ssntypes.component';
 import { PeriodTypesComponent } from './components/period-types/period-types.component';
 import { AddPeriodtypesComponent } from './components/period-types/add-periodtypes/add-periodtypes.component';
+import { NationalityComponent } from './components/nationality/nationality.component';
+import { AddNatioalityComponent } from './components/nationality/add-natioality/add-natioality.component';
 
 
 @NgModule({
@@ -27,7 +29,9 @@ import { AddPeriodtypesComponent } from './components/period-types/add-periodtyp
     SsnTypesComponent,
     AddSsntypesComponent,
     PeriodTypesComponent,
-    AddPeriodtypesComponent
+    AddPeriodtypesComponent,
+    NationalityComponent,
+    AddNatioalityComponent
   ],
   imports: [
     CommonModule,

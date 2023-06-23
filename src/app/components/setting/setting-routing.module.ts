@@ -5,6 +5,7 @@ import { RoomTypesComponent } from './components/room-types/room-types.component
 import { VisitTypesComponent } from './components/visit-types/visit-types.component';
 import { SsnTypesComponent } from './components/ssn-types/ssn-types.component';
 import { PeriodTypesComponent } from './components/period-types/period-types.component';
+import { NationalityComponent } from './components/nationality/nationality.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
@@ -12,6 +13,8 @@ const routes: Routes = [
     {path:'visit-types',component:VisitTypesComponent},
     {path:'ssn-types',component:SsnTypesComponent},
     {path:'working-period',component:PeriodTypesComponent},
+    {path:'nationality',component:NationalityComponent},
+
     {path:'',redirectTo:'room-types',pathMatch:'full'},
 
     ]

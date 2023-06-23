@@ -10,6 +10,7 @@ import { TypesService } from '../../services/types.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SsntypesService } from '../../services/ssntypes.service';
 import { PeriodtypesService } from '../../services/periodtypes.service';
+import { NationalityService } from '../../services/nationality.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -29,6 +30,7 @@ export class TranslationTypesComponent implements OnInit {
     private _visitTypesService:VisitTypesService,
     private _ssnTypesService:SsntypesService,
     private peridService:PeriodtypesService,
+    private _nationalservice:NationalityService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -46,6 +48,8 @@ export class TranslationTypesComponent implements OnInit {
       this.getSsnTypesById(this.data.id)
     }else if(this.data.type === "workperiods"){
       this.getworkperiodsById(this.data.id)
+    }else if(this.data.type === "national"){
+      this.getnationalById(this.data.id)
     }
   }
   get formControls() {
@@ -99,6 +103,18 @@ export class TranslationTypesComponent implements OnInit {
       }
     )
   }
+  nationals;
+  getnationalById(id){
+    this._nationalservice.getnationalityById(id).subscribe(
+      (res:any)=>{
+        this.nationals=res;
+        this.translationData=res.nationalitiesTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -139,8 +155,9 @@ export class TranslationTypesComponent implements OnInit {
       this.delSsnById(id)
     }else if(this.data.type === "workperiods"){
       this.delPeriodById(id)
-
-  }
+    }else if(this.data.type === "national"){
+      this.delNationalById(id)
+    }
 }
 delRoomTypegById(id){
   this._roomTypesService.deleteTrans(id).subscribe(
@@ -194,6 +211,19 @@ delPeriodById(id){
     }
   )
 }
+delNationalById(id){
+  this._nationalservice.deleteNationalTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف الجنسية بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -230,6 +260,8 @@ delPeriodById(id){
               body.append('translations['+(i)+'][ssntypeId]', this.data.id);
             }else if(this.data.type === 'workperiods'){
               body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
+            }else if(this.data.type === 'national'){
+              body.append('translations['+(i)+'][NationalityId]', this.data.id);
             }
 
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
@@ -274,6 +306,13 @@ delPeriodById(id){
     }else if(this.data.type === 'workperiods'){
       console.log(this.dataSend)
       this.peridService.WorkingPeriodsTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'national'){
+      console.log(this.dataSend)
+      this._nationalservice.natioalityTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }

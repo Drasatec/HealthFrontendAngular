@@ -13,6 +13,8 @@ export class SettingComponent {
     {name:'انواع الهويات',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/settings/ssn-types'},
     {name:'انواع الزيارات',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/visit-types'},
     {name:' فترات العمل',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/working-period'},
+    {name:'الجنسيات',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/nationality'},
+    {name:'الفئات السعرية',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/price-category'},
 
 
   ]

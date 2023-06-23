@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NationalityService } from '../../services/nationality.service';
+import { AddNatioalityComponent } from './add-natioality/add-natioality.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,21 +10,17 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BuildingModel } from '../../../system/components/buildings/models/building.model';
-import { TypesService } from '../../services/types.service';
-import { AddRoomtypesComponent } from '../room-types/add-roomtypes/add-roomtypes.component';
 import { TranslationTypesComponent } from '../translation-types/translation-types.component';
-import { AddVisittypesComponent } from './add-visittypes/add-visittypes.component';
-import { VisitTypesService } from '../../services/visit-types.service';
 import { MyCustomPaginatorIntl } from '../../../../pages/paginator/paginator.srvice';
 
 @Component({
-  selector: 'ngx-visit-types',
-  templateUrl: './visit-types.component.html',
-  styleUrls: ['./visit-types.component.scss'],
+  selector: 'ngx-nationality',
+  templateUrl: './nationality.component.html',
+  styleUrls: ['./nationality.component.scss'],
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 
 })
-export class VisitTypesComponent implements OnInit {
+export class NationalityComponent implements OnInit {
   displayedColumns: string[] = ['id','name','action'];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
@@ -36,7 +34,7 @@ export class VisitTypesComponent implements OnInit {
   };
   loading=true;
   constructor(private router:Router,
-    private _roomtypeservice:VisitTypesService,
+    private _nationalservice:NationalityService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     ) {
@@ -58,7 +56,7 @@ export class VisitTypesComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getTableData(this.fetch);
   }
-  visitTypes:any;
+  national:any;
   getTableData(payload?){
     let para
       para={
@@ -69,10 +67,10 @@ export class VisitTypesComponent implements OnInit {
       }
 
     this.subscriptions.add(
-      this._roomtypeservice.getvisitTypes(para).subscribe((res: any) => {
+      this._nationalservice.getnationality(para).subscribe((res: any) => {
 
-      this.visitTypes = res.data;
-      this.dataSource = new MatTableDataSource(this.visitTypes);
+      this.national = res.data;
+      this.dataSource = new MatTableDataSource(this.national);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -96,7 +94,7 @@ export class VisitTypesComponent implements OnInit {
     if(action === 'delete'){
       console.log("act")
       Swal.fire({
-        title: "هل انت متأكد من حذف نوع الزيارة ؟",
+        title: "هل انت متأكد من حذف الجنسية  ؟",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -105,7 +103,7 @@ export class VisitTypesComponent implements OnInit {
         cancelButtonText: "الغاء",
       }).then((result) => {
         if (result.isConfirmed === true) {
-          this._roomtypeservice.deletevisitTypes(id).subscribe(
+          this._nationalservice.deletenationality(id).subscribe(
             (res: any) => {
               if(action === 'active'){
                 this.snackBar.open("تم الحذف بنجاح ", "ُsuccess", {
@@ -138,7 +136,7 @@ export class VisitTypesComponent implements OnInit {
   }
   translateData;
   openEditDialog(id){
-    const dialogRef = this.dialog.open(AddVisittypesComponent,{
+    const dialogRef = this.dialog.open(AddNatioalityComponent,{
       width: "1200px",
       disableClose: true,
       data:{
@@ -158,7 +156,7 @@ export class VisitTypesComponent implements OnInit {
       disableClose: true,
       data:{
         id:id,
-        type:'visitType'
+        type:'national'
 
       }
     })
@@ -171,11 +169,11 @@ export class VisitTypesComponent implements OnInit {
   }
 
   searchRoomTypes(pay){
-    this._roomtypeservice.SearchvisitTypes(pay).subscribe(
+    this._nationalservice.Searchnationality(pay).subscribe(
       (res)=>{
-        this.visitTypes = res;
+        this.national = res;
         // console.log(this.buildings)
-      this.dataSource = new MatTableDataSource(this.visitTypes);
+      this.dataSource = new MatTableDataSource(this.national);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -183,7 +181,7 @@ export class VisitTypesComponent implements OnInit {
     )
   }
   openAddRoomTypes(){
-    const dialogRef = this.dialog.open(AddVisittypesComponent,{
+    const dialogRef = this.dialog.open(AddNatioalityComponent,{
       width: "1200px",
       maxHeight:'80%',
       disableClose: true,

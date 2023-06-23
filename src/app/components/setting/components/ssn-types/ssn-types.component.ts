@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SsntypesService } from '../../services/ssntypes.service';
 import { AddSsntypesComponent } from './add-ssntypes/add-ssntypes.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,11 +11,14 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BuildingModel } from '../../../system/components/buildings/models/building.model';
 import { TranslationTypesComponent } from '../translation-types/translation-types.component';
+import { MyCustomPaginatorIntl } from '../../../../pages/paginator/paginator.srvice';
 
 @Component({
   selector: 'ngx-ssn-types',
   templateUrl: './ssn-types.component.html',
-  styleUrls: ['./ssn-types.component.scss']
+  styleUrls: ['./ssn-types.component.scss'],
+  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+
 })
 export class SsnTypesComponent implements OnInit {
   displayedColumns: string[] = ['id','name','action'];

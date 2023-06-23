@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { PeriodtypesService } from '../../services/periodtypes.service';
 import { AddPeriodtypesComponent } from './add-periodtypes/add-periodtypes.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,11 +11,14 @@ import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { BuildingModel } from '../../../system/components/buildings/models/building.model';
 import { TranslationTypesComponent } from '../translation-types/translation-types.component';
+import { MyCustomPaginatorIntl } from '../../../../pages/paginator/paginator.srvice';
 
 @Component({
   selector: 'ngx-period-types',
   templateUrl: './period-types.component.html',
-  styleUrls: ['./period-types.component.scss']
+  styleUrls: ['./period-types.component.scss'],
+  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+
 })
 export class PeriodTypesComponent implements OnInit {
   displayedColumns: string[] = ['id','name','start','end','action'];
