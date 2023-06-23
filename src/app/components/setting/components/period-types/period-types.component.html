@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="text-base-color text-bold"> انواع الغرف</h5>
+    <h5 class="text-base-color text-bold">  فترات العمل</h5>
     <button class="btn btn-primary background-primary"  (click)="openAddRoomTypes()" >
       <i class="fa-solid fa-circle-plus"></i>
-      إضافة نوع غرقة جديدة
+      إضافة فترة عمل جديدة
     </button>
   </div>
   <ngx-filter
@@ -26,16 +26,23 @@
         <!-- Progress Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
-          <td mat-cell *matCellDef="let row"> {{row?.roomTypeTranslations[0]?.name}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.workingPeriodTranslations[0]?.name}} </td>
         </ng-container>
 
-        <!-- <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header> نشط </th>
+        <ng-container matColumnDef="start">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> بداية الفترة </th>
           <td mat-cell *matCellDef="let row">
-            <i class="fa-regular fa-circle-xmark" *ngIf="row.isDeleted"></i>
-            <i class="fa-solid fa-circle-check" *ngIf="!row.isDeleted"></i>
+            {{row?.startTime}}
           </td>
-        </ng-container> -->
+        </ng-container>
+
+        <ng-container matColumnDef="end">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> نهاية الفترة </th>
+          <td mat-cell *matCellDef="let row">
+            {{row?.endTime}}
+
+          </td>
+        </ng-container>
 
         <ng-container matColumnDef = 'action'>
           <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>

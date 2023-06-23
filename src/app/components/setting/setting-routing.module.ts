@@ -2,11 +2,18 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SettingComponent } from './setting.component';
 import { RoomTypesComponent } from './components/room-types/room-types.component';
+import { VisitTypesComponent } from './components/visit-types/visit-types.component';
+import { SsnTypesComponent } from './components/ssn-types/ssn-types.component';
+import { PeriodTypesComponent } from './components/period-types/period-types.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
     {path:'room-types',component:RoomTypesComponent},
-    {path:'',redirectTo:'room-types',pathMatch:'full'}
+    {path:'visit-types',component:VisitTypesComponent},
+    {path:'ssn-types',component:SsnTypesComponent},
+    {path:'working-period',component:PeriodTypesComponent},
+    {path:'',redirectTo:'room-types',pathMatch:'full'},
+
     ]
   }
 ];

@@ -46,4 +46,8 @@ export class BuildingService {
     const url = `${this.baseURL}building/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
+  deleteTrans(id) {
+    const url = `${this.baseURL}building/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
 }

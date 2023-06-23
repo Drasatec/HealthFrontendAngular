@@ -8,6 +8,8 @@ import { FloorService } from '../../../floors/services/floor.service';
 import { RoomService } from '../../../rooms/services/room.service';
 import { SpecialService } from '../../../specialities/services/special.service';
 import { ClinicService } from '../../../clinics/services/clinic.service';
+import { SnackBarService } from '../../../../../../@theme/services/snackbar.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -29,6 +31,7 @@ export class AddBuildTranslateComponent implements OnInit {
     private _specialService:SpecialService,
     private _clinicService:ClinicService,
     private __helper:HelperService,
+    private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) { }
@@ -132,15 +135,94 @@ export class AddBuildTranslateComponent implements OnInit {
     emails.push(this.createEmailFormGroup())
   }
 
-  public removeOrClearEmail(i: number) {
+  public removeOrClearEmail(i: number,id:number) {
+    console.log("remove",id)
     const languages = this.formTrans.get('translations') as FormArray
     if (languages.length > 1) {
       languages.removeAt(i)
+      this.removeTranslation(id)
     } else {
       languages.reset()
     }
   }
+  removeTranslation(id:number){
+    if(this.data.type === "building"){
+      this.delBuildingById(id)
+    }else if(this.data.type === "floor"){
+      this.delFloorById(id)
+    }else if(this.data.type === "room"){
+      this.delRoomById(id)
+    }else if(this.data.type === "special"){
+      this.delSpecialById(id)
+    }else if(this.data.type === "clinic"){
+      this.delClinicById(id)
+    }
+  }
+  delBuildingById(id){
+    this._buildingService.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف المبني بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
 
+        }
+      }
+    )
+  }
+  delFloorById(id){
+    this._floorService.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف الطابق بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
+  delClinicById(id){
+    this._clinicService.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف العيادة بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
+  delRoomById(id){
+    this._roomService.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف الغرفة بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
+  delSpecialById(id){
+    this._specialService.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف الغرفة بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({

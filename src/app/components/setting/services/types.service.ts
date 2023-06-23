@@ -13,7 +13,7 @@ export class TypesService {
   private subjectBehaviorPeriods = new BehaviorSubject<any>({});
 
   constructor(private http: HttpClient) {}
-
+  /** RoomTypes */
   roomTypesTranslation(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}RoomType/edit-translations`;
     return this.http.put(url,fetchCriteria );
@@ -42,4 +42,9 @@ export class TypesService {
     const url = `${this.baseURL}RoomType/edit`;
     return this.http.put(url,body);
   }
+  deleteTrans(id:number): Observable<any> {
+    const url = `${this.baseURL}RoomType/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
+
 }

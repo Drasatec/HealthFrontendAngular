@@ -19,7 +19,7 @@
         <div class="col-12 d-flex justify-content-end">
           <button mat-fab extended aria-label="Add"
             (click)="addEmailFormGroup()" matTooltip="Add">
-            <mat-icon>add_circle_outline</mat-icon>
+            <i class="fa-solid fa-square-plus"></i>
           </button>
         </div>
         <div class="row translation" *ngFor="let lang of myFormArray['controls']; let i = index"
@@ -47,8 +47,8 @@
             </div>
             <div class="col">
               <button mat-fab extended aria-label="Remove/clear"
-                  (click)="removeOrClearEmail(i)" matTooltip="Remove">
-                <mat-icon>highlight_off</mat-icon>
+                  (click)="removeOrClearEmail(i,lang.value.id)" matTooltip="Remove">
+                  <i class="fa-solid fa-trash"></i>
               </button>
             </div>
 

@@ -55,4 +55,8 @@ export class HospitalService {
     const url = `${this.baseURL}Hospital/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
+  deleteTrans(id) {
+    const url = `${this.baseURL}Hospital/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
 }

@@ -1,26 +1,25 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { TypesService } from '../../services/types.service';
-import { TranslationTypesComponent } from '../translation-types/translation-types.component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginatorIntl, MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MyCustomPaginatorIntl } from '../../../../pages/paginator/paginator.srvice';
-import { BuildingModel } from '../../../system/components/buildings/models/building.model';
-import { AddRoomtypesComponent } from './add-roomtypes/add-roomtypes.component';
 import Swal from 'sweetalert2';
+import { BuildingModel } from '../../../system/components/buildings/models/building.model';
+import { TypesService } from '../../services/types.service';
+import { AddRoomtypesComponent } from '../room-types/add-roomtypes/add-roomtypes.component';
+import { TranslationTypesComponent } from '../translation-types/translation-types.component';
+import { AddVisittypesComponent } from './add-visittypes/add-visittypes.component';
+import { VisitTypesService } from '../../services/visit-types.service';
 
 @Component({
-  selector: 'ngx-room-types',
-  templateUrl: './room-types.component.html',
-  styleUrls: ['./room-types.component.scss'],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
-
+  selector: 'ngx-visit-types',
+  templateUrl: './visit-types.component.html',
+  styleUrls: ['./visit-types.component.scss']
 })
-export class RoomTypesComponent implements OnInit {
+export class VisitTypesComponent implements OnInit {
   displayedColumns: string[] = ['id','name','action'];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
@@ -34,7 +33,7 @@ export class RoomTypesComponent implements OnInit {
   };
   loading=true;
   constructor(private router:Router,
-    private _roomtypeservice:TypesService,
+    private _roomtypeservice:VisitTypesService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
     ) {
@@ -56,7 +55,7 @@ export class RoomTypesComponent implements OnInit {
     this.pageIndex = event.pageIndex;
     this.getTableData(this.fetch);
   }
-  roomTypes:any;
+  visitTypes:any;
   getTableData(payload?){
     let para
       para={
@@ -67,10 +66,10 @@ export class RoomTypesComponent implements OnInit {
       }
 
     this.subscriptions.add(
-      this._roomtypeservice.getRoomTypes(para).subscribe((res: any) => {
+      this._roomtypeservice.getvisitTypes(para).subscribe((res: any) => {
 
-      this.roomTypes = res.data;
-      this.dataSource = new MatTableDataSource(this.roomTypes);
+      this.visitTypes = res.data;
+      this.dataSource = new MatTableDataSource(this.visitTypes);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -94,7 +93,7 @@ export class RoomTypesComponent implements OnInit {
     if(action === 'delete'){
       console.log("act")
       Swal.fire({
-        title: "هل انت متأكد من حذف نوع الغرفة ؟",
+        title: "هل انت متأكد من حذف نوع الزيارة ؟",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
@@ -103,7 +102,7 @@ export class RoomTypesComponent implements OnInit {
         cancelButtonText: "الغاء",
       }).then((result) => {
         if (result.isConfirmed === true) {
-          this._roomtypeservice.deleteRoomTypes(id).subscribe(
+          this._roomtypeservice.deletevisitTypes(id).subscribe(
             (res: any) => {
               if(action === 'active'){
                 this.snackBar.open("تم الحذف بنجاح ", "ُsuccess", {
@@ -115,7 +114,7 @@ export class RoomTypesComponent implements OnInit {
               this.getTableData(this.fetch);
             },
             (err) => {
-              this.snackBar.open("هذا النوع مرتبط بغرفة او له ترجمات", "ُError", {
+              this.snackBar.open("هذا النوع مرتبط  او له ترجمات", "ُError", {
                 duration: 3000,
                 panelClass: 'error'
               });
@@ -136,7 +135,7 @@ export class RoomTypesComponent implements OnInit {
   }
   translateData;
   openEditDialog(id){
-    const dialogRef = this.dialog.open(AddRoomtypesComponent,{
+    const dialogRef = this.dialog.open(AddVisittypesComponent,{
       width: "1200px",
       disableClose: true,
       data:{
@@ -156,7 +155,7 @@ export class RoomTypesComponent implements OnInit {
       disableClose: true,
       data:{
         id:id,
-        type:'roomType'
+        type:'visitType'
 
       }
     })
@@ -169,11 +168,11 @@ export class RoomTypesComponent implements OnInit {
   }
 
   searchRoomTypes(pay){
-    this._roomtypeservice.SearchRoomTypes(pay).subscribe(
+    this._roomtypeservice.SearchvisitTypes(pay).subscribe(
       (res)=>{
-        this.roomTypes = res;
+        this.visitTypes = res;
         // console.log(this.buildings)
-      this.dataSource = new MatTableDataSource(this.roomTypes);
+      this.dataSource = new MatTableDataSource(this.visitTypes);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
       this.loading=false;
@@ -181,7 +180,7 @@ export class RoomTypesComponent implements OnInit {
     )
   }
   openAddRoomTypes(){
-    const dialogRef = this.dialog.open(AddRoomtypesComponent,{
+    const dialogRef = this.dialog.open(AddVisittypesComponent,{
       width: "1200px",
       maxHeight:'80%',
       disableClose: true,

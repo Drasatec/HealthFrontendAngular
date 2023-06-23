@@ -3,6 +3,7 @@ import { FormArray, FormGroup, FormControl, Validators, FormBuilder } from '@ang
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HospitalService } from '../../services/hospital.service';
 import { HelperService } from '../../../../../../@theme/services/helper.service';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'ngx-add-info-translate',
@@ -20,6 +21,8 @@ export class AddInfoTranslateComponent implements OnInit{
     private _FormBuilder:FormBuilder,
     private _hospitalService:HospitalService,
     private __helper:HelperService,
+    private snackbar:MatSnackBar,
+
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) { }
@@ -65,13 +68,30 @@ export class AddInfoTranslateComponent implements OnInit{
     emails.push(this.createEmailFormGroup())
   }
 
-  public removeOrClearEmail(i: number) {
+  public removeOrClearEmail(i: number,id:number) {
     const languages = this.formTrans.get('translations') as FormArray
     if (languages.length > 1) {
       languages.removeAt(i)
+      this.removeTranslation(id)
+
     } else {
       languages.reset()
     }
+  }
+  removeTranslation(id:number){
+
+      this._hospitalService.deleteTrans(id).subscribe(
+        (res:any)=>{
+          if(res.success){
+            this.snackbar.open("تم حذف المستشفي بنجاح ", "ُsuccess", {
+              duration: 5000,
+              panelClass: 'success'
+            });
+
+          }
+        }
+      )
+
   }
 
   private createEmailFormGroup(data?): FormGroup {

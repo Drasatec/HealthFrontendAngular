@@ -31,6 +31,10 @@ export class ClinicService {
     const url = `${this.baseURL}Clinic/edit-translations/${id}`;
     return this.http.put(url,body);
   }
+  deleteTrans(id) {
+    const url = `${this.baseURL}Clinic/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
 
   createClinic(body: any,): Observable<any> {
     const url = `${this.baseURL}Clinic/add`;

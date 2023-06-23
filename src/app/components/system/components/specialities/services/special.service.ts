@@ -46,4 +46,8 @@ export class SpecialService {
     const url = `${this.baseURL}MedicalSpecialty/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');
   }
+  deleteTrans(id) {
+    const url = `${this.baseURL}MedicalSpecialty/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
 }

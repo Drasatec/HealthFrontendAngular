@@ -1,3 +1,4 @@
+import { VisitTypesService } from './../../services/visit-types.service';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -6,6 +7,9 @@ import { BuildingService } from '../../../system/components/buildings/services/b
 import { AddInfoTranslateComponent } from '../../../system/components/hospitals/components/add-info-translate/add-info-translate.component';
 import { RoomTypesComponent } from '../room-types/room-types.component';
 import { TypesService } from '../../services/types.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SsntypesService } from '../../services/ssntypes.service';
+import { PeriodtypesService } from '../../services/periodtypes.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -22,7 +26,11 @@ export class TranslationTypesComponent implements OnInit {
     public dialogRef: MatDialogRef<AddInfoTranslateComponent>,
     private _FormBuilder:FormBuilder,
     private _roomTypesService:TypesService,
+    private _visitTypesService:VisitTypesService,
+    private _ssnTypesService:SsntypesService,
+    private peridService:PeriodtypesService,
     private __helper:HelperService,
+    private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) { }
@@ -32,6 +40,12 @@ export class TranslationTypesComponent implements OnInit {
     console.log(this.data)
     if(this.data.type === "roomType"){
       this.getRoomTypesById(this.data.id)
+    }else if(this.data.type === "visitType"){
+      this.getVisitTypesById(this.data.id)
+    }else if(this.data.type === "ssnType"){
+      this.getSsnTypesById(this.data.id)
+    }else if(this.data.type === "workperiods"){
+      this.getworkperiodsById(this.data.id)
     }
   }
   get formControls() {
@@ -49,7 +63,42 @@ export class TranslationTypesComponent implements OnInit {
       }
     )
   }
-
+  visits;
+  getVisitTypesById(id){
+    this._visitTypesService.getvisitTypesById(id).subscribe(
+      (res:any)=>{
+        this.visits=res;
+        this.translationData=res.typesVisitTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  ssn;
+  getSsnTypesById(id){
+    this._ssnTypesService.getssnTypesById(id).subscribe(
+      (res:any)=>{
+        this.ssn=res;
+        this.translationData=res.ssntypesTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  workperiods;
+  getworkperiodsById(id){
+    this.peridService.getWorkingPeriodsById(id).subscribe(
+      (res:any)=>{
+        this.ssn=res;
+        this.translationData=res.workingPeriodTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -71,15 +120,80 @@ export class TranslationTypesComponent implements OnInit {
     emails.push(this.createEmailFormGroup())
   }
 
-  public removeOrClearEmail(i: number) {
+  public removeOrClearEmail(i: number,id:number) {
     const languages = this.formTrans.get('translations') as FormArray
     if (languages.length > 1) {
       languages.removeAt(i)
+      this.removeTranslation(id)
+
     } else {
       languages.reset()
     }
   }
+  removeTranslation(id:number){
+    if(this.data.type === "roomType"){
+      this.delRoomTypegById(id)
+    }else if(this.data.type === "visitType"){
+      this.delVisitTypeById(id)
+    }else if(this.data.type === "ssnType"){
+      this.delSsnById(id)
+    }else if(this.data.type === "workperiods"){
+      this.delPeriodById(id)
 
+  }
+}
+delRoomTypegById(id){
+  this._roomTypesService.deleteTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف النوع بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
+delVisitTypeById(id){
+  this._visitTypesService.deletevisitTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف النوع بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
+delSsnById(id){
+  this._ssnTypesService.deletessnTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف فترة العمل بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
+delPeriodById(id){
+  this.peridService.deleteperiodTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف فترة العمل بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -110,7 +224,14 @@ export class TranslationTypesComponent implements OnInit {
           for (let i = 0; i < formVal['translations'].length; i++) {
             if(this.data.type === 'roomType'){
               body.append('translations['+(i)+'][RoomTypeId]', this.data.id);
+            }else if(this.data.type === 'visitType'){
+              body.append('translations['+(i)+'][TypeVisitId]', this.data.id);
+            }else if(this.data.type === 'ssnType'){
+              body.append('translations['+(i)+'][ssntypeId]', this.data.id);
+            }else if(this.data.type === 'workperiods'){
+              body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
             }
+
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
@@ -132,6 +253,27 @@ export class TranslationTypesComponent implements OnInit {
     if(this.data.type === 'roomType'){
       console.log(this.dataSend)
       this._roomTypesService.roomTypesTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'visitType'){
+      console.log(this.dataSend)
+      this._visitTypesService.visitTypesTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'ssnType'){
+      console.log(this.dataSend)
+      this._ssnTypesService.ssnTypesTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'workperiods'){
+      console.log(this.dataSend)
+      this.peridService.WorkingPeriodsTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }
