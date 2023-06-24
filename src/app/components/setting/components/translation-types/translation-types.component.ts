@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SsntypesService } from '../../services/ssntypes.service';
 import { PeriodtypesService } from '../../services/periodtypes.service';
 import { NationalityService } from '../../services/nationality.service';
+import { PricecatrgoryService } from '../../services/picecatrgory.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -31,6 +32,7 @@ export class TranslationTypesComponent implements OnInit {
     private _ssnTypesService:SsntypesService,
     private peridService:PeriodtypesService,
     private _nationalservice:NationalityService,
+    private _priceService:PricecatrgoryService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,6 +52,8 @@ export class TranslationTypesComponent implements OnInit {
       this.getworkperiodsById(this.data.id)
     }else if(this.data.type === "national"){
       this.getnationalById(this.data.id)
+    }else if(this.data.type === "pricecat"){
+      this.getpriceById(this.data.id)
     }
   }
   get formControls() {
@@ -115,6 +119,18 @@ export class TranslationTypesComponent implements OnInit {
       }
     )
   }
+  priceCat;
+  getpriceById(id){
+    this._priceService.getPriceCategoryById(id).subscribe(
+      (res:any)=>{
+        this.priceCat=res;
+        this.translationData=res.priceCategoryTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -157,6 +173,8 @@ export class TranslationTypesComponent implements OnInit {
       this.delPeriodById(id)
     }else if(this.data.type === "national"){
       this.delNationalById(id)
+    }else if(this.data.type === "pricecat"){
+      this.delPriceById(id)
     }
 }
 delRoomTypegById(id){
@@ -224,6 +242,19 @@ delNationalById(id){
     }
   )
 }
+delPriceById(id){
+  this._priceService.deletePriceCategoryTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف الفئة بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -262,6 +293,8 @@ delNationalById(id){
               body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
             }else if(this.data.type === 'national'){
               body.append('translations['+(i)+'][NationalityId]', this.data.id);
+            }else if(this.data.type === 'pricecat'){
+              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
             }
 
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
@@ -313,6 +346,13 @@ delNationalById(id){
     }else if(this.data.type === 'national'){
       console.log(this.dataSend)
       this._nationalservice.natioalityTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'pricecat'){
+      console.log(this.dataSend)
+      this._priceService.priceCategoryTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }

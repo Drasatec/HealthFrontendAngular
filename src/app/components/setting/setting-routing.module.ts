@@ -6,6 +6,7 @@ import { VisitTypesComponent } from './components/visit-types/visit-types.compon
 import { SsnTypesComponent } from './components/ssn-types/ssn-types.component';
 import { PeriodTypesComponent } from './components/period-types/period-types.component';
 import { NationalityComponent } from './components/nationality/nationality.component';
+import { PriceCategoryComponent } from './components/price-category/price-category.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
@@ -14,6 +15,7 @@ const routes: Routes = [
     {path:'ssn-types',component:SsnTypesComponent},
     {path:'working-period',component:PeriodTypesComponent},
     {path:'nationality',component:NationalityComponent},
+    {path:'price-category',component:PriceCategoryComponent},
 
     {path:'',redirectTo:'room-types',pathMatch:'full'},
 

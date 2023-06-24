@@ -16,6 +16,8 @@ import { PeriodTypesComponent } from './components/period-types/period-types.com
 import { AddPeriodtypesComponent } from './components/period-types/add-periodtypes/add-periodtypes.component';
 import { NationalityComponent } from './components/nationality/nationality.component';
 import { AddNatioalityComponent } from './components/nationality/add-natioality/add-natioality.component';
+import { PriceCategoryComponent } from './components/price-category/price-category.component';
+import { AddPricecategoryComponent } from './components/price-category/add-pricecategory/add-pricecategory.component';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { AddNatioalityComponent } from './components/nationality/add-natioality/
     PeriodTypesComponent,
     AddPeriodtypesComponent,
     NationalityComponent,
-    AddNatioalityComponent
+    AddNatioalityComponent,
+    PriceCategoryComponent,
+    AddPricecategoryComponent
   ],
   imports: [
     CommonModule,
