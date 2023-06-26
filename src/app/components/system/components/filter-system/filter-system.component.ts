@@ -67,7 +67,7 @@ export class FilterSystemComponent implements OnInit{
       buildId:[null],
       floorId:[null],
       roomId:[null],
-      specialize:[null],
+      specialtyId:[null],
       roomTypeId:[null]
     });
   }
@@ -173,13 +173,10 @@ export class FilterSystemComponent implements OnInit{
     )
   }
   getSpecialize(){
-    let specialize = [
-      {id:1,name:' باطن'},
-      {id:2,name:' قلب'},
-      {id:3,name:' انف و اذن'},
-      {id:4,name:' اطفال'},
-
-    ]
-    this.lookups.specialize = specialize
+    this.lookupservice.getAllSpecialNames().subscribe(
+      (res)=>{
+        this.lookups.specialize=res
+      }
+    )
   }
 }

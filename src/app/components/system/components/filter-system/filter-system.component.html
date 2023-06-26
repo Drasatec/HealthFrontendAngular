@@ -76,14 +76,14 @@
           </div>
       </div>
 
-          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.specialize">
+          <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.specialtyId">
             <div class="form-group">
                 <!-- <label> المستشفيات</label> -->
                 <ng-select [items]="lookups.specialize" appendTo="body" placeholder="تخصصات"
                     bindValue="id" bindLabel="name" [virtualScroll]="true"
                     aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
-                    formControlName="specialize"
-                    [multiple]="false"
+                    formControlName="specialtyId"
+                    [multiple]="false" (change)="filters()"
                     (clear)="DisplayNoData($event);">
                 </ng-select>
                 <!-- <span class="text-danger form-text mt-1"

@@ -1,0 +1,62 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="text-base-color text-bold"> الأطباء</h5>
+    <button class="btn btn-primary background-primary" (click)="openAddDoctors()" >
+      <i class="fa-solid fa-circle-plus"></i>
+      إضافة طبيب جديدة
+    </button>
+  </div>
+  <ngx-filter
+      (FilterChange)="onFilterChange($event)"
+      [filterElements]="filterElements"
+    >
+    </ngx-filter>
+  <div class="card-body">
+
+    <div class="doctor row">
+      <div class="col-lg-4 col-md-6 col-12" *ngFor="let doctor of doctors">
+        <div class="doc-card py-2" *ngIf="doctor.isAppearanceOnSite">
+          <div class="row align-items-center">
+            <div class="col-md-4">
+              <img [src]="doctor.photo ? imgUrl +'small/'+doctor.photo+'?timestamp='+timestamp :'/assets/images/nick.png'" [alt]="doctor.photo" class="img-fluid rounded-circle">
+            </div>
+            <div class="col-md-8">
+              <div class="doc-card-body">
+                <h5 class="card-title text-bold">{{doctor.doctorTranslations[0].fullName}}</h5>
+                <p class="card-text">{{doctor.doctorTranslations[0].headline}}</p>
+              </div>
+            </div>
+          </div>
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+              <i class="fa-solid fa-user-doctor mx-1"></i>
+              <span>ملف شخصي</span>
+            </button>
+            <button mat-menu-item >
+              <i class="fa-solid fa-pen-to-square mx-1"></i>
+              <span>تعديل</span>
+            </button>
+            <button mat-menu-item (click)="rowAction('active',doctor.id)"  *ngIf="doctor.isDeleted">
+              <i class="fa-solid fa-circle-check  mx-1" ></i>تشغيل
+            </button>
+            <button mat-menu-item (click)="rowAction('inactive',doctor.id)"  *ngIf="!doctor.isDeleted">
+              <i class="fa-regular fa-circle-xmark mx-1" ></i>إيقاف
+            </button>
+            <button mat-menu-item (click)="rowAction('translate',doctor.id)">
+              <i class="fa-solid fa-globe mx-1"></i>إضافة ترجمة
+            </button>
+          </mat-menu>
+        </div>
+
+
+        </div>
+      </div>
+      <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="اختر صفحة">
+      </mat-paginator>
+    </div>
+
+
+  </div>

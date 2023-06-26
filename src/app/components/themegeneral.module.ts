@@ -16,6 +16,9 @@ import { MatTableModule } from '@angular/material/table';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { DebounceInputChangeDirective } from '../@theme/directives/input-change-debounce.directive';
 import { ThemeModule } from '../@theme/theme.module';
+import { HttpClientModule } from '@angular/common/http';
+import { NbRouteTabsetModule, NbTabsetModule } from '@nebular/theme';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     DebounceInputChangeDirective,
@@ -26,8 +29,6 @@ import { ThemeModule } from '../@theme/theme.module';
     FormsModule,
     ReactiveFormsModule,
     ThemeModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatFormFieldModule,
     MatMenuModule,
@@ -40,15 +41,17 @@ import { ThemeModule } from '../@theme/theme.module';
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
+    NbRouteTabsetModule,
+    NbTabsetModule,
+    NgbDatepickerModule
   ],
   exports:[
     DebounceInputChangeDirective,
     FormsModule,
     ReactiveFormsModule,
     ThemeModule,
-    FormsModule,
-    ReactiveFormsModule,
     MatTableModule,
     MatFormFieldModule,
     MatMenuModule,
@@ -61,7 +64,11 @@ import { ThemeModule } from '../@theme/theme.module';
     MatSelectModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule,
+    NbRouteTabsetModule,
+    NbTabsetModule,
+    NgbDatepickerModule
   ]
 })
 export class ThemeGeneralModule { }
