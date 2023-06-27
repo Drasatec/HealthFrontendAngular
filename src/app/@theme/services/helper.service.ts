@@ -39,10 +39,10 @@ export class HelperService {
         return obj
     }
     deleteNullValuesFetchCriteria(obj) {
-      console.log('obj',obj)
+      // console.log('obj',obj)
         Object.keys(obj).forEach(key => {
-          console.log('key',key)
-            if (obj[key] === undefined || obj[key] === null || obj[key] === '') {
+          console.log('key',obj[key])
+            if (obj[key] === undefined || obj[key] === null || obj[key] === '' ) {
                 delete obj[key]
             }
         })

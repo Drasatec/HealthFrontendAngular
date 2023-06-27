@@ -242,8 +242,10 @@ export class AddBuildTranslateComponent implements OnInit {
     console.log(obj)
     obj.translations =
     obj?.translations.map((el) => {
-      return this.__helper.deleteNullValues(el);
+      return this.__helper.deleteNullValuesFetchCriteria(el);
     });
+    obj.translations = obj.translations.filter((translation) => Object.keys(translation).length !== 0);
+
     let body = new FormData();
     let bodyObj = {}
     const formVal = obj;

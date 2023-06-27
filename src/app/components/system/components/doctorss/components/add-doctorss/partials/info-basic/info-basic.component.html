@@ -48,16 +48,29 @@
     </div>
     <div class="row filter-border">
         <!-- begin:: search  -->
+        <div class="col-md-6 col-xxl-6 filter-border">
+
+          <div class="form-group mb-3">
+              <label for="example-search-input" class="text-base-color text-bold"> الكود<span class="text-danger">*</span></label>
+              <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
+            <!-- <span class="help-block" *ngIf="!form.get('name').valid && form.get('name').touched">
+              <span *ngIf = "form.get('name').errors['required']">من فضلك ادخل اسم الطبيب </span>
+            </span> -->
+          </div>
+
+        </div>
+      <div class="col-md-6 col-xxl-6 filter-border">
+
         <div class="form-group mb-3">
             <label for="example-search-input" class="text-base-color text-bold">اسم الطبيب<span class="text-danger">*</span></label>
-            <input type="text" formControlName="name" class="form-control pr-3 my-2" >
-          <span class="help-block" *ngIf="!form.get('name').valid && form.get('name').touched">
+            <input type="text" formControlName="FullName" class="form-control pr-3 my-2" >
+          <!-- <span class="help-block" *ngIf="!form.get('name').valid && form.get('name').touched">
             <span *ngIf = "form.get('name').errors['required']">من فضلك ادخل اسم الطبيب </span>
-          </span>
+          </span> -->
         </div>
 
       </div>
-      <div class="col-md-6 col-xxl-6 filter-border">
+      <!-- <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
             <label  for="example-search-input" class="text-base-color text-bold">تاريخ الميلاد</label>
             <div class="input-group">
@@ -71,11 +84,11 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">النوع</label>
-          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="gander" formControlName="gander"
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="gander" formControlName="Gender"
               bindValue="id" bindLabel="name" appDebounceInputChange >
           </ng-select>
         </div>
@@ -84,39 +97,54 @@
       <!-- begin:: search  -->
       <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">رقم الموبايل </label>
-          <input type="text" formControlName="mobile" class="form-control pr-3 my-2">
+          <input type="text" formControlName="PhoneNumber" class="form-control pr-3 my-2">
 
+      </div>
+    </div>
+    <div class="col-md-6 col-xxl-6 filter-border">
+      <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold">المسمي الوظيفي</label>
+          <input type="text" formControlName="Headline" class="form-control pr-3 my-2">
+
+      </div>
+    </div>
+    <div class="col-12 filter-border">
+      <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold">تفاصيل <span class="text-danger">*</span></label>
+          <textarea formControlName="About" class="form-control pr-3 my-2" row="3"></textarea>
+      </div>
+    </div>
+    <div class="col-md-6 col-xxl-6 filter-border">
+      <div class="form-group mb-3">
+        <label for="example-search-input" class="text-base-color text-bold">الجنسية</label>
+        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="national" formControlName="NationalityId"
+            bindValue="id" bindLabel="name" appDebounceInputChange >
+        </ng-select>
       </div>
     </div>
     <div class="col-md-6 col-xxl-6 filter-border">
       <!-- begin:: search  -->
       <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">العنوان</label>
-          <input type="text" formControlName="address" class="form-control pr-3 my-2">
-
-      </div>
-    </div>
-    <div class="col-md-6 col-xxl-6 filter-border">
-      <!-- begin:: search  -->
-      <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">عنوان البريد الالكتروني</label>
-          <input type="text" formControlName="email" class="form-control pr-3 my-2">
+          <label for="example-search-input" class="text-base-color text-bold">الدرجة العلمية</label>
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="DoctorsDegree" formControlName="DoctorsDegreeId"
+            bindValue="id" bindLabel="name" appDebounceInputChange >
+          </ng-select>
 
       </div>
     </div>
     <div class="col-md-6 col-xxl-6 filter-border">
       <div class="form-group mb-3">
         <label for="example-search-input" class="text-base-color text-bold">حاله ظهور رقم الهاتف فى الموقع</label>
-        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="phone_web"
-            bindValue="id" bindLabel="name" appDebounceInputChange >
+        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="PhoneNumberAppearance"
+            bindValue="value" bindLabel="name" appDebounceInputChange >
         </ng-select>
       </div>
     </div>
     <div class="col-md-6 col-xxl-6 filter-border">
       <div class="form-group mb-3">
         <label for="example-search-input" class="text-base-color text-bold">حاله ظهور الطبيب فى التطبيق</label>
-        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="app"
-            bindValue="id" bindLabel="name" appDebounceInputChange >
+        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="IsAppearanceOnSite"
+            bindValue="value" bindLabel="name" appDebounceInputChange >
         </ng-select>
       </div>
     </div>
@@ -124,7 +152,7 @@
       <!-- begin:: search  -->
       <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">  ساعات العمل </label>
-          <input type="text" formControlName="worktime" class="form-control pr-3 my-2">
+          <input type="text" formControlName="workingHours" class="form-control pr-3 my-2">
 
       </div>
     </div>
@@ -132,8 +160,8 @@
       <!-- begin:: search  -->
       <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">   حاله ظهور قيمه الكشف</label>
-          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="price"
-            bindValue="id" bindLabel="name" appDebounceInputChange >
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="answer" formControlName="VisitPriceAppearance"
+            bindValue="value" bindLabel="name" appDebounceInputChange >
           </ng-select>
 
       </div>
@@ -141,11 +169,20 @@
     <div class="col-md-6 col-xxl-6 filter-border">
       <!-- begin:: search  -->
       <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold"> حاله الطبيب</label>
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="docStatus" formControlName="DocStatus"
+            bindValue="id" bindLabel="name" appDebounceInputChange >
+          </ng-select>
+
+      </div>
+    </div>
+    <!-- <div class="col-md-6 col-xxl-6 filter-border">
+      <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">   الحد الاقصى للزيارات</label>
           <input type="text" formControlName="visit" class="form-control pr-3 my-2">
 
       </div>
-    </div>
+    </div> -->
     <div class="d-flex justify-content-center mt-4">
       <button type="button " class="btn btn-primary background-primary col-3"  (click)="save()">
           <span>إضافة</span>

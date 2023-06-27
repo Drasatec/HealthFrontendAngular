@@ -101,7 +101,7 @@ export class AddDoctorTranslateComponent implements OnInit {
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
-      'DoctorId':new FormControl(this.data.id),
+      'DoctorId':new FormControl(data?this.data.id:null),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
       'FullName': new FormControl(data?.fullName ? data?.fullName :null),
@@ -117,8 +117,12 @@ export class AddDoctorTranslateComponent implements OnInit {
     console.log(obj)
     obj.translations =
     obj?.translations.map((el) => {
-      return this.__helper.deleteNullValues(el);
+      return this.__helper.deleteNullValuesFetchCriteria(el);
     });
+    obj.translations = obj.translations.filter((translation) => Object.keys(translation).length !== 0);
+
+    console.log(obj)
+
     let body = new FormData();
     let bodyObj = {}
     const formVal = obj;
@@ -146,6 +150,7 @@ export class AddDoctorTranslateComponent implements OnInit {
     return body;
   }
   dataSend;
+
   save(){
     this.dataSend=this.formData(this.formTrans.value)
       this._doctorService.addTranslation(this.data.id,this.dataSend).subscribe(
