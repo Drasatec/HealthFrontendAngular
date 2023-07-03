@@ -31,6 +31,10 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}Room/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllClinicsNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Clinic/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
   getAllSpecialNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}MedicalSpecialty/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
@@ -41,6 +45,18 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
   }
   getAllNationalityNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}Nationality/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllWorkingPeriodNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}WorkingPeriod/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllVisitTypesNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}TypesVisit/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllPriceCategoryNames(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}PriceCategory/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
 }

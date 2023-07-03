@@ -12,6 +12,7 @@ import { InfoBasicComponent } from './components/add-doctorss/partials/info-basi
 import { UploadFilesComponent } from './components/add-doctorss/partials/upload-files/upload-files.component';
 import { InfoJobsComponent } from './components/add-doctorss/partials/info-jobs/info-jobs.component';
 import { AddDoctorTranslateComponent } from './components/add-doctor-translate/add-doctor-translate.component';
+import { VisitPriceComponent } from './components/add-doctorss/partials/visit-price/visit-price.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AddDoctorTranslateComponent } from './components/add-doctor-translate/a
     InfoBasicComponent,
     UploadFilesComponent,
     InfoJobsComponent,
-    AddDoctorTranslateComponent
+    AddDoctorTranslateComponent,
+    VisitPriceComponent
   ],
   imports: [
     CommonModule,

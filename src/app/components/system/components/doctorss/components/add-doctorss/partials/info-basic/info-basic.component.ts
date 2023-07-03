@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -38,6 +38,8 @@ export class InfoBasicComponent implements OnInit {
   }
   id:number;
   doctor:any;
+  @Output() navigateToAccountTab: EventEmitter<number> = new EventEmitter<number>();
+
   ngOnInit(): void {
     // this.route.params.subscribe(
     //   (param)=>{
@@ -95,7 +97,7 @@ export class InfoBasicComponent implements OnInit {
       IsAppearanceOnSite:[null],
       PhoneNumberAppearance:[null],
       VisitPriceAppearance:[null],
-      DoctorsDegreeId:[null],
+      // DoctorsDegreeId:[null],
       NationalityId:[null],
       FullName:[null],
       Headline:[null],
@@ -117,7 +119,10 @@ export class InfoBasicComponent implements OnInit {
       }
     });
   }
-  newBuildId;
+  emitIdAndNavigate(newDoctorId?) {
+    this.navigateToAccountTab.emit(newDoctorId);
+  }
+  newDoctorId;
 
   save(){
     this.form.markAllAsTouched();
@@ -126,12 +131,15 @@ export class InfoBasicComponent implements OnInit {
       if(!this.id){
         this._doctorService.createDoctor(this.sendData).subscribe(
           (res)=>{
-            this.newBuildId = res.id
+            this.newDoctorId = {
+              id:res.value.id,
+              name:res.value.doctorTranslations[0].fullName
+            }
             this.snackBar.open("تم اضافة الطبيب بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
-            this.closeDialog()
+            this.emitIdAndNavigate(this.newDoctorId )
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -148,7 +156,8 @@ export class InfoBasicComponent implements OnInit {
               duration: 5000,
               panelClass: 'success'
             });
-            this.closeEditDialog()
+            this.emitIdAndNavigate()
+
           },
           (err) => {
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
@@ -163,9 +172,6 @@ export class InfoBasicComponent implements OnInit {
     }
   }
 
-  closeDialog() {
-    this.dialogRef.close(this.newBuildId);
-  }
   closeEditDialog() {
     this.dialogRef.close({isAdd:true});
   }

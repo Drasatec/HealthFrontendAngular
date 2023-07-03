@@ -10,16 +10,19 @@
   <div class="card-body">
 
         <nb-tabset>
-          <nb-tab tabTitle="البيانات الرئيسية">
-            <ngx-info-basic></ngx-info-basic>
+          <nb-tab tabTitle="البيانات الرئيسية" [active]="selectedTabIndex === 0">
+            <ngx-info-basic (navigateToAccountTab)="goToAccountTab($event)" ></ngx-info-basic>
           </nb-tab>
-          <nb-tab tabTitle="المرفقات">
+          <nb-tab tabTitle="البيانات الوظيفية" [active]="selectedTabIndex === 1">
+            <ngx-info-jobs [doctorInfo]="doctorInfo"></ngx-info-jobs>
+          </nb-tab>
+          <nb-tab tabTitle="اسعار زيارة الطبيب" [active]="selectedTabIndex === 2">
+            <ngx-visit-price [doctorDataOfAdd]="doctorInfo"></ngx-visit-price>
+          </nb-tab>
+          <nb-tab tabTitle="المرفقات" [active]="selectedTabIndex === 3">
             <ngx-upload-files></ngx-upload-files>
           </nb-tab>
-          <nb-tab tabTitle="البيانات الوظيفية">
-            <ngx-info-jobs></ngx-info-jobs>
-          </nb-tab>
-          <nb-tab tabTitle="بيانات الحساب">
+          <nb-tab tabTitle="بيانات الحساب" [active]="selectedTabIndex === 4">
             <ngx-info-account></ngx-info-account>
           </nb-tab>
         </nb-tabset>

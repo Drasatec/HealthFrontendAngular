@@ -49,4 +49,21 @@ export class DoctorsService {
     return this.http.put(url,'');
   }
 
+  /* Visit price */
+  createVisitPrice(body: any,): Observable<any> {
+    const url = `${this.baseURL}DoctorVisitPrice/add`;
+    return this.http.post(url,body);
+  }
+  getDoctorVisit(fetchCriteria?): Observable<any> {
+    const url = `${this.baseURL}DoctorVisitPrice`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  editDoctorVisit(body: any,): Observable<any> {
+    const url = `${this.baseURL}DoctorVisitPrice/edit`;
+    return this.http.put(url,body);
+  }
+  deleteDoctorVisit(id) {
+    const url = `${this.baseURL}DoctorVisitPrice?id=${id}`;
+    return this.http.delete(url);
+  }
 }

@@ -1,0 +1,101 @@
+<div [formGroup]="form">
+  <div class="row">
+    <!-- <div class="row filter-border"> -->
+      <h5 *ngIf="doctorDataOfAdd || doctorVisitPrice">اسم الطبيب :{{doctorDataOfAdd?.name ? doctorDataOfAdd?.name : doctorVisitPrice?.doctorName}}</h5>
+      <div class="col-md-6 col-xxl-6 filter-border">
+          <div class="form-group mb-3">
+            <label for="example-search-input" class="text-base-color text-bold">نوع الزيارة</label>
+            <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="visitTypes" formControlName="TypeVisitId"
+                bindValue="typeVisitId" bindLabel="name" appDebounceInputChange >
+            </ng-select>
+          </div>
+      </div>
+      <div class="col-md-6 col-xxl-6 filter-border">
+        <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold">الفئة السعرية</label>
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="priceCategorys" formControlName="PriceCategoryId"
+              bindValue="priceCategoryId" bindLabel="name" appDebounceInputChange >
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-6 col-xxl-6 filter-border">
+        <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold">العملة</label>
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="currancys" formControlName="PriceCurrency"
+              bindValue="name" bindLabel="name" appDebounceInputChange >
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-6 col-xxl-6 filter-border">
+        <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold"> السعر</label>
+          <input type="number" formControlName="Price" class="form-control pr-3 my-2" >
+        </div>
+      </div>
+      <div class="d-flex justify-content-center mt-4">
+        <button type="button " class="btn btn-primary background-primary col-3"  (click)="save()">
+            <span>{{edit ? 'تعديل' : 'اضافة'}}</span>
+        </button>
+        <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">
+          <span>الغاء</span>
+        </button>
+      </div>
+  </div>
+
+</div>
+<div class="table-data my-3">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
+      <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+    </ng-container>
+
+    <!-- Progress Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم الطبيب </th>
+      <td mat-cell *matCellDef="let row"> {{row?.doctorName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="priceCat">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> فئة سعرية </th>
+      <td mat-cell *matCellDef="let row"> {{row?.priceCategory}} </td>
+    </ng-container>
+    <ng-container matColumnDef="typeVisit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  نوع الزيارة </th>
+      <td mat-cell *matCellDef="let row"> {{row?.typeVisit}} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> السعر </th>
+      <td mat-cell *matCellDef="let row"> {{row?.price}} </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef = 'action'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
+      <!-- Action Menu Items -->
+      <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+
+      <button mat-icon-button [matMenuTriggerFor]="mainMenu">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+      <mat-menu #mainMenu="matMenu">
+        <button mat-menu-item (click)="rowAction('delete',row.id,row.doctorId)">
+          <i class="fa-solid fa-trash"></i> حذف
+        </button>
+        <button mat-menu-item (click)="rowAction('edit',row.id,row.doctorId)">
+          <i class="fa-solid fa-edit"></i> تعديل
+        </button>
+      </mat-menu>
+    </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row (click)="onClickPublisher(row.id)" *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+<!--
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]"  (page)="pageChanged($event)">
+</mat-paginator> -->
+</div>

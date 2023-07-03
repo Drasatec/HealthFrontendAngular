@@ -23,8 +23,8 @@ import { FloorModel } from '../../../floors/models/floors.model';
 export class AllClinicsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
   displayedColumns: string[] = ['id','name','phone',"workHour",'status','img','action'];
-  dataSource: MatTableDataSource<FloorModel>;
   private subscriptions: Subscription = new Subscription();
+  dataSource: MatTableDataSource<FloorModel>;
   totalItems: number ;
   pageSize: number = 10;
   pageIndex: number = 0;
