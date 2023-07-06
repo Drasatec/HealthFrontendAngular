@@ -15,6 +15,7 @@ export class SettingComponent {
     {name:' فترات العمل',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/working-period'},
     {name:'الجنسيات',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/nationality'},
     {name:'الفئات السعرية',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/price-category'},
+    {name:'ايام الاسبوع',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/settings/work-week'},
 
 
   ]

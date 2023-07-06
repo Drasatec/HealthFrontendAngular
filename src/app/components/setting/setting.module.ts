@@ -18,6 +18,8 @@ import { NationalityComponent } from './components/nationality/nationality.compo
 import { AddNatioalityComponent } from './components/nationality/add-natioality/add-natioality.component';
 import { PriceCategoryComponent } from './components/price-category/price-category.component';
 import { AddPricecategoryComponent } from './components/price-category/add-pricecategory/add-pricecategory.component';
+import { WorkWeekComponent } from './components/work-week/work-week.component';
+import { AddWorkweekComponent } from './components/work-week/add-workweek/add-workweek.component';
 
 
 @NgModule({
@@ -35,7 +37,9 @@ import { AddPricecategoryComponent } from './components/price-category/add-price
     NationalityComponent,
     AddNatioalityComponent,
     PriceCategoryComponent,
-    AddPricecategoryComponent
+    AddPricecategoryComponent,
+    WorkWeekComponent,
+    AddWorkweekComponent
   ],
   imports: [
     CommonModule,
