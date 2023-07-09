@@ -12,5 +12,5 @@ export const environment = {
   production: false,
   apiUrl:'http://www.alrahmacare.somee.com/api/',
   imgUrl:'http://www.alrahmacare.somee.com/images/',
-
+  showAttach:'https://www.alrahmacare.somee.com/'
 };

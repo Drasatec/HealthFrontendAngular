@@ -34,4 +34,8 @@ export class WorkweekService {
     const url = `${this.baseURL}Weekday/delete?id=${id}`;
     return this.http.delete(url);
   }
+  getWorkWeekTranslation(id): Observable<any> {
+    const url = `${this.baseURL}Weekday/day?day=${id}`;
+    return this.http.get(url);
+  }
 }

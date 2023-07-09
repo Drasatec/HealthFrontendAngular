@@ -27,6 +27,7 @@ export class VisitPriceComponent implements OnInit {
   @Input() doctorDataOfAdd;
   currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
   form: FormGroup;
+  loading=false
   private subscriptions: Subscription = new Subscription();
 
   constructor(
@@ -144,10 +145,12 @@ export class VisitPriceComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.edit){
         this._doctorService.createVisitPrice(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم الاضافة بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -155,8 +158,11 @@ export class VisitPriceComponent implements OnInit {
             this.getId()
             console.log(this.fetch)
             this.getTableData(this.fetch)
+            this.form.reset()
+
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -167,6 +173,7 @@ export class VisitPriceComponent implements OnInit {
       }else{
         this._doctorService.editDoctorVisit(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم التعديل بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -176,6 +183,7 @@ export class VisitPriceComponent implements OnInit {
             this.form.reset()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

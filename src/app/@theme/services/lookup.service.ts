@@ -60,7 +60,7 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     return this.http.get(url,{ params: fetchCriteria });
   }
   getAllWorkWeek(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}Weekday/names`;
+    const url = `${this.baseURL}Weekday/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
 }

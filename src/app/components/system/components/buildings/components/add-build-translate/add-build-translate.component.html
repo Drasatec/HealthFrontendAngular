@@ -63,7 +63,7 @@
         </div>
       </div>
       <div class="col-12 d-flex justify-content-end">
-        <button  mat-fab extended aria-label="Add"
+        <button  mat-fab extended aria-label="Add"  [class.spinnerBtn]="loading" [disabled]="loading"
           (click)="save()" matTooltip="Add">حفظ
         </button>
       </div>

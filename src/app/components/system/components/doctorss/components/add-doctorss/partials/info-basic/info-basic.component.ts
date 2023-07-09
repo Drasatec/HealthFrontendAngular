@@ -22,7 +22,7 @@ export class InfoBasicComponent implements OnInit {
   DoctorsDegree=[{name:'امتياز',id:1},{name:'استشاري',id:2},{name:'بروفيسور',id:3}]
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
-
+  loading=false;
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
@@ -127,6 +127,7 @@ export class InfoBasicComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
         this._doctorService.createDoctor(this.sendData).subscribe(
@@ -135,6 +136,7 @@ export class InfoBasicComponent implements OnInit {
               id:res.value.id,
               name:res.value.doctorTranslations[0].fullName
             }
+            this.loading=false
             this.snackBar.open("تم اضافة الطبيب بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -142,6 +144,7 @@ export class InfoBasicComponent implements OnInit {
             this.emitIdAndNavigate(this.newDoctorId )
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -152,6 +155,7 @@ export class InfoBasicComponent implements OnInit {
       }else{
         this._doctorService.editDoctor(this.id,this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم تعديل الطبيب بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -160,6 +164,7 @@ export class InfoBasicComponent implements OnInit {
 
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

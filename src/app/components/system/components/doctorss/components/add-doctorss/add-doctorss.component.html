@@ -14,13 +14,13 @@
             <ngx-info-basic (navigateToAccountTab)="goToAccountTab($event)" ></ngx-info-basic>
           </nb-tab>
           <nb-tab tabTitle="البيانات الوظيفية" [active]="selectedTabIndex === 1">
-            <ngx-info-jobs [doctorInfo]="doctorInfo"></ngx-info-jobs>
+            <ngx-info-jobs [doctorDataOfAdd]="doctorInfo"></ngx-info-jobs>
           </nb-tab>
           <nb-tab tabTitle="اسعار زيارة الطبيب" [active]="selectedTabIndex === 2">
             <ngx-visit-price [doctorDataOfAdd]="doctorInfo"></ngx-visit-price>
           </nb-tab>
           <nb-tab tabTitle="المرفقات" [active]="selectedTabIndex === 3">
-            <ngx-upload-files></ngx-upload-files>
+            <ngx-upload-files  [doctorDataOfAdd]="doctorInfo"></ngx-upload-files>
           </nb-tab>
           <nb-tab tabTitle="بيانات الحساب" [active]="selectedTabIndex === 4">
             <ngx-info-account></ngx-info-account>

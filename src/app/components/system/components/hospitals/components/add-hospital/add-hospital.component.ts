@@ -16,7 +16,7 @@ import { environment } from '../../../../../../../environments/environment';
 export class AddHospitalComponent implements OnInit {
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
-
+  loading=false
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
@@ -32,14 +32,16 @@ export class AddHospitalComponent implements OnInit {
   id:number;
   hospital:any;
   ngOnInit(): void {
-    this.route.params.subscribe(
-      (param)=>{
-    console.log(param)
+    // this.route.params.subscribe(
+    //   (param)=>{
+    // console.log(param)
 
-        this.id =param.id;
-      }
-    )
+    //     this.id =param.id;
+    //   }
+    // )
     this.createForm();
+    this.id=this.data? this.data.id :null
+
     if(this.id){
       this.getHospitalById(this.id);
     }
@@ -124,10 +126,12 @@ export class AddHospitalComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
         this._hospitalservice.createHospital(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.newHospitalId = res.id
             this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
               duration: 5000,
@@ -136,6 +140,7 @@ export class AddHospitalComponent implements OnInit {
             this.closeDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -146,6 +151,7 @@ export class AddHospitalComponent implements OnInit {
       }else{
         this._hospitalservice.editHospital(this.id,this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم تعديل المستشفي بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -153,6 +159,7 @@ export class AddHospitalComponent implements OnInit {
             this.router.navigate(["/dashboard/system/hospitals/view-hospital",this.id]);
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

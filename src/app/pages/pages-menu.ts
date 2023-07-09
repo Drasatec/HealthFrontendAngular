@@ -18,8 +18,8 @@ export const items = [
     children: [
       {
         title: ' الاعدادات',
-        icon:'fa-solid fa-notes-medical',
-        link:'/dashboard/settings/room-types'
+        icon:'fa-solid fa-gears',
+        link:'/dashboard/system/settings/room-types'
       },
       {
         title: 'البيانات الاساسية',

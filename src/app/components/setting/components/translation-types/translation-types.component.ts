@@ -12,6 +12,7 @@ import { SsntypesService } from '../../services/ssntypes.service';
 import { PeriodtypesService } from '../../services/periodtypes.service';
 import { NationalityService } from '../../services/nationality.service';
 import { PricecatrgoryService } from '../../services/picecatrgory.service';
+import { WorkweekService } from '../../services/workweek.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -33,6 +34,7 @@ export class TranslationTypesComponent implements OnInit {
     private peridService:PeriodtypesService,
     private _nationalservice:NationalityService,
     private _priceService:PricecatrgoryService,
+    private _workWeekService:WorkweekService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,6 +56,8 @@ export class TranslationTypesComponent implements OnInit {
       this.getnationalById(this.data.id)
     }else if(this.data.type === "pricecat"){
       this.getpriceById(this.data.id)
+    }else if(this.data.type === "workweek"){
+      this.getWorkWeek(this.data.id)
     }
   }
   get formControls() {
@@ -125,6 +129,18 @@ export class TranslationTypesComponent implements OnInit {
       (res:any)=>{
         this.priceCat=res;
         this.translationData=res.priceCategoryTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
+  workweek;
+  getWorkWeek(id){
+    this._workWeekService.getWorkWeekTranslation(id).subscribe(
+      (res:any)=>{
+        this.workweek=res;
+        this.translationData=res;
         this.translationData?.forEach(el => {
           this.addTrans(el);
         })
@@ -285,21 +301,47 @@ delPriceById(id){
           for (let i = 0; i < formVal['translations'].length; i++) {
             if(this.data.type === 'roomType'){
               body.append('translations['+(i)+'][RoomTypeId]', this.data.id);
-            }else if(this.data.type === 'visitType'){
-              body.append('translations['+(i)+'][TypeVisitId]', this.data.id);
-            }else if(this.data.type === 'ssnType'){
-              body.append('translations['+(i)+'][ssntypeId]', this.data.id);
-            }else if(this.data.type === 'workperiods'){
-              body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
-            }else if(this.data.type === 'national'){
-              body.append('translations['+(i)+'][NationalityId]', this.data.id);
-            }else if(this.data.type === 'pricecat'){
-              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
-            }
-
-            body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'visitType'){
+              body.append('translations['+(i)+'][TypeVisitId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+            body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+            body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'ssnType'){
+              body.append('translations['+(i)+'][ssntypeId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+            body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+            body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'workperiods'){
+              body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'national'){
+              body.append('translations['+(i)+'][NationalityId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'pricecat'){
+              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }else if(this.data.type === 'workweek'){
+              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
+              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
+            }
 
           }
         }

@@ -213,3 +213,39 @@ div.cdk-overlay-container .cdk-overlay-pane {
 .mat-dialog-container {
   padding: 1px !important;
 }
+.mat-paginator-container {
+  .mat-form-field {
+  text-align: center !important;
+}
+.mat-paginator-page-size-select{
+  width:50px
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix{
+  padding:0
+}
+.mat-form-field-infix {
+  border-top:0
+}
+.mat-paginator-page-size{
+  align-items: center;
+}
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinnerBtn:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #211f1f;
+  border-top-color: #fffcfc;
+  animation: spinner .8s linear infinite;
+}

@@ -3,12 +3,12 @@
     <div class="col-md-12 col-xxl-12 filter-border">
       <div class="form-group mb-3">
           <label  for="example-search-input" class="text-base-color text-bold"> اسم المرفق</label>
-          <input type="text" formControlName="title" class="form-control pr-3 my-2" >
+          <input type="text" formControlName="Title" class="form-control pr-3 my-2" >
       </div>
     </div>
     <div class="col-12 filter-border attachment mt-3">
       <div class="container" appDnd (fileDropped)="onFileDropped($event)">
-        <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event.target.files)" />
+        <input type="file" #fileDropRef id="fileDropRef" (change)="fileBrowseHandler($event.target.files)" />
         <i class="fa-solid fa-camera fa-xl"></i>
         <h6>اضف المرفق المطلوب</h6>
       </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="info">
             <h4 class="name">
-              {{ file?.name }}
+              {{doctorAttach? doctorAttach.attachFileName :file?.name  }}
             </h4>
             <p class="size">
               {{ formatBytes(file?.size) }}
@@ -53,7 +53,7 @@
       </div>
     </div>
     <div class="d-flex justify-content-center mt-4">
-      <button type="button " class="btn btn-primary background-primary col-3"  (click)="save()">
+      <button mat-raised-button class="btn background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading"  (click)="save()">
           <span>إضافة</span>
       </button>
       <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">
@@ -62,7 +62,7 @@
     </div>
   </div>
 </div>
-<div >
+<div class="table-data my-3">
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- ID Column -->
@@ -74,21 +74,36 @@
     <!-- Progress Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> اسم المرفق </th>
-      <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      <td mat-cell *matCellDef="let row"> {{row?.title}} </td>
     </ng-container>
+    <ng-container matColumnDef = 'action'>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
+      <!-- Action Menu Items -->
+      <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
 
-    <!-- Fruit Column -->
-    <ng-container matColumnDef="img">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> صورة </th>
-      <td mat-cell *matCellDef="let row"> {{row.img}} </td>
+      <button mat-icon-button [matMenuTriggerFor]="mainMenu">
+        <i class="fa-solid fa-ellipsis-vertical"></i>
+      </button>
+      <mat-menu #mainMenu="matMenu">
+        <button mat-menu-item (click)="rowAction('delete',row.id,row.doctorId)">
+          <i class="fa-solid fa-trash"></i> حذف
+        </button>
+        <!-- <button mat-menu-item (click)="rowAction('edit',row.id,row.doctorId)">
+          <i class="fa-solid fa-edit"></i> تعديل
+        </button> -->
+        <button mat-menu-item (click)="rowAction('view',row.id)">
+          <i class="fa-solid fa-picture"></i> فتح الملف
+        </button>
+      </mat-menu>
+    </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <!-- <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
     <tr mat-row (click)="onClickPublisher(row.id)" *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
-
-  <mat-paginator [length]="200" [pageSizeOptions]="[10, 50, 100]" aria-label="اختر صفحة">
-  </mat-paginator>
+<!--
+  <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+    [pageSizeOptions]="[5, 10, 25, 100]"  (page)="pageChanged($event)">
+</mat-paginator> -->
 </div>

@@ -22,7 +22,9 @@
             </div>
             <div class="col-md-8">
               <div class="doc-card-body">
-                <h5 class="card-title text-bold">{{doctor.doctorTranslations[0].fullName}}</h5>
+                <h5 class="card-title text-bold">
+                  {{doctor.doctorTranslations[0].fullName ? doctor.doctorTranslations[0].fullName :'بدون اسم'}}
+                </h5>
                 <p class="card-text">{{doctor.doctorTranslations[0].headline}}</p>
               </div>
             </div>
@@ -45,7 +47,7 @@
               <i class="fa-regular fa-circle-xmark mx-1" ></i>إيقاف
             </button>
             <button mat-menu-item (click)="rowAction('translate',doctor.id)">
-              <i class="fa-solid fa-globe mx-1"></i>إضافة ترجمة
+              <i class="fa-solid fa-globe mx-1"></i>الترجمات
             </button>
           </mat-menu>
         </div>

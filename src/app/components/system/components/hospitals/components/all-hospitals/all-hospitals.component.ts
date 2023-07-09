@@ -124,10 +124,25 @@ export class AllHospitalsComponent implements OnInit{
       )
     }else if (action === 'edit'){
       console.log("edit")
-      this.router.navigate(['/dashboard/system/hospitals/edit-hospital',id])
+      this.openEditDialog(id)
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
     }
+  }
+  openEditDialog(id){
+    const dialogRef = this.dialog.open(AddHospitalComponent,{
+      width: "1200px",
+      disableClose: true,
+      data:{
+        id:id,
+      }
+    })
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(result)
+      if(result){
+        this.getTableData(this.fetch)
+      }
+    });
   }
   translateData;
   openTranslateDialog(id){

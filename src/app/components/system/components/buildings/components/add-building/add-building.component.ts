@@ -35,6 +35,7 @@ export class AddBuildingComponent implements OnInit {
   }
   id:number;
   building:any;
+  loading=false
   ngOnInit(): void {
     // this.route.params.subscribe(
     //   (param)=>{
@@ -115,10 +116,12 @@ export class AddBuildingComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
         this._buildingService.createBuildings(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.newBuildId = res.id
             this.snackBar.open("تم اضافة المبني بنجاح ", "ُsuccess", {
               duration: 5000,
@@ -127,6 +130,7 @@ export class AddBuildingComponent implements OnInit {
             this.closeDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -137,6 +141,7 @@ export class AddBuildingComponent implements OnInit {
       }else{
         this._buildingService.editBuildings(this.id,this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم تعديل المبني بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -144,6 +149,7 @@ export class AddBuildingComponent implements OnInit {
             this.closeEditDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

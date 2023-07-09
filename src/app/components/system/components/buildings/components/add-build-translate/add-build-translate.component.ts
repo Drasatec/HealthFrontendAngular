@@ -1,3 +1,4 @@
+import { NbLayoutDirection } from '@nebular/theme';
 import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { BuildingService } from '../../services/building.service';
 import { FormGroup, FormBuilder, FormArray, FormControl, Validators } from '@angular/forms';
@@ -19,7 +20,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddBuildTranslateComponent implements OnInit {
   formTrans:FormGroup;
   public codes = [{name:'Ar',value:'ar'}, {name:'En',value:'en'}, {name:'Fr',value:'fr'}];
-
+  loading=false
   @Output() onAddTranslate: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -265,7 +266,7 @@ export class AddBuildTranslateComponent implements OnInit {
             }else if(this.data.type === 'clinic'){
               body.append('translations['+(i)+'][ClinicId]', this.data.id);
             }
-            body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
+            body.append('translations['+(i)+'][Id]', formVal.translations[i].id ?formVal.translations[i].id :0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
             body.append('translations['+(i)+'][Description]', formVal.translations[i].Description);
@@ -282,34 +283,44 @@ export class AddBuildTranslateComponent implements OnInit {
   }
   dataSend;
   save(){
+    this.loading=true
     this.dataSend=this.formData(this.formTrans.value)
     if(this.data.type === 'building'){
       this._buildingService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
           this.closeDialog()
         }
       )
     }else if(this.data.type === 'floor'){
       this._floorService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
         }
       )
     }else if(this.data.type === 'room'){
       this._roomService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
         }
       )
     }else if(this.data.type === 'special'){
       this._specialService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
         }
       )
     }else if(this.data.type === 'clinic'){
       this._clinicService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
         }
       )

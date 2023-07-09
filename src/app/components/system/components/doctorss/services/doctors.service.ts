@@ -8,7 +8,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class DoctorsService {
   baseURL: string = environment.apiUrl;
-
+  attachURL :string =environment.showAttach;
   search_ademic$ = new BehaviorSubject("");
   private subjectBehaviorPeriods = new BehaviorSubject<any>({});
 
@@ -66,4 +66,48 @@ export class DoctorsService {
     const url = `${this.baseURL}DoctorVisitPrice?id=${id}`;
     return this.http.delete(url);
   }
+
+   /* حperiods */
+  createPeriod(body: any,): Observable<any> {
+    const url = `${this.baseURL}DoctorWorkPeriod/add`;
+    return this.http.post(url,body);
+  }
+  getDoctorPeriod(fetchCriteria?): Observable<any> {
+    const url = `${this.baseURL}DoctorWorkPeriod`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+
+  editDoctorPeriod(body: any,): Observable<any> {
+    const url = `${this.baseURL}DoctorWorkPeriod/edit`;
+    return this.http.put(url,body);
+  }
+  deleteDoctorPeriod(id) {
+    const url = `${this.baseURL}DoctorWorkPeriod/delete?id=${id}`;
+    return this.http.delete(url);
+  }
+     /* attachment */
+     uploadAttachment(body: any,): Observable<any> {
+      const url = `${this.baseURL}Doctor/add_attachment`;
+      return this.http.post(url,body);
+    }
+    getAttachmentById(fetchCriteria): Observable<any> {
+      const url = `${this.baseURL}Doctor/get_attachment`;
+      return this.http.get(url,{ params: fetchCriteria });
+    }
+    getAllAttachment(fetchCriteria): Observable<any> {
+      const url = `${this.baseURL}Doctor/get-all_attachments`;
+      return this.http.get(url,{ params: fetchCriteria });
+    }
+    editAttachment(body: any,): Observable<any> {
+      const url = `${this.baseURL}/Doctor/edit_attachment`;
+      return this.http.put(url,body);
+    }
+    deleteAttachment(id) {
+      const url = `${this.baseURL}Doctor/delete_attachment?id=${id}`;
+      return this.http.delete(url);
+    }
+    showAttachment(name): Observable<any> {
+      const url = `${this.attachURL}Files/${name}`;
+      return this.http.get(url);
+    }
 }

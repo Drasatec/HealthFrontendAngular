@@ -123,8 +123,8 @@ export class AddInfoTranslateComponent implements OnInit{
         bodyObj[key] = formVal[key]
         if (key == "translations") {
           for (let i = 0; i < formVal['translations'].length; i++) {
-            body.append('translations['+(i)+'][hospitalId]', this.data);
-            body.append('translations['+(i)+'][id]', formVal.translations[i].id);
+            body.append('translations['+(i)+'][hospitalId]', this.data );
+            body.append('translations['+(i)+'][id]', formVal.translations[i].id ? formVal.translations[i].id :0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][Address]', formVal.translations[i].Address);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);

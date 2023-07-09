@@ -18,7 +18,7 @@ import { LookupService } from '../../../../../../@theme/services/lookup.service'
 export class AddFloorComponent implements OnInit {
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
-
+  loading=false
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
@@ -121,11 +121,13 @@ export class AddFloorComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
 
         this._floorService.createFloor(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
               this.newFloorId=res.id;
               this.snackBar.open("تم اضافة الطابق بنجاح ", "ُsuccess", {
                 duration: 5000,
@@ -134,6 +136,7 @@ export class AddFloorComponent implements OnInit {
               this.closeDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -144,6 +147,7 @@ export class AddFloorComponent implements OnInit {
       }else{
         this._floorService.editFloor(this.id,this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم تعديل المبني بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -151,6 +155,7 @@ export class AddFloorComponent implements OnInit {
             this.closeEditDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

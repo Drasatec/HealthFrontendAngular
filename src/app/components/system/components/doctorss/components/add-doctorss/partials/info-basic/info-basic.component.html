@@ -183,7 +183,7 @@
       </div>
     </div> -->
     <div class="d-flex justify-content-center mt-4">
-      <button type="button " class="btn btn-primary background-primary col-3"  (click)="save()">
+      <button type="button " class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading"  (click)="save()">
           <span>{{id ? 'تعديل' : 'اضافة'}}</span>
       </button>
       <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">

@@ -133,7 +133,7 @@ export class AddDoctorTranslateComponent implements OnInit {
           for (let i = 0; i < formVal['translations'].length; i++) {
               body.append('translations['+(i)+'][DoctorId]', this.data.id);
 
-            body.append('translations['+(i)+'][Id]', formVal.translations[i].id);
+            body.append('translations['+(i)+'][Id]', formVal.translations[i].id ?formVal.translations[i].id:0);
             body.append('translations['+(i)+'][FullName]', formVal.translations[i].FullName);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
             body.append('translations['+(i)+'][About]', formVal.translations[i].About);

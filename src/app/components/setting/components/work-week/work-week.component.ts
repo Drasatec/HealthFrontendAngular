@@ -149,7 +149,7 @@ export class WorkWeekComponent implements OnInit {
       disableClose: true,
       data:{
         id:id,
-        type:'visitType'
+        type:'workweek'
 
       }
     })

@@ -4,8 +4,8 @@
           *ngIf="filterElements?.global_search">
           <div class="col-md-6">
             <div class="input-group ">
-              <button type="button" mat-raised-button class="global-button">بحث </button>
-              <input type="search" class="form-control rounded" placeholder="بحث " formControlName="name"
+              <!-- <button type="button" mat-raised-button class="global-button">بحث </button> -->
+              <input type="search" class="form-control rounded" placeholder="بحث بالاســـم" formControlName="name"
                   aria-label="Search" aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
                   (valueChanged)="filters($event)" />
             </div>
