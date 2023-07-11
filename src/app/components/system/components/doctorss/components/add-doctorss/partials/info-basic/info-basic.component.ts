@@ -19,7 +19,7 @@ export class InfoBasicComponent implements OnInit {
   gander=[{name:'انثي',id:1},{name:'ذكر',id:2}];
   answer=[{name:'نعم',value:true},{name:'لا',value:false}];
   docStatus=[{id:1,name: 'مقيم'},{id:2,name: "متوقف عن العمل"},{id:3,name: "اجازة"},{id: 4,name: "مسافر"}]
-  DoctorsDegree=[{name:'امتياز',id:1},{name:'استشاري',id:2},{name:'بروفيسور',id:3}]
+  DoctorsDegree;
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
   loading=false;
@@ -50,6 +50,7 @@ export class InfoBasicComponent implements OnInit {
     // )
     this.id=this.data? this.data.id :null
     this.getNational()
+    this.getDegrees()
     this.createForm();
     if(this.id){
       this.getDoctorById(this.id);
@@ -312,6 +313,12 @@ export class InfoBasicComponent implements OnInit {
       }
     )
   }
-
+  getDegrees(){
+    this._lookpservice.getAllDegrees().subscribe(
+      (res)=>{
+        this.DoctorsDegree=res
+      }
+    )
+  }
 }
 

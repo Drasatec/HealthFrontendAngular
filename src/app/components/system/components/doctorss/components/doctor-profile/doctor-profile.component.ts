@@ -4,6 +4,7 @@ import { AddDoctorssComponent } from '../add-doctorss/add-doctorss.component';
 import { ActivatedRoute } from '@angular/router';
 import { DoctorsService } from '../../services/doctors.service';
 import { environment } from '../../../../../../../environments/environment';
+import { OwlOptions } from 'ngx-owl-carousel-o';
 
 @Component({
   selector: 'ngx-doctor-profile',
@@ -16,7 +17,31 @@ export class DoctorProfileComponent implements OnInit {
   id;
   imgUrl=`${environment.imgUrl}`;
   timestamp = new Date().getTime();
-
+  isDragging:boolean
+  customOptions: OwlOptions = {
+    loop: false,
+    mouseDrag: false,
+    touchDrag: false,
+    pullDrag: false,
+    dots: false,
+    navSpeed: 1000,
+    navText: [ '<i class="fa-solid fa-chevron-left"></i>', '<i class="fa-solid fa-chevron-right"></i>'],
+    responsive: {
+      0: {
+        items: 2
+      },
+      400: {
+        items: 2
+      },
+      740: {
+        items: 3
+      },
+      940: {
+        items: 3
+      }
+    },
+    nav: true
+  }
   ngOnInit(): void {
     this.route.params.subscribe(
       (params)=>{
@@ -24,6 +49,7 @@ export class DoctorProfileComponent implements OnInit {
         console.log(params)
         this.getBasicInfo()
         this.getDoctorAttachment()
+        this.getDoctorPeriods()
       }
     )
   }
@@ -43,6 +69,18 @@ export class DoctorProfileComponent implements OnInit {
     this._doctorservice.getAllAttachment(paylod).subscribe(
       (res)=>{
         this.doctorAttachments =res
+      }
+    )
+  }
+  doctorPeriods
+  getDoctorPeriods(){
+    let paylod={
+      docId : this.id,
+      lang:'ar'
+    }
+    this._doctorservice.getDoctorPeriod(paylod).subscribe(
+      (res)=>{
+        this.doctorPeriods=res
       }
     )
   }

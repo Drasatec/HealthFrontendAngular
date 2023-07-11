@@ -16,7 +16,7 @@ export class SettingComponent {
     {name:'الجنسيات',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/nationality'},
     {name:'الفئات السعرية',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/price-category'},
     {name:'ايام الاسبوع',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/work-week'},
-    {name:'حالات الطبيب',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/doctor-status'},
+    {name:'حالات التواجد',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/doctor-status'},
     {name:'الدرجات العلمية',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/doctor-degree'},
 
 

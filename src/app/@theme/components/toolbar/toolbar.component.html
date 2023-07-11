@@ -1,5 +1,5 @@
 <div class="toolbar">
-  <div class="toolbar-icons" *ngFor="let icon of icons">
+  <div class="toolbar-icons mx-4" *ngFor="let icon of icons">
     <a [routerLink]="icon.link" routerLinkActive="active">
       <img [src]="icon.src" [alt]="icon.name" >
       <p class="mt-2">{{icon.name}}</p>

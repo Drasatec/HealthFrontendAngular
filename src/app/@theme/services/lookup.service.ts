@@ -63,4 +63,8 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}Weekday/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllDegrees(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}DoctorsDegree/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
 }

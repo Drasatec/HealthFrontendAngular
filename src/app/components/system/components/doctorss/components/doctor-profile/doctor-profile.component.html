@@ -8,15 +8,14 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card-body d-flex justify-content-center align-items-center flex-column">
+      <div class="card-body d-flex  flex-column">
         <div class="head">
           <img [src]="doctorInfo?.photo ? imgUrl +'small/'+doctorInfo?.photo+'?timestamp='+timestamp :'/assets/images/nick.png'" [alt]="doctorInfo?.photo" class="img-fluid rounded-circle">
           <h5 class="my-2">{{doctorInfo?.doctorTranslations[0]?.fullName}}</h5>
         </div>
-        <hr/>
         <ul class="list-group">
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            المسمي الوظيفي
+            <span class="text-bold">المسمي الوظيفي</span>
             <span >{{doctorInfo?.doctorTranslations[0]?.headline}}</span>
           </li>
           <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -24,7 +23,7 @@
             <span >{{doctorInfo?.doctorTranslations[0]?.headline}}</span>
           </li> -->
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            الموبايل
+            <span class="text-bold">الموبايل</span>
             <span >{{doctorInfo?.phoneNumber}}</span>
           </li>
           <!-- <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -34,20 +33,48 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-8">
+    <div class="col-md-8
+    ">
       <div class="card-body">
-        <h4>المرفقات</h4>
-        <ul class="list-group" *ngFor="let file of doctorAttachments">
+        <h4>مواعيد </h4>
+        <ul class="list-group" *ngFor="let file of doctorPeriods">
           <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{file.title}}
-            <button class="btn btn-primary" (click)="viewAttach(file.attachFileName)">View</button>
+            <span>{{file.clinic}}</span>
+            <span>{{file.dayName}}</span>
+
+            <p>{{file.workingPeriod}}</p>
           </li>
           <hr/>
         </ul>
       </div>
     </div>
   </div>
-  <div class="row">
+  <div class="card-body">
+    <h5>المرفقات</h5>
 
+    <owl-carousel-o [options]="customOptions" (dragging)="isDragging = $event.dragging" [ngStyle]="{'direction': 'ltr'}">
+    <ng-container *ngFor="let item of doctorAttachments">
+      <ng-template carouselSlide  [id]="item.id">
+
+        <div class="slider my-2" >
+          <a [href]="attachLink+item.attachFileName" target="_blank" [stopLink]="isDragging">{{item.title}}
+
+          <!-- </a> -->
+          <!-- <a class="outer-link" [href]="attachLink+item.attachFileName" target="_blank"> -->
+            <!-- <span>{{item.title}}</span> -->
+          </a>
+
+        </div>
+      </ng-template>
+    </ng-container>
+    <!-- <ng-container *ngFor="let slide of doctorPeriods">
+      <ng-template carouselSlide [id]="slide.id">
+        <ng-template carouselSlide>{{slide.workingPeriod}}</ng-template>
+
+      </ng-template>
+    </ng-container> -->
+
+  </owl-carousel-o>
   </div>
+
 </div>

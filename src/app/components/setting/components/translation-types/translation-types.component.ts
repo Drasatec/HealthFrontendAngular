@@ -13,6 +13,7 @@ import { PeriodtypesService } from '../../services/periodtypes.service';
 import { NationalityService } from '../../services/nationality.service';
 import { PricecatrgoryService } from '../../services/picecatrgory.service';
 import { WorkweekService } from '../../services/workweek.service';
+import { DoctorDegreeService } from '../../services/doctor-degree.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -35,6 +36,7 @@ export class TranslationTypesComponent implements OnInit {
     private _nationalservice:NationalityService,
     private _priceService:PricecatrgoryService,
     private _workWeekService:WorkweekService,
+    private _degreeService:DoctorDegreeService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -58,6 +60,8 @@ export class TranslationTypesComponent implements OnInit {
       this.getpriceById(this.data.id)
     }else if(this.data.type === "workweek"){
       this.getWorkWeek(this.data.id)
+    }else if(this.data.type === "degree"){
+      this.getDegree(this.data.id)
     }
   }
   get formControls() {
@@ -147,6 +151,22 @@ export class TranslationTypesComponent implements OnInit {
       }
     )
   }
+  degrees;
+  getDegree(id){
+    let pa={
+      id:id
+    }
+    this._degreeService.getDegreeById(pa).subscribe(
+      (res:any)=>{
+        this.degrees=res;
+        this.translationData=res.doctorsDegreesTranslations;
+        this.translationData?.forEach(el => {
+          el.name = el.degreeName
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -191,6 +211,8 @@ export class TranslationTypesComponent implements OnInit {
       this.delNationalById(id)
     }else if(this.data.type === "pricecat"){
       this.delPriceById(id)
+    }else if(this.data.type === "degree"){
+      this.delDegreeById(id)
     }
 }
 delRoomTypegById(id){
@@ -271,6 +293,19 @@ delPriceById(id){
     }
   )
 }
+delDegreeById(id){
+  this._degreeService.deletevisitTrans(id).subscribe(
+    (res:any)=>{
+      if(res.success){
+        this.snackbar.open("تم حذف الدرجة بنجاح ", "ُsuccess", {
+          duration: 5000,
+          panelClass: 'success'
+        });
+
+      }
+    }
+  )
+}
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -341,6 +376,12 @@ delPriceById(id){
               body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
               body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
 
+            }else if(this.data.type === 'degree'){
+              body.append('translations['+(i)+'][DoctorDegreeId]', this.data.id);
+              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+              body.append('translations['+(i)+'][DegreeName]', formVal.translations[i].Name);
+              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
+
             }
 
           }
@@ -395,6 +436,13 @@ delPriceById(id){
     }else if(this.data.type === 'pricecat'){
       console.log(this.dataSend)
       this._priceService.priceCategoryTranslation(this.dataSend).subscribe(
+        (res)=>{
+          this.closeDialog()
+        }
+      )
+    }else if(this.data.type === 'degree'){
+      console.log(this.dataSend)
+      this._degreeService.DegreeTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }

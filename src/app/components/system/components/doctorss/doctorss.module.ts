@@ -14,6 +14,7 @@ import { InfoJobsComponent } from './components/add-doctorss/partials/info-jobs/
 import { AddDoctorTranslateComponent } from './components/add-doctor-translate/add-doctor-translate.component';
 import { VisitPriceComponent } from './components/add-doctorss/partials/visit-price/visit-price.component';
 import { DoctorProfileComponent } from './components/doctor-profile/doctor-profile.component';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { DoctorProfileComponent } from './components/doctor-profile/doctor-profi
     DoctorssRoutingModule,
     ThemeGeneralModule,
     SystemModule,
+    CarouselModule
   ]
 })
 export class DoctorssModule { }
