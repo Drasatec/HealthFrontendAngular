@@ -20,8 +20,8 @@ body {
   font-weight: 600;
 }
 .background-primary {
-  background-color: #0070cd;
-  color:#fff;
+  background-color: var(--background-button);
+  color:var(--menu-item-active-text-color);
   font-size: 1rem;
 }
 
@@ -47,6 +47,9 @@ nb-layout-header.fixed ~ .layout-container {
 //   top: 0;
 // }
 /* content **/
+.layout-container {
+  background: var(--layout-background-color);
+}
 .layout-container .content {
   padding-top: var(--header-height);
 }
@@ -79,8 +82,8 @@ nb-context-menu nb-menu {
 .mat-icon-button {
   width: 100%;
   background-color: transparent;
-  color:var(--text-base-color);
-  border-bottom: 1px solid #ddd;
+  color:var(--menu-item-active-text-color);
+  border-bottom: 1px solid #747474;
     &:focus {
       outline: none;
     }
@@ -93,7 +96,10 @@ button.mat-menu-item {
   width: 100%;
   background-color: transparent;
   color:var(--menu-text-color);
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #747474;
+  svg{
+    padding:0 0.5rem;
+  }
     &:focus {
       outline: none;
     }

@@ -13,6 +13,7 @@ import { UploadFilesComponent } from './components/add-doctorss/partials/upload-
 import { InfoJobsComponent } from './components/add-doctorss/partials/info-jobs/info-jobs.component';
 import { AddDoctorTranslateComponent } from './components/add-doctor-translate/add-doctor-translate.component';
 import { VisitPriceComponent } from './components/add-doctorss/partials/visit-price/visit-price.component';
+import { DoctorProfileComponent } from './components/doctor-profile/doctor-profile.component';
 
 
 @NgModule({
@@ -25,13 +26,14 @@ import { VisitPriceComponent } from './components/add-doctorss/partials/visit-pr
     UploadFilesComponent,
     InfoJobsComponent,
     AddDoctorTranslateComponent,
-    VisitPriceComponent
+    VisitPriceComponent,
+    DoctorProfileComponent
   ],
   imports: [
     CommonModule,
     DoctorssRoutingModule,
     ThemeGeneralModule,
-    SystemModule
+    SystemModule,
   ]
 })
 export class DoctorssModule { }

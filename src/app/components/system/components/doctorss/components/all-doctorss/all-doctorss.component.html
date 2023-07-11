@@ -33,7 +33,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="rowAction('profile',doctor.id)">
               <i class="fa-solid fa-user-doctor mx-1"></i>
               <span>ملف شخصي</span>
             </button>

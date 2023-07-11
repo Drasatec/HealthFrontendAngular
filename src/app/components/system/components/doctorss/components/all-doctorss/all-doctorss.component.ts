@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FloorModel } from '../../../floors/models/floors.model';
 import { MatDialog } from '@angular/material/dialog';
@@ -46,7 +46,7 @@ export class AllDoctorssComponent  implements OnInit{
   }
   constructor(
     public dialog: MatDialog,
-    private router:Router,
+    private route:Router,
     private _doctorService:DoctorsService,
     public snackBar: MatSnackBar,
 
@@ -186,6 +186,8 @@ export class AllDoctorssComponent  implements OnInit{
       this.openEditDialog(id)
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
+    }else if(action === 'profile'){
+      this.route.navigate(['/dashboard/system/doctorss/doctor-profile/',id]);
     }
   }
   openEditDialog(id){
