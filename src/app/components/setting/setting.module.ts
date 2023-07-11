@@ -20,6 +20,8 @@ import { PriceCategoryComponent } from './components/price-category/price-catego
 import { AddPricecategoryComponent } from './components/price-category/add-pricecategory/add-pricecategory.component';
 import { WorkWeekComponent } from './components/work-week/work-week.component';
 import { AddWorkweekComponent } from './components/work-week/add-workweek/add-workweek.component';
+import { DoctorStatusComponent } from './components/doctor-status/doctor-status.component';
+import { DoctorDegreeComponent } from './components/doctor-degree/doctor-degree.component';
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { AddWorkweekComponent } from './components/work-week/add-workweek/add-wo
     PriceCategoryComponent,
     AddPricecategoryComponent,
     WorkWeekComponent,
-    AddWorkweekComponent
+    AddWorkweekComponent,
+    DoctorStatusComponent,
+    DoctorDegreeComponent
   ],
   imports: [
     CommonModule,

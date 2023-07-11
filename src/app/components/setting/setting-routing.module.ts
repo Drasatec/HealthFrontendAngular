@@ -8,6 +8,8 @@ import { PeriodTypesComponent } from './components/period-types/period-types.com
 import { NationalityComponent } from './components/nationality/nationality.component';
 import { PriceCategoryComponent } from './components/price-category/price-category.component';
 import { WorkWeekComponent } from './components/work-week/work-week.component';
+import { DoctorDegreeComponent } from './components/doctor-degree/doctor-degree.component';
+import { DoctorStatusComponent } from './components/doctor-status/doctor-status.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
@@ -18,6 +20,9 @@ const routes: Routes = [
     {path:'nationality',component:NationalityComponent},
     {path:'price-category',component:PriceCategoryComponent},
     {path:'work-week',component:WorkWeekComponent},
+    {path:'doctor-degree',component:DoctorDegreeComponent},
+    {path:'doctor-status',component:DoctorStatusComponent},
+
 
     {path:'',redirectTo:'room-types',pathMatch:'full'},
 
