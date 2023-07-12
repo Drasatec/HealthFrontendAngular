@@ -77,7 +77,7 @@ export class AllRoomsComponent implements OnInit {
     this.subscriptions.add(
       this._roomservice.getAllRooms(para).subscribe((res: any) => {
 
-      this.rooms = res.rooms;
+      this.rooms = res.data;
       this.dataSource = new MatTableDataSource(this.rooms);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
@@ -172,7 +172,7 @@ export class AllRoomsComponent implements OnInit {
   searchHospital(pay){
     this._roomservice.SearchRoom(pay).subscribe(
       (res)=>{
-        this.rooms = res.rooms;
+        this.rooms = res.data;
         console.log(this.rooms)
       this.dataSource = new MatTableDataSource(this.rooms);
       this.dataSource.paginator = this.paginator;

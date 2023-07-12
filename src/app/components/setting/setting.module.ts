@@ -23,6 +23,7 @@ import { AddWorkweekComponent } from './components/work-week/add-workweek/add-wo
 import { DoctorStatusComponent } from './components/doctor-status/doctor-status.component';
 import { DoctorDegreeComponent } from './components/doctor-degree/doctor-degree.component';
 import { AddDegreeComponent } from './components/doctor-degree/add-degree/add-degree.component';
+import { AddStatusComponent } from './components/doctor-status/add-status/add-status.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { AddDegreeComponent } from './components/doctor-degree/add-degree/add-de
     AddWorkweekComponent,
     DoctorStatusComponent,
     DoctorDegreeComponent,
-    AddDegreeComponent
+    AddDegreeComponent,
+    AddStatusComponent,
   ],
   imports: [
     CommonModule,

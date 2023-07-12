@@ -80,7 +80,7 @@ export class AllBuildingsComponent implements OnInit {
     this.subscriptions.add(
       this._buildingservice.getAllBuildingss(para).subscribe((res: any) => {
 
-      this.buildings = res.buildings;
+      this.buildings = res.data;
       this.dataSource = new MatTableDataSource(this.buildings);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
@@ -176,7 +176,7 @@ export class AllBuildingsComponent implements OnInit {
   searchBuilding(pay){
     this._buildingservice.SearchBuildings(pay).subscribe(
       (res)=>{
-        this.buildings = res.buildings;
+        this.buildings = res.data;
         console.log(this.buildings)
       this.dataSource = new MatTableDataSource(this.buildings);
       this.dataSource.paginator = this.paginator;

@@ -75,7 +75,7 @@ export class AllFloorsComponent implements OnInit {
     this.subscriptions.add(
       this._floorservice.getAllFloors(para).subscribe((res: any) => {
 
-      this.floors = res.floors;
+      this.floors = res.data;
       this.dataSource = new MatTableDataSource(this.floors);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
@@ -170,7 +170,7 @@ export class AllFloorsComponent implements OnInit {
   searchHospital(pay){
     this._floorservice.SearchFloor(pay).subscribe(
       (res)=>{
-        this.floors = res.floors;
+        this.floors = res.data;
         console.log(this.floors)
       this.dataSource = new MatTableDataSource(this.floors);
       this.dataSource.paginator = this.paginator;

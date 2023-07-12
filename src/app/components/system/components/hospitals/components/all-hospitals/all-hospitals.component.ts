@@ -73,7 +73,7 @@ export class AllHospitalsComponent implements OnInit{
     this.subscriptions.add(
       this._hospitalservice.getAllHospitals(para).subscribe((res: any) => {
 
-      this.hospitals = res.hospitals;
+      this.hospitals = res.data;
       this.dataSource = new MatTableDataSource(this.hospitals);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;
@@ -178,7 +178,7 @@ export class AllHospitalsComponent implements OnInit{
   searchHospital(pay){
     this._hospitalservice.SearchHospital(pay).subscribe(
       (res)=>{
-        this.hospitals = res.hospitals;
+        this.hospitals = res.data;
         console.log(this.hospitals)
       this.dataSource = new MatTableDataSource(this.hospitals);
       this.dataSource.paginator = this.paginator;

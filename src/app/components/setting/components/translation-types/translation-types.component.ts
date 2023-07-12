@@ -14,6 +14,8 @@ import { NationalityService } from '../../services/nationality.service';
 import { PricecatrgoryService } from '../../services/picecatrgory.service';
 import { WorkweekService } from '../../services/workweek.service';
 import { DoctorDegreeService } from '../../services/doctor-degree.service';
+import { DoctorStatusService } from '../../services/doctor-status.service';
+import { TranslationServiceService } from '../../services/translation-service.service';
 
 @Component({
   selector: 'ngx-translation-types',
@@ -29,144 +31,82 @@ export class TranslationTypesComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddInfoTranslateComponent>,
     private _FormBuilder:FormBuilder,
-    private _roomTypesService:TypesService,
-    private _visitTypesService:VisitTypesService,
-    private _ssnTypesService:SsntypesService,
-    private peridService:PeriodtypesService,
-    private _nationalservice:NationalityService,
-    private _priceService:PricecatrgoryService,
-    private _workWeekService:WorkweekService,
-    private _degreeService:DoctorDegreeService,
+    private _translationservice:TranslationServiceService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
 
   ) { }
   translationData;
+  dataRec;
+  dataId;
   ngOnInit(): void {
     this.createForm()
     console.log(this.data)
     if(this.data.type === "roomType"){
-      this.getRoomTypesById(this.data.id)
+      this._translationservice.sendController("RoomType")
+      this.dataRec="roomTypeTranslations"
+      this.dataId="RoomTypeId"
     }else if(this.data.type === "visitType"){
-      this.getVisitTypesById(this.data.id)
+      this._translationservice.sendController("TypesVisit")
+      this.dataRec="typesVisitTranslations"
+      this.dataId="TypeVisitId"
+
     }else if(this.data.type === "ssnType"){
-      this.getSsnTypesById(this.data.id)
+      this._translationservice.sendController("Ssntype")
+      this.dataRec="ssntypesTranslations"
+      this.dataId="ssntypeId"
+
     }else if(this.data.type === "workperiods"){
-      this.getworkperiodsById(this.data.id)
+      this._translationservice.sendController("WorkingPeriod")
+      this.dataId="WorkingPeriodId"
+      this.dataRec="workingPeriodTranslations"
+
     }else if(this.data.type === "national"){
-      this.getnationalById(this.data.id)
+      this._translationservice.sendController("Nationality")
+      this.dataRec="nationalitiesTranslations"
+      this.dataId="NationalityId"
+
     }else if(this.data.type === "pricecat"){
-      this.getpriceById(this.data.id)
+      this._translationservice.sendController("PriceCategory")
+      this.dataRec="priceCategoryTranslations"
+      this.dataId="PriceCategoryId"
+
     }else if(this.data.type === "workweek"){
-      this.getWorkWeek(this.data.id)
+      this._translationservice.sendController("Weekday")
+      this.dataRec="weekdayName"
+      this.dataId="RoomTypeId"
+
     }else if(this.data.type === "degree"){
-      this.getDegree(this.data.id)
+      this._translationservice.sendController("DoctorsDegree")
+      this.dataRec="doctorsDegreesTranslations"
+      this.dataId="DoctorDegreeId"
+
+    }else if(this.data.type === "status"){
+      this._translationservice.sendController("EmployeeStatus")
+      this.dataRec="employeesStatusTranslations"
+      this.dataId="EmployeeStatusId"
+
     }
+    this.getById(this.data.id,this.dataRec)
   }
   get formControls() {
     return this.formTrans.controls;
   }
-  rooms;
-  getRoomTypesById(id){
-    this._roomTypesService.getRoomTypesById(id).subscribe(
+  getById(id,data){
+    this._translationservice.getById(id).subscribe(
       (res:any)=>{
-        this.rooms=res;
-        this.translationData=res.roomTypeTranslations;
+        this.translationData=res[data];
         this.translationData?.forEach(el => {
+          if(this.data.type === 'degree') el.name =el.degreeName
+          if(this.data.type === 'status') el.name = el.statusName
+
           this.addTrans(el);
         })
       }
     )
   }
-  visits;
-  getVisitTypesById(id){
-    this._visitTypesService.getvisitTypesById(id).subscribe(
-      (res:any)=>{
-        this.visits=res;
-        this.translationData=res.typesVisitTranslations;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  ssn;
-  getSsnTypesById(id){
-    this._ssnTypesService.getssnTypesById(id).subscribe(
-      (res:any)=>{
-        this.ssn=res;
-        this.translationData=res.ssntypesTranslations;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  workperiods;
-  getworkperiodsById(id){
-    this.peridService.getWorkingPeriodsById(id).subscribe(
-      (res:any)=>{
-        this.ssn=res;
-        this.translationData=res.workingPeriodTranslations;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  nationals;
-  getnationalById(id){
-    this._nationalservice.getnationalityById(id).subscribe(
-      (res:any)=>{
-        this.nationals=res;
-        this.translationData=res.nationalitiesTranslations;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  priceCat;
-  getpriceById(id){
-    this._priceService.getPriceCategoryById(id).subscribe(
-      (res:any)=>{
-        this.priceCat=res;
-        this.translationData=res.priceCategoryTranslations;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  workweek;
-  getWorkWeek(id){
-    this._workWeekService.getWorkWeekTranslation(id).subscribe(
-      (res:any)=>{
-        this.workweek=res;
-        this.translationData=res;
-        this.translationData?.forEach(el => {
-          this.addTrans(el);
-        })
-      }
-    )
-  }
-  degrees;
-  getDegree(id){
-    let pa={
-      id:id
-    }
-    this._degreeService.getDegreeById(pa).subscribe(
-      (res:any)=>{
-        this.degrees=res;
-        this.translationData=res.doctorsDegreesTranslations;
-        this.translationData?.forEach(el => {
-          el.name = el.degreeName
-          this.addTrans(el);
-        })
-      }
-    )
-  }
+
   addTrans(data?){
       // console.log(data)
 
@@ -199,24 +139,10 @@ export class TranslationTypesComponent implements OnInit {
     }
   }
   removeTranslation(id:number){
-    if(this.data.type === "roomType"){
-      this.delRoomTypegById(id)
-    }else if(this.data.type === "visitType"){
-      this.delVisitTypeById(id)
-    }else if(this.data.type === "ssnType"){
-      this.delSsnById(id)
-    }else if(this.data.type === "workperiods"){
-      this.delPeriodById(id)
-    }else if(this.data.type === "national"){
-      this.delNationalById(id)
-    }else if(this.data.type === "pricecat"){
-      this.delPriceById(id)
-    }else if(this.data.type === "degree"){
-      this.delDegreeById(id)
-    }
+    this.delTranslation(id)
 }
-delRoomTypegById(id){
-  this._roomTypesService.deleteTrans(id).subscribe(
+delTranslation(id){
+  this._translationservice.deleteTranslation(id).subscribe(
     (res:any)=>{
       if(res.success){
         this.snackbar.open("تم حذف النوع بنجاح ", "ُsuccess", {
@@ -228,84 +154,7 @@ delRoomTypegById(id){
     }
   )
 }
-delVisitTypeById(id){
-  this._visitTypesService.deletevisitTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف النوع بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
 
-      }
-    }
-  )
-}
-delSsnById(id){
-  this._ssnTypesService.deletessnTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف فترة العمل بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
-
-      }
-    }
-  )
-}
-delPeriodById(id){
-  this.peridService.deleteperiodTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف فترة العمل بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
-
-      }
-    }
-  )
-}
-delNationalById(id){
-  this._nationalservice.deleteNationalTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف الجنسية بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
-
-      }
-    }
-  )
-}
-delPriceById(id){
-  this._priceService.deletePriceCategoryTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف الفئة بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
-
-      }
-    }
-  )
-}
-delDegreeById(id){
-  this._degreeService.deletevisitTrans(id).subscribe(
-    (res:any)=>{
-      if(res.success){
-        this.snackbar.open("تم حذف الدرجة بنجاح ", "ُsuccess", {
-          duration: 5000,
-          panelClass: 'success'
-        });
-
-      }
-    }
-  )
-}
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -334,56 +183,16 @@ delDegreeById(id){
         bodyObj[key] = formVal[key]
         if (key == "translations") {
           for (let i = 0; i < formVal['translations'].length; i++) {
-            if(this.data.type === 'roomType'){
-              body.append('translations['+(i)+'][RoomTypeId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+            body.append('translations['+(i)+']['+this.dataId+']', this.data.id);
+            body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
             body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
 
-            }else if(this.data.type === 'visitType'){
-              body.append('translations['+(i)+'][TypeVisitId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-            body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-            body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'ssnType'){
-              body.append('translations['+(i)+'][ssntypeId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-            body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-            body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'workperiods'){
-              body.append('translations['+(i)+'][WorkingPeriodId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'national'){
-              body.append('translations['+(i)+'][NationalityId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'pricecat'){
-              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'workweek'){
-              body.append('translations['+(i)+'][PriceCategoryId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
-              body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
-              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
-            }else if(this.data.type === 'degree'){
-              body.append('translations['+(i)+'][DoctorDegreeId]', this.data.id);
-              body.append('translations['+(i)+'][Id]', formVal.translations[i].id ? formVal.translations[i].id : 0);
+            if(this.data.type === 'degree'){
               body.append('translations['+(i)+'][DegreeName]', formVal.translations[i].Name);
-              body.append('translations['+(i)+'][LangCode]', formVal.translations[i].LangCode);
-
+            }else if(this.data.type === 'status'){
+              body.append('translations['+(i)+'][StatusName]', formVal.translations[i].Name);
             }
-
           }
         }
         else {
@@ -398,56 +207,12 @@ delDegreeById(id){
   save(){
     console.log(this.formTrans.value)
     this.dataSend=this.formData(this.formTrans.value)
-    if(this.data.type === 'roomType'){
-      console.log(this.dataSend)
-      this._roomTypesService.roomTypesTranslation(this.dataSend).subscribe(
+      this._translationservice.editTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
         }
       )
-    }else if(this.data.type === 'visitType'){
-      console.log(this.dataSend)
-      this._visitTypesService.visitTypesTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'ssnType'){
-      console.log(this.dataSend)
-      this._ssnTypesService.ssnTypesTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'workperiods'){
-      console.log(this.dataSend)
-      this.peridService.WorkingPeriodsTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'national'){
-      console.log(this.dataSend)
-      this._nationalservice.natioalityTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'pricecat'){
-      console.log(this.dataSend)
-      this._priceService.priceCategoryTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'degree'){
-      console.log(this.dataSend)
-      this._degreeService.DegreeTranslation(this.dataSend).subscribe(
-        (res)=>{
-          this.closeDialog()
-        }
-      )
-    }
+
 
   }
 }
