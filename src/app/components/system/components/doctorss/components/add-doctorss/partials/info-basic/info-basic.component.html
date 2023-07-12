@@ -89,7 +89,7 @@
         <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">النوع</label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="gander" formControlName="Gender"
-              bindValue="id" bindLabel="name" appDebounceInputChange >
+              bindValue="genderNumber" bindLabel="genderName" appDebounceInputChange >
           </ng-select>
         </div>
     </div>
@@ -170,7 +170,7 @@
       <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold"> حاله الطبيب</label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="docStatus" formControlName="DocStatus"
-            bindValue="id" bindLabel="name" appDebounceInputChange >
+            bindValue="employeeStatusId" bindLabel="statusName" appDebounceInputChange >
           </ng-select>
 
       </div>

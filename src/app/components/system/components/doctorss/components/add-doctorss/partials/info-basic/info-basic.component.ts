@@ -16,9 +16,8 @@ import { AddDoctorssComponent } from '../../add-doctorss.component';
   styleUrls: ['./info-basic.component.scss']
 })
 export class InfoBasicComponent implements OnInit {
-  gander=[{name:'انثي',id:1},{name:'ذكر',id:2}];
   answer=[{name:'نعم',value:true},{name:'لا',value:false}];
-  docStatus=[{id:1,name: 'مقيم'},{id:2,name: "متوقف عن العمل"},{id:3,name: "اجازة"},{id: 4,name: "مسافر"}]
+  docStatus
   DoctorsDegree;
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
@@ -51,6 +50,8 @@ export class InfoBasicComponent implements OnInit {
     this.id=this.data? this.data.id :null
     this.getNational()
     this.getDegrees()
+    this.getGanders()
+    this.geStatus()
     this.createForm();
     if(this.id){
       this.getDoctorById(this.id);
@@ -317,6 +318,21 @@ export class InfoBasicComponent implements OnInit {
     this._lookpservice.getAllDegrees().subscribe(
       (res)=>{
         this.DoctorsDegree=res
+      }
+    )
+  }
+  gander
+  getGanders(){
+    this._lookpservice.getAllGender().subscribe(
+      (res)=>{
+        this.gander=res
+      }
+    )
+  }
+  geStatus(){
+    this._lookpservice.getAllStatus().subscribe(
+      (res)=>{
+        this.docStatus=res
       }
     )
   }

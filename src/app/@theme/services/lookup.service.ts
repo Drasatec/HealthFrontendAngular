@@ -67,4 +67,16 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}DoctorsDegree/names?lang=ar`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllStatus(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}EmployeeStatus/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllGender(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}HumanGender/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllCurrency(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Currency/all`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
 }
