@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { ClinicService } from '../../services/clinic.service';
 import { LookupService } from '../../../../../../@theme/services/lookup.service';
 import { AddSpecialComponent } from '../../../specialities/components/add-special/add-special.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -112,12 +112,12 @@ export class AddClinicComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      HospitalId: [null],
-      BuildId:[null],
-      FloorId:[null],
-      RoomId:[null],
-      SpecialtyId:[null],
-      name:[null],
+      HospitalId: [null,Validators.required],
+      BuildId:[null,Validators.required],
+      FloorId:[null,Validators.required],
+      RoomId:[null,Validators.required],
+      SpecialtyId:[null,Validators.required],
+      name:[null,Validators.required],
       description:[null],
       Phone:[null],
       Appearance:[null],

@@ -4,36 +4,56 @@
       <h5 *ngIf="doctorDataOfAdd || doctorVisitPrice">اسم الطبيب :{{doctorDataOfAdd?.name ? doctorDataOfAdd?.name : doctorVisitPrice?.doctorName}}</h5>
       <div class="col-md-6 col-xxl-6 filter-border">
           <div class="form-group mb-3">
-            <label for="example-search-input" class="text-base-color text-bold">نوع الزيارة</label>
+            <label for="example-search-input" class="text-base-color text-bold">نوع الزيارة<span class="text-danger">*</span></label>
             <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="visitTypes" formControlName="TypeVisitId"
                 bindValue="typeVisitId" bindLabel="name" appDebounceInputChange >
             </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('TypeVisitId').hasError('required')&& form.get('TypeVisitId').touched">
+                من فضلك اختر نوع الزيارة
+              </div>
+            </mat-error>
           </div>
       </div>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">الفئة السعرية</label>
+          <label for="example-search-input" class="text-base-color text-bold">الفئة السعرية<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="priceCategorys" formControlName="PriceCategoryId"
               bindValue="priceCategoryId" bindLabel="name" appDebounceInputChange >
           </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('PriceCategoryId').hasError('required')&& form.get('PriceCategoryId').touched">
+              من فضلك اختر  الفئة السعرية
+            </div>
+          </mat-error>
         </div>
       </div>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">العملة</label>
+          <label for="example-search-input" class="text-base-color text-bold">العملة<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="currancys" formControlName="PriceCurrency"
               bindValue="name" bindLabel="name" appDebounceInputChange >
           </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('PriceCurrency').hasError('required')&& form.get('PriceCurrency').touched">
+              من فضلك اختر العملة
+            </div>
+          </mat-error>
         </div>
       </div>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold"> السعر</label>
+          <label for="example-search-input" class="text-base-color text-bold"> السعر<span class="text-danger">*</span></label>
           <input type="number" formControlName="Price" class="form-control pr-3 my-2" >
+          <mat-error>
+            <div *ngIf="form.get('Price').hasError('required')&& form.get('Price').touched">
+              من فضلك اخل السعر
+            </div>
+          </mat-error>
         </div>
       </div>
       <div class="d-flex justify-content-center mt-4">
-        <button type="button " class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading"  (click)="save()">
+        <button type="button " class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading || !form.valid"  (click)="save()">
             <span>{{edit ? 'تعديل' : 'اضافة'}}</span>
         </button>
         <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">

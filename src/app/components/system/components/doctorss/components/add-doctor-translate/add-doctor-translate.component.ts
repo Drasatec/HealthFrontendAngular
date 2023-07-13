@@ -13,6 +13,7 @@ import { DoctorsService } from '../../services/doctors.service';
 })
 export class AddDoctorTranslateComponent implements OnInit {
   formTrans:FormGroup;
+  loading=false
   public codes = [{name:'Ar',value:'ar'}, {name:'En',value:'en'}, {name:'Fr',value:'fr'}];
 
   @Output() onAddTranslate: EventEmitter<any> = new EventEmitter();
@@ -104,9 +105,9 @@ export class AddDoctorTranslateComponent implements OnInit {
       'DoctorId':new FormControl(data?this.data.id:null),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
-      'FullName': new FormControl(data?.fullName ? data?.fullName :null),
+      'FullName': new FormControl(data?.fullName ? data?.fullName :null, Validators.required),
       'About': new FormControl(data?.about ? data?.about :''),
-      'Headline': new FormControl(data?.headline ? data?.headline :''),
+      'Headline': new FormControl(data?.headline ? data?.headline :'', Validators.required),
 
     })
   }
@@ -152,12 +153,25 @@ export class AddDoctorTranslateComponent implements OnInit {
   dataSend;
 
   save(){
-    this.dataSend=this.formData(this.formTrans.value)
+    this.formTrans.markAllAsTouched();
+    if (this.formTrans.valid) {
+      this.loading=true
+      this.dataSend=this.formData(this.formTrans.value)
       this._doctorService.addTranslation(this.data.id,this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
+        },
+        (err) => {
+          this.loading=false
+          this.snackbar.open("من فضلك حاول مرة اخري", "ُError", {
+            duration: 3000,
+            panelClass: 'error'
+          });
+
         }
       )
-
+    }
   }
 }

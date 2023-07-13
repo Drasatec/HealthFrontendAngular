@@ -230,7 +230,7 @@ export class AddBuildTranslateComponent implements OnInit {
       'buildingId':new FormControl(this.data.id),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
-      'Name': new FormControl(data?.name ? data?.name :null),
+      'Name': new FormControl(data?.name ? data?.name :null, Validators.required),
       'Description': new FormControl(data?.description ? data?.description :''),
 
 
@@ -283,48 +283,50 @@ export class AddBuildTranslateComponent implements OnInit {
   }
   dataSend;
   save(){
-    this.loading=true
-    this.dataSend=this.formData(this.formTrans.value)
-    if(this.data.type === 'building'){
-      this._buildingService.addTranslation(this.data.id,this.dataSend).subscribe(
-        (res)=>{
-          this.loading=false
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'floor'){
-      this._floorService.addTranslation(this.data.id,this.dataSend).subscribe(
-        (res)=>{
-          this.loading=false
+    this.formTrans.markAllAsTouched();
+    if (this.formTrans.valid) {
+      this.loading=true
+      this.dataSend=this.formData(this.formTrans.value)
+      if(this.data.type === 'building'){
+        this._buildingService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'floor'){
+        this._floorService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
 
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'room'){
-      this._roomService.addTranslation(this.data.id,this.dataSend).subscribe(
-        (res)=>{
-          this.loading=false
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'room'){
+        this._roomService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
 
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'special'){
-      this._specialService.addTranslation(this.data.id,this.dataSend).subscribe(
-        (res)=>{
-          this.loading=false
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'special'){
+        this._specialService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
 
-          this.closeDialog()
-        }
-      )
-    }else if(this.data.type === 'clinic'){
-      this._clinicService.addTranslation(this.data.id,this.dataSend).subscribe(
-        (res)=>{
-          this.loading=false
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'clinic'){
+        this._clinicService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
 
-          this.closeDialog()
-        }
-      )
+            this.closeDialog()
+          }
+        )
+      }
     }
-
   }
 }

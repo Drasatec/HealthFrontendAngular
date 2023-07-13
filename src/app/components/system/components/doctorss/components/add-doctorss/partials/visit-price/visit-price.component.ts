@@ -1,5 +1,5 @@
 import { Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -132,10 +132,10 @@ export class VisitPriceComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       DoctorId:[null],
-      TypeVisitId:[null],
-      PriceCategoryId:[null],
-      PriceCurrency:[null],
-      Price:[null],
+      TypeVisitId:[null,Validators.required],
+      PriceCategoryId:[null,Validators.required],
+      PriceCurrency:[null,Validators.required],
+      Price:[null,Validators.required],
     });
   }
   get formControls() {

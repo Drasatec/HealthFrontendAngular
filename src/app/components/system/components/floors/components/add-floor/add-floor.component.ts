@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -96,9 +96,9 @@ export class AddFloorComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      HospitalId: [null],
-      BuildId:[null],
-      name:[null],
+      HospitalId: [null,Validators.required],
+      BuildId:[null,Validators.required],
+      name:[null,Validators.required],
       description:[null]
     });
   }

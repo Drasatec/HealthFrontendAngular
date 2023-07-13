@@ -75,18 +75,18 @@ export class AddHospitalComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      address: [null],
-      name:[],
-      description:[],
-      email:[],
+      address: [null,Validators.required],
+      name:[null,Validators.required],
+      description:[null],
+      email:[null],
       PhoneNumbers: this._FormBuilder.array([this.createPhoneFormGroup()]),
-      whatsAppNumber:[],
+      whatsAppNumber:[null],
     });
   }
   private createPhoneFormGroup(data?): FormGroup {
     return this._FormBuilder.group({
       'id':new FormControl(data?.id),
-      'TelephoneNumber': new FormControl(data?.telephoneNumber),
+      'TelephoneNumber': new FormControl(data?.telephoneNumber,Validators.required),
 
     })
   }

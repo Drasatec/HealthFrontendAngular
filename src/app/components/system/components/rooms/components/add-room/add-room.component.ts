@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { RoomService } from '../../services/room.service';
 import { AddInfoTranslateComponent } from '../../../hospitals/components/add-info-translate/add-info-translate.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -18,6 +18,7 @@ import { AddFloorComponent } from '../../../floors/components/add-floor/add-floo
 })
 export class AddRoomComponent implements OnInit {
   form: FormGroup;
+  loading=false
   imgUrl=`${environment.imgUrl}`;
 
   constructor(
@@ -105,10 +106,10 @@ export class AddRoomComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      HospitalId: [null],
-      BuildId:[null],
-      FloorId:[null],
-      name:[null],
+      HospitalId: [null,Validators.required],
+      BuildId:[null,Validators.required],
+      FloorId:[null,Validators.required],
+      name:[null,Validators.required],
       description:[null],
       RoomTypeId:[null]
     });
@@ -150,11 +151,13 @@ export class AddRoomComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
 
         this._roomService.createRoom(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
               this.newRoomId=res.id;
               this.snackBar.open("تم اضافة الغرفة بنجاح ", "ُsuccess", {
                 duration: 5000,
@@ -163,6 +166,8 @@ export class AddRoomComponent implements OnInit {
               this.closeDialog()
           },
           (err) => {
+            this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -173,6 +178,8 @@ export class AddRoomComponent implements OnInit {
       }else{
         this._roomService.editRoom(this.id,this.sendData).subscribe(
           (res)=>{
+            this.loading=false
+
             this.snackBar.open("تم تعديل الغرفة بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -180,6 +187,8 @@ export class AddRoomComponent implements OnInit {
             this.closeEditDialog()
           },
           (err) => {
+            this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

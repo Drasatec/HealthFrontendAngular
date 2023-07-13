@@ -68,7 +68,7 @@
         <div class="row mt-4">
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">كود العيادة<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold">كود العيادة</label>
                 <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
             </div>
           </div>
@@ -76,17 +76,22 @@
             <div class="form-group mb-3">
                 <label for="example-search-input" class="text-base-color text-bold">اسم العيادة<span class="text-danger">*</span></label>
                 <input type="text" formControlName="name" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
+                    من فضلك ادخل الاسم
+                  </div>
+                </mat-error>
             </div>
           </div>
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">ساعات العمل<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold">ساعات العمل</label>
                 <input type="text" formControlName="WorkingHours" class="form-control pr-3 my-2" >
             </div>
           </div>
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold"> التليفون<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold"> التليفون</label>
                 <input type="text" formControlName="Phone" class="form-control pr-3 my-2" >
             </div>
           </div>
@@ -113,7 +118,7 @@
         </div>
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-              <label for="state" class="text-base-color text-bold">المستشفي</label>
+              <label for="state" class="text-base-color text-bold">المستشفي<span class="text-danger">*</span></label>
               <div class="add-btn">
                 <ng-select class="pr-3 my-2"
                   [items]="hospitals"
@@ -127,16 +132,18 @@
                   (clear)="clearHos();"
                   formControlName="HospitalId">
                 </ng-select>
-                <!-- <button class="btn background-primary" (click)="openHospDialog()">
-                  <i class="fa-solid fa-plus fa-xl"></i>
-                </button> -->
+                <mat-error>
+                  <div *ngIf="form.get('HospitalId').hasError('required')&& form.get('HospitalId').touched">
+                    من فضلك ادخل المستشفي
+                  </div>
+                </mat-error>
               </div>
 
             </div>
         </div>
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-              <label for="state" class="text-base-color text-bold">المبني</label>
+              <label for="state" class="text-base-color text-bold">المبني<span class="text-danger">*</span></label>
               <div class="add-btn">
                 <ng-select class="pr-3 my-2"
                   [items]="buildings"
@@ -150,16 +157,18 @@
                   (clear)="cleanBuild();"
                   formControlName="BuildId">
                 </ng-select>
-                <!-- <button class="btn background-primary" (click)="openDialog()">
-                  <i class="fa-solid fa-plus fa-xl"></i>
-                </button> -->
+                <mat-error>
+                  <div *ngIf="form.get('BuildId').hasError('required')&& form.get('BuildId').touched">
+                    من فضلك ادخل المبني
+                  </div>
+                </mat-error>
               </div>
 
             </div>
         </div>
         <div class="col-md-4 col-xxl-4 filter-border">
           <div class="form-group mb-3">
-            <label for="state" class="text-base-color text-bold">الطابق</label>
+            <label for="state" class="text-base-color text-bold">الطابق<span class="text-danger">*</span></label>
             <div class="add-btn">
               <ng-select class="pr-3 my-2"
                 [items]="floors"
@@ -173,16 +182,18 @@
                   (clear)="cleanFloor();"
                 formControlName="FloorId">
               </ng-select>
-              <!-- <button class="btn background-primary" (click)="openDialog()">
-                <i class="fa-solid fa-plus fa-xl"></i>
-              </button> -->
+              <mat-error>
+                <div *ngIf="form.get('FloorId').hasError('required')&& form.get('FloorId').touched">
+                  من فضلك ادخل الطابق
+                </div>
+              </mat-error>
             </div>
 
           </div>
       </div>
       <div class="col-md-4 col-xxl-4 filter-border">
         <div class="form-group mb-3">
-          <label for="state" class="text-base-color text-bold">الغرفة</label>
+          <label for="state" class="text-base-color text-bold">الغرفة<span class="text-danger">*</span></label>
           <div class="add-btn">
             <ng-select class="pr-3 my-2"
               [items]="rooms"
@@ -194,16 +205,18 @@
               clearAllText="Clear"
               formControlName="RoomId">
             </ng-select>
-            <!-- <button class="btn background-primary" (click)="openDialog()">
-              <i class="fa-solid fa-plus fa-xl"></i>
-            </button> -->
+            <mat-error>
+              <div *ngIf="form.get('RoomId').hasError('required')&& form.get('RoomId').touched">
+                من فضلك ادخل الغرفة
+              </div>
+            </mat-error>
           </div>
 
         </div>
     </div>
       <div class="col-md-4 col-xxl-4 filter-border">
         <div class="form-group mb-3">
-          <label for="state" class="text-base-color text-bold">التخصص</label>
+          <label for="state" class="text-base-color text-bold">التخصص<span class="text-danger">*</span></label>
           <div class="add-btn">
             <ng-select class="pr-3 my-2"
               [items]="specials"
@@ -215,6 +228,11 @@
               clearAllText="Clear"
               formControlName="SpecialtyId">
             </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('SpecialtyId').hasError('required')&& form.get('SpecialtyId').touched">
+                من فضلك ادخل التخصص
+              </div>
+            </mat-error>
             <button class="btn background-primary" (click)="openDialog()">
               <i class="fa-solid fa-plus fa-xl"></i>
             </button>
@@ -224,7 +242,7 @@
     </div>
         <div class="col-12 filter-border">
           <div class="form-group mb-3">
-              <label for="example-search-input" class="text-base-color text-bold">تفاصيل عن العيادة<span class="text-danger">*</span></label>
+              <label for="example-search-input" class="text-base-color text-bold">تفاصيل عن العيادة</label>
               <textarea formControlName="description" class="form-control pr-3 my-2" row="3"></textarea>
           </div>
         </div>
@@ -234,7 +252,7 @@
       <div class="row">
           <!-- begin:: search  -->
           <div class="d-flex justify-content-center mt-4">
-            <button type="button " class="btn btn-primary background-primary col-3"   [class.spinnerBtn]="loading" [disabled]="loading" (click)="save()">
+            <button type="button " class="btn btn-primary background-primary col-3"   [class.spinnerBtn]="loading" [disabled]="loading || !form.valid" (click)="save()">
                 <span>{{id ? 'تعديل' :'إضافة'}}</span>
             </button>
             <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">

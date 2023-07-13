@@ -12,6 +12,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 })
 export class AddInfoTranslateComponent implements OnInit{
   formTrans:FormGroup;
+  loading=false;
   public codes = [{name:'Ar',value:'ar'}, {name:'En',value:'en'}, {name:'Fr',value:'fr'}];
 
   @Output() onAddTranslate: EventEmitter<any> = new EventEmitter();
@@ -100,8 +101,8 @@ export class AddInfoTranslateComponent implements OnInit{
       'hospitalId':new FormControl(this.data),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
-      'Name': new FormControl(data?.name ? data?.name :null),
-      'Address': new FormControl(data?.address ? data?.address :null),
+      'Name': new FormControl(data?.name ? data?.name :null, Validators.required),
+      'Address': new FormControl(data?.address ? data?.address :null, Validators.required),
       'description': new FormControl(data?.description ? data?.description :null),
     })
   }
@@ -141,11 +142,16 @@ export class AddInfoTranslateComponent implements OnInit{
   }
   dataSend;
   save(){
-    this.dataSend=this.formData(this.formTrans.value)
-    this._hospitalService.addTranslation(this.data,this.dataSend).subscribe(
-      (res)=>{
-        this.closeDialog()
-      }
-    )
+    this.formTrans.markAllAsTouched();
+    if (this.formTrans.valid) {
+      this.loading=true
+      this.dataSend=this.formData(this.formTrans.value)
+      this._hospitalService.addTranslation(this.data,this.dataSend).subscribe(
+        (res)=>{
+          this.loading=false
+          this.closeDialog()
+        }
+      )
+    }
   }
 }

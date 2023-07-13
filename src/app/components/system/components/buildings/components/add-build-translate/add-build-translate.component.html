@@ -22,7 +22,8 @@
           <i class="fa-solid fa-circle-plus"></i>
           اضافة
         </button>
-        <button  extended aria-label="Add" (click)="save()" matTooltip="Add" class="btn background-save mx-2">
+        <button  extended aria-label="Add" (click)="save()"
+        [class.spinnerBtn]="loading" [disabled]="!formTrans.valid || loading" matTooltip="Add" class="btn background-save mx-2">
           <i class="fa-regular fa-floppy-disk"></i>
           حفظ
         </button>
@@ -38,24 +39,26 @@
                     {{label.name}}
                   </mat-option>
                 </mat-select>
+                <mat-error>
+                  <div *ngIf="myFormArray.controls[i].get('LangCode').errors && myFormArray.controls[i].get('LangCode').touched">
+                    <div *ngIf="myFormArray.controls[i].get('LangCode').hasError('required')">من فضلك اختر اللغة
+                    </div>
+                  </div>
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="col-4">
                 <input matInput formControlName="Name" placeholder="الاسم" autocomplete="email">
-                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
-                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
-                    {{validation.message}}
+                <mat-error>
+                  <div *ngIf="myFormArray.controls[i].get('Name').errors && myFormArray.controls[i].get('Name').touched">
+                    <div *ngIf="myFormArray.controls[i].get('Name').hasError('required')">من فضلك ادخل الاسم
+                    </div>
                   </div>
-                </mat-error> -->
+                </mat-error>
               </mat-form-field>
 
               <mat-form-field class="col-10 my-2">
                 <textarea matInput formControlName="Description" placeholder="التفاصيل" autocomplete="email"></textarea>
-                <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
-                  <div *ngIf="email.get('emailAddress').hasError(validation.type)">
-                    {{validation.message}}
-                  </div>
-                </mat-error> -->
               </mat-form-field>
             </div>
             <button extended aria-label="Remove/clear" class="btn btn-remove"

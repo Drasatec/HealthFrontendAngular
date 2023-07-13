@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output, AfterViewInit, AfterContentChecked, AfterContentInit, ViewChild } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -143,10 +143,10 @@ getWorkWeek(){
   createForm(): void {
     this.form = this._FormBuilder.group({
       DoctorId:[null],
-      HospitalId:[null],
-      ClinicId:[null],
-      WorkingPeriodId:[null],
-      onDay:[null],
+      HospitalId:[null,Validators.required],
+      ClinicId:[null,Validators.required],
+      WorkingPeriodId:[null,Validators.required],
+      onDay:[null,Validators.required],
     });
   }
   get formControls() {

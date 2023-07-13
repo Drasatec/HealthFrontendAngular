@@ -88,7 +88,7 @@ export class UploadFilesComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       DoctorId:[null],
-      Title:[null],
+      Title:[null,Validators.required],
     });
   }
   get formControls() {

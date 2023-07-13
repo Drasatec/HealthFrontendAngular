@@ -2,8 +2,13 @@
   <div class="row">
     <div class="col-md-12 col-xxl-12 filter-border">
       <div class="form-group mb-3">
-          <label  for="example-search-input" class="text-base-color text-bold"> اسم المرفق</label>
+          <label  for="example-search-input" class="text-base-color text-bold"> اسم المرفق<span class="text-danger">*</span></label>
           <input type="text" formControlName="Title" class="form-control pr-3 my-2" >
+          <mat-error>
+            <div *ngIf="form.get('Title').hasError('required')&& form.get('Title').touched">
+              من فضلك ادخل  اسم المرفق
+            </div>
+          </mat-error>
       </div>
     </div>
     <div class="col-12 filter-border attachment mt-3">
@@ -51,9 +56,10 @@
           </div>
         </div>
       </div>
+
     </div>
     <div class="d-flex justify-content-center mt-4">
-      <button mat-raised-button class="btn background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading"  (click)="save()">
+      <button mat-raised-button class="btn background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading || !form.valid || files.length === 0"  (click)="save()">
           <span>إضافة</span>
       </button>
       <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">

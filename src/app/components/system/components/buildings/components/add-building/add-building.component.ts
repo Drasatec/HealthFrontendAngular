@@ -91,8 +91,8 @@ export class AddBuildingComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
-      HospitalId: [null],
-      name:[null],
+      HospitalId: [null,Validators.required],
+      name:[null,Validators.required],
       description:[null]
     });
   }

@@ -4,39 +4,59 @@
       <h5 *ngIf="doctorDataOfAdd || doctorPeriod">اسم الطبيب :{{doctorDataOfAdd?.name ? doctorDataOfAdd?.name : doctorPeriod?.doctorName}}</h5>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">المستشفي</label>
+          <label for="example-search-input" class="text-base-color text-bold">المستشفي<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="hospitals" formControlName="HospitalId"
               bindValue="hospitalId" bindLabel="name" appDebounceInputChange (change)="getClinics($event)">
           </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('HospitalId').hasError('required')&& form.get('HospitalId').touched">
+              من فضلك اختر المستشفي
+            </div>
+          </mat-error>
         </div>
       </div>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
-          <label for="example-search-input" class="text-base-color text-bold">العيادة</label>
+          <label for="example-search-input" class="text-base-color text-bold">العيادة<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="clinics" formControlName="ClinicId"
               bindValue="clinicId" bindLabel="name" appDebounceInputChange >
           </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('ClinicId').hasError('required')&& form.get('ClinicId').touched">
+              من فضلك اختر العيادة
+            </div>
+          </mat-error>
         </div>
       </div>
 
     <div class="col-md-6 col-xxl-6 filter-border">
       <div class="form-group mb-3">
-        <label for="example-search-input" class="text-base-color text-bold">اليوم</label>
+        <label for="example-search-input" class="text-base-color text-bold">اليوم<span class="text-danger">*</span></label>
         <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="workWeek" formControlName="onDay"
             bindValue="dayNumber" bindLabel="weekdayName" appDebounceInputChange >
         </ng-select>
+        <mat-error>
+          <div *ngIf="form.get('onDay').hasError('required')&& form.get('onDay').touched">
+            من فضلك اختر اليوم
+          </div>
+        </mat-error>
       </div>
     </div>
     <div class="col-md-6 col-xxl-6 filter-border">
       <div class="form-group mb-3">
-        <label for="example-search-input" class="text-base-color text-bold">فترة العمل</label>
+        <label for="example-search-input" class="text-base-color text-bold">فترة العمل<span class="text-danger">*</span></label>
         <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="workingPeriods" formControlName="WorkingPeriodId"
             bindValue="workingPeriodId" bindLabel="name" appDebounceInputChange >
         </ng-select>
+        <mat-error>
+          <div *ngIf="form.get('WorkingPeriodId').hasError('required')&& form.get('WorkingPeriodId').touched">
+            من فضلك اختر الفترة
+          </div>
+        </mat-error>
       </div>
     </div>
       <div class="d-flex justify-content-center mt-4">
-        <button type="button" class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading"  (click)="save()">
+        <button type="button" class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading || !form.valid"  (click)="save()">
             <span>{{edit ? 'تعديل' : 'اضافة'}}</span>
         </button>
         <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">

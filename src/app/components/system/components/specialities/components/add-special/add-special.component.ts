@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { SpecialService } from '../../services/special.service';
 import { AddBuildTranslateComponent } from '../../../buildings/components/add-build-translate/add-build-translate.component';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,7 @@ import { LookupService } from '../../../../../../@theme/services/lookup.service'
 })
 export class AddSpecialComponent implements OnInit {
   form: FormGroup;
+  loading=false
   imgUrl=`${environment.imgUrl}`;
   appears=[{name:'يظهر' ,value:true},{name:'يختفي' ,value:false}]
   constructor(
@@ -74,7 +75,7 @@ export class AddSpecialComponent implements OnInit {
     this.form = this._FormBuilder.group({
       codeNumber: [null],
       appearance:[null],
-      name:[null],
+      name:[null,Validators.required],
       description:[null],
     });
   }
@@ -97,11 +98,13 @@ export class AddSpecialComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-
         this._specialservice.createMedicalSpecial(this.sendData).subscribe(
           (res)=>{
+        this.loading=false
+
               this.newRoomId=res.id;
               this.snackBar.open("تم اضافة التخصص بنجاح ", "ُsuccess", {
                 duration: 5000,
@@ -110,6 +113,8 @@ export class AddSpecialComponent implements OnInit {
               this.closeDialog()
           },
           (err) => {
+        this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -120,6 +125,8 @@ export class AddSpecialComponent implements OnInit {
       }else{
         this._specialservice.editMedicalSpecial(this.id,this.sendData).subscribe(
           (res)=>{
+        this.loading=false
+
             this.snackBar.open("تم تعديل التخصص بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -127,6 +134,8 @@ export class AddSpecialComponent implements OnInit {
             this.closeEditDialog()
           },
           (err) => {
+        this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

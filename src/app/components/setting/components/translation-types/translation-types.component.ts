@@ -213,6 +213,8 @@ delTranslation(id){
       this.dataSend=this.formData(this.formTrans.value)
       this._translationservice.editTranslation(this.dataSend).subscribe(
         (res)=>{
+          this.loading=false
+
           this.closeDialog()
         },
         (err) => {

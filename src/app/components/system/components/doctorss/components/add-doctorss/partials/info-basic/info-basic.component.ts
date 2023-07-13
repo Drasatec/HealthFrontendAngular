@@ -92,17 +92,17 @@ export class InfoBasicComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       codeNumber:[null],
-      Gender:[null],
+      Gender:[null,Validators.required],
       DocStatus:[null],
       workingHours:[null],
       PhoneNumber:[null],
       IsAppearanceOnSite:[null],
       PhoneNumberAppearance:[null],
       VisitPriceAppearance:[null],
-      // DoctorsDegreeId:[null],
+      DoctorsDegreeId:[null,Validators.required],
       NationalityId:[null],
-      FullName:[null],
-      Headline:[null],
+      FullName:[null,Validators.required],
+      Headline:[null,Validators.required],
       About:[null],
     });
   }
