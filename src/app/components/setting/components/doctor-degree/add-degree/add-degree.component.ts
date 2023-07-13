@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { DoctorDegreeService } from '../../../services/doctor-degree.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { LookupService } from '../../../../../@theme/services/lookup.service';
 })
 export class AddDegreeComponent implements OnInit {
 form: FormGroup;
-
+loading=false
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
@@ -69,7 +69,7 @@ form: FormGroup;
     this.form = this._FormBuilder.group({
 
       // codeNumber: [null],
-      degreeName:[null],
+      degreeName:[null,Validators.required],
 
     });
   }
@@ -80,10 +80,12 @@ form: FormGroup;
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
         this._degreeservice.createDegree(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم الاضافة  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -91,6 +93,7 @@ form: FormGroup;
             this.closeDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -101,6 +104,7 @@ form: FormGroup;
       }else{
         this._degreeservice.editDegree(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم التعديل  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -108,6 +112,7 @@ form: FormGroup;
             this.closeEditDialog()
           },
           (err) => {
+            this.loading=false
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

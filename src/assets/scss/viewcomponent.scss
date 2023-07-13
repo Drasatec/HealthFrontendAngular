@@ -2,6 +2,7 @@
   .card-header {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
   }
   .card-body {
     .center-border {
@@ -121,4 +122,20 @@ img.hover-shadow {
 }
 .hover-shadow:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
+}
+.btn-close-trans {
+  background-color: var(--light-color-basic);
+  color:#fff;
+  &:hover {
+    color:red
+  }
+}
+.btn-remove {
+  background-color: transparent;
+  color:#fff;
+  box-shadow: none;
+  font-size: 1.2rem;
+  &:hover {
+    color:red
+  }
 }

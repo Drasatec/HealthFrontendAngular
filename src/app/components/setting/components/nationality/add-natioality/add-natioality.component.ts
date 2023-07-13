@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { NationalityService } from '../../../services/nationality.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { LookupService } from '../../../../../@theme/services/lookup.service';
 })
 export class AddNatioalityComponent implements OnInit {
   form: FormGroup;
-
+  loading=false
   constructor(
     private _FormBuilder: FormBuilder,
     private router:Router,
@@ -67,7 +67,7 @@ export class AddNatioalityComponent implements OnInit {
   createForm(): void {
     this.form = this._FormBuilder.group({
       Symbol: [null],
-      name:[null],
+      name:[null,Validators.required],
     });
   }
   get formControls() {
@@ -77,10 +77,12 @@ export class AddNatioalityComponent implements OnInit {
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
+      this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
         this._nationalservice.createnationality(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
             this.snackBar.open("تم الاضافة  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -88,6 +90,8 @@ export class AddNatioalityComponent implements OnInit {
             this.closeDialog()
           },
           (err) => {
+            this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -98,6 +102,8 @@ export class AddNatioalityComponent implements OnInit {
       }else{
         this._nationalservice.editnationality(this.sendData).subscribe(
           (res)=>{
+            this.loading=false
+
             this.snackBar.open("تم التعديل  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -105,6 +111,8 @@ export class AddNatioalityComponent implements OnInit {
             this.closeEditDialog()
           },
           (err) => {
+            this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'

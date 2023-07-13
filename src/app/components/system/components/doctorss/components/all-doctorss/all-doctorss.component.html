@@ -16,12 +16,12 @@
     <div class="doctor row">
       <div class="col-lg-4 col-md-6 col-12" *ngFor="let doctor of doctors">
         <div class="doc-card py-2" *ngIf="doctor.isAppearanceOnSite">
-          <div class="row align-items-center">
-            <div class="col-md-4">
+          <div class="row">
+            <div class="col-md-3">
               <img [src]="doctor.photo ? imgUrl +'small/'+doctor.photo+'?timestamp='+timestamp :'/assets/images/nick.png'" [alt]="doctor.photo" class="img-fluid rounded-circle">
             </div>
             <div class="col-md-8">
-              <div class="doc-card-body">
+              <div class="doc-card-body" (click)="gotoProfile(doctor.id)">
                 <h5 class="card-title text-bold">
                   {{doctor.doctorTranslations[0].fullName ? doctor.doctorTranslations[0].fullName :'بدون اسم'}}
                 </h5>

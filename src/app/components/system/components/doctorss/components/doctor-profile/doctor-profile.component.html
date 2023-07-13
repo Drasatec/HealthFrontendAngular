@@ -8,9 +8,9 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      <div class="card-body d-flex  flex-column">
+      <div class="card-body d-flex flex-column">
         <div class="head">
-          <img [src]="doctorInfo?.photo ? imgUrl +'small/'+doctorInfo?.photo+'?timestamp='+timestamp :'/assets/images/nick.png'" [alt]="doctorInfo?.photo" class="img-fluid rounded-circle">
+          <img  [src]="doctorInfo?.photo ? imgUrl +'small/'+doctorInfo?.photo+'?timestamp='+timestamp :'/assets/images/nick.png'" [alt]="doctorInfo?.photo" class="img-fluid rounded-circle">
           <h5 class="my-2">{{doctorInfo?.doctorTranslations[0]?.fullName}}</h5>
         </div>
         <ul class="list-group">
@@ -33,16 +33,17 @@
         </ul>
       </div>
     </div>
-    <div class="col-md-8
-    ">
+    <div class="col-md-8">
       <div class="card-body">
-        <h4>مواعيد </h4>
+        <h4>المواعيد </h4>
         <ul class="list-group" *ngFor="let file of doctorPeriods">
           <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>{{file.hospital}}</span>
+
             <span>{{file.clinic}}</span>
             <span>{{file.dayName}}</span>
 
-            <p>{{file.workingPeriod}}</p>
+            <span>{{file.workingPeriod}}</span>
           </li>
           <hr/>
         </ul>

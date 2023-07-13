@@ -4,11 +4,11 @@
     class="card-header  d-flex justify-content-between align-items-center"
   >
     <!-- begin:: card title  -->
-    <h3 class="card-title align-items-start flex-column mr-3 mb-5 mt-0">
-      <span class="card-label text-primary">اضافة لغة</span>
+    <h3 class="card-title align-items-start flex-column mt-0">
+      <span class="card-label">اضافة لغة</span>
     </h3>
-    <button mat-button (click)="closeDialog()">
-      <i mat-dialog-close class="fas fa-times text-primary" ></i>
+    <button mat-button (click)="closeDialog()" class="btn-close-trans">
+      <i mat-dialog-close class="fas fa-times" ></i>
     </button>
 
   </div>
@@ -17,15 +17,20 @@
     <div [formGroup]="formTrans">
       <div formArrayName="translations" class="row">
         <div class="col-12 d-flex justify-content-end">
-          <button mat-fab extended aria-label="Add"
-            (click)="addEmailFormGroup()" matTooltip="Add">
-            <i class="fa-solid fa-square-plus"></i>
-          </button>
+          <button  extended aria-label="Add" class="btn btn-primary background-primary"
+          (click)="addEmailFormGroup()" matTooltip="Add">
+          <i class="fa-solid fa-circle-plus"></i>
+          اضافة
+        </button>
+        <button  extended aria-label="Add" (click)="save()" matTooltip="Add" class="btn background-save mx-2">
+          <i class="fa-regular fa-floppy-disk"></i>
+          حفظ
+        </button>
         </div>
-        <div class="row translation" *ngFor="let lang of myFormArray['controls']; let i = index"
+        <div  *ngFor="let lang of myFormArray['controls']; let i = index"
             [formGroupName]="i">
-
-            <div class="col-11 row">
+          <div class="translation">
+            <div class="row">
               <mat-form-field class="col-2">
                 <mat-label>اللغة</mat-label>
                 <mat-select formControlName="LangCode">
@@ -44,7 +49,7 @@
                 </mat-error> -->
               </mat-form-field>
 
-              <mat-form-field class="col-10">
+              <mat-form-field class="col-10 my-2">
                 <textarea matInput formControlName="Description" placeholder="التفاصيل" autocomplete="email"></textarea>
                 <!-- <mat-error *ngFor="let validation of validationMsgs.emailAddress">
                   <div *ngIf="email.get('emailAddress').hasError(validation.type)">
@@ -53,20 +58,17 @@
                 </mat-error> -->
               </mat-form-field>
             </div>
-            <div class="col">
-              <button mat-fab extended aria-label="Remove/clear"
-                  (click)="removeOrClearEmail(i,lang.value.id)" matTooltip="Remove">
-                  <i class="fa-solid fa-trash"></i>
-              </button>
-            </div>
+            <button extended aria-label="Remove/clear" class="btn btn-remove"
+                (click)="removeOrClearEmail(i,lang.value.id)" matTooltip="Remove">
+                <i class="fa-solid fa-trash"></i>
+
+            </button>
+          </div>
+
 
         </div>
       </div>
-      <div class="col-12 d-flex justify-content-end">
-        <button  mat-fab extended aria-label="Add"  [class.spinnerBtn]="loading" [disabled]="loading"
-          (click)="save()" matTooltip="Add">حفظ
-        </button>
-      </div>
+
     </div>
   </div>
 </div>

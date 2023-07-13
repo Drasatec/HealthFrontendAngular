@@ -101,7 +101,9 @@ export class DoctorProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result)
       if(result){
-
+        this.getBasicInfo()
+        this.getDoctorAttachment()
+        this.getDoctorPeriods()
       }
     });
   }

@@ -40,6 +40,7 @@ export class TranslationTypesComponent implements OnInit {
   translationData;
   dataRec;
   dataId;
+  loading=false
   ngOnInit(): void {
     this.createForm()
     console.log(this.data)
@@ -161,7 +162,7 @@ delTranslation(id){
       'RoomTypeId':new FormControl(this.data.id),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
-      'Name': new FormControl(data?.name ? data?.name :null),
+      'Name': new FormControl(data?.name ? data?.name :null, Validators.required),
 
 
     })
@@ -206,13 +207,24 @@ delTranslation(id){
   dataSend;
   save(){
     console.log(this.formTrans.value)
-    this.dataSend=this.formData(this.formTrans.value)
+    this.formTrans.markAllAsTouched();
+    if (this.formTrans.valid) {
+      this.loading=true
+      this.dataSend=this.formData(this.formTrans.value)
       this._translationservice.editTranslation(this.dataSend).subscribe(
         (res)=>{
           this.closeDialog()
+        },
+        (err) => {
+          this.loading=false
+          this.snackbar.open("من فضلك حاول مرة اخري", "ُError", {
+            duration: 3000,
+            panelClass: 'error'
+          });
+
         }
       )
-
+    }
 
   }
 }

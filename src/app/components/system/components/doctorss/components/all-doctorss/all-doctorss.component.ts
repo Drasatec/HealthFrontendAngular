@@ -222,6 +222,9 @@ export class AllDoctorssComponent  implements OnInit{
       }
     });
   }
+  gotoProfile(id){
+    this.route.navigate(['/dashboard/system/doctorss/doctor-profile/',id])
+  }
 }
 
 

@@ -25,8 +25,20 @@ body {
   background-color: var(--background-button);
   color:var(--menu-item-active-text-color);
   font-size: 1rem;
+  &:hover {
+    color: var(--background-button);
+  background-color:var(--menu-item-active-text-color);
+  }
 }
-
+.background-save {
+  background-color: var(--layout-background-color);
+  color:var(--text-base-color);
+  font-size: 1rem;
+  &:hover {
+    color: var(--layout-background-color);
+  background-color:var(--text-base-color);
+  }
+}
 /**header*/
 // nb-layout.window-mode .layout nb-layout-header {
 //   width:calc(100% - var(--sidebar-width));

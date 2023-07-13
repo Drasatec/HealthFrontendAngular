@@ -13,7 +13,7 @@
         <div class="row mt-4">
           <div class="col-6 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">الكود<span class="text-danger">*</span></label>
+                <label for="example-search-input" class="text-base-color text-bold">الكود</label>
                 <input type="text" formControlName="dayNumber" class="form-control pr-3 my-2" >
             </div>
           </div>
@@ -21,6 +21,11 @@
             <div class="form-group mb-3">
                 <label for="example-search-input" class="text-base-color text-bold">الاسم <span class="text-danger">*</span></label>
                 <input type="text" formControlName="WeekdayName" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('WeekdayName').hasError('required')&& form.get('WeekdayName').touched">
+                    من فضلك ادخل الاسم
+                  </div>
+                </mat-error>
             </div>
           </div>
         </div>
@@ -28,7 +33,8 @@
       <div class="row">
           <!-- begin:: search  -->
           <div class="d-flex justify-content-center mt-4">
-            <button type="button " class="btn btn-primary background-primary col-3"  (click)="save()">
+            <button type="button " class="btn btn-primary background-primary col-3"
+                [class.spinnerBtn]="loading" [disabled]="!form.valid || loading" (click)="save()">
                 <span>{{id ? 'تعديل' :'إضافة'}}</span>
             </button>
             <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">
