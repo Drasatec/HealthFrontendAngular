@@ -68,42 +68,6 @@
         <div class="row mt-4">
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">كود الغرفة</label>
-                <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
-            </div>
-          </div>
-          <div class="col-md-4 col-xxl-4 filter-border">
-            <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">اسم الغرفة<span class="text-danger">*</span></label>
-                <input type="text" formControlName="name" class="form-control pr-3 my-2" >
-                <mat-error>
-                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
-                    من فضلك ادخل الاسم
-                  </div>
-                </mat-error>
-            </div>
-          </div>
-          <div class="col-md-4 col-xxl-4 filter-border">
-            <div class="form-group mb-3">
-              <label for="state" class="text-base-color text-bold">نوع الغرفة</label>
-              <div class="add-btn">
-                <ng-select class="pr-3 my-2"
-                  [items]="roomTypes"
-                  bindLabel="name"
-                  bindValue="id"
-                  labelForId="state"
-                  [multiple]="false"
-                  placeholder=""
-                  clearAllText="Clear"
-                  formControlName="RoomTypeId">
-                </ng-select>
-
-              </div>
-
-            </div>
-        </div>
-          <div class="col-md-4 col-xxl-4 filter-border">
-            <div class="form-group mb-3">
               <label for="state" class="text-base-color text-bold">المستشفي<span class="text-danger">*</span></label>
               <div class="add-btn">
                 <ng-select class="pr-3 my-2"
@@ -154,7 +118,7 @@
         </div>
         <div class="col-md-4 col-xxl-4 filter-border">
           <div class="form-group mb-3">
-            <label for="state" class="text-base-color text-bold">الطابق</label>
+            <label for="state" class="text-base-color text-bold">الطابق<span class="text-danger">*</span></label>
             <div class="add-btn">
               <ng-select class="pr-3 my-2"
                 [items]="floors"
@@ -178,6 +142,49 @@
 
           </div>
       </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-md-4 col-xxl-4 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">كود الغرفة</label>
+                <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
+            </div>
+          </div>
+          <div class="col-md-4 col-xxl-4 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">اسم الغرفة<span class="text-danger">*</span></label>
+                <input type="text" formControlName="name" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
+                    من فضلك ادخل الاسم
+                  </div>
+                </mat-error>
+            </div>
+          </div>
+          <div class="col-md-4 col-xxl-4 filter-border">
+            <div class="form-group mb-3">
+              <label for="state" class="text-base-color text-bold">نوع الغرفة<span class="text-danger">*</span></label>
+              <div class="add-btn">
+                <ng-select class="pr-3 my-2"
+                  [items]="roomTypes"
+                  bindLabel="name"
+                  bindValue="id"
+                  labelForId="state"
+                  [multiple]="false"
+                  placeholder=""
+                  clearAllText="Clear"
+                  formControlName="RoomTypeId">
+                </ng-select>
+                <mat-error>
+                  <div *ngIf="form.get('RoomTypeId').hasError('required')&& form.get('RoomTypeId').touched">
+                    من فضلك ادخل نوع الغرفة
+                  </div>
+                </mat-error>
+              </div>
+
+            </div>
+        </div>
+
 
         <div class="col-12 filter-border">
           <div class="form-group mb-3">

@@ -111,7 +111,7 @@ export class AddRoomComponent implements OnInit {
       FloorId:[null,Validators.required],
       name:[null,Validators.required],
       description:[null],
-      RoomTypeId:[null]
+      RoomTypeId:[null,Validators.required]
     });
   }
   get formControls() {

@@ -12,9 +12,10 @@
 </div>
 
 <div class="header-container">
-  <button (click)="changeTheme(currentTheme)" class="btn button-transparent">
-    <span *ngIf="currentTheme === 'dark'"><i  class="fa-regular fa-sun fa-xl"></i></span>
-    <span *ngIf="currentTheme === 'default'"><i  class="fa-solid fa-moon fa-xl"></i></span>
+  <button (click)="changeTheme(currentTheme)" class="btn button-transparent" [matTooltip]="currentTheme === 'default' ? 'Light' : 'Dark'"
+  aria-label="Button">
+    <span *ngIf="currentTheme === 'dark'"><i  class="fa-regular fa-moon fa-xl"></i></span>
+    <span *ngIf="currentTheme === 'default'"><i  class="fa-solid fa-sun fa-xl"></i></span>
   </button>
   <nb-actions size="small">
 

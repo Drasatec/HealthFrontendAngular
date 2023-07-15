@@ -43,6 +43,7 @@ import { DARK_THEME } from './styles/theme.dark';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { RouterModule } from '@angular/router';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -57,7 +58,8 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
-  RouterModule
+  RouterModule,
+  MatTooltipModule
 ];
 const COMPONENTS = [
   HeaderComponent,

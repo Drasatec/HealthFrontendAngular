@@ -65,24 +65,7 @@
             <mat-icon>add_circle_outline</mat-icon>
           </button>
         </div> -->
-        <div class="row mt-4">
-          <div class="col-6 filter-border">
-            <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">كودالطابق</label>
-                <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
-            </div>
-          </div>
-          <div class="col-6 filter-border">
-            <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">اسم الطابق<span class="text-danger">*</span></label>
-                <input type="text" formControlName="name" class="form-control pr-3 my-2" >
-                <mat-error>
-                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
-                    من فضلك ادخل الاسم
-                  </div>
-                </mat-error>
-            </div>
-          </div>
+        <div class="row mt-3">
           <div class="col-md-4 col-xxl-4 filter-border">
             <div class="form-group mb-3">
               <label for="state" class="text-base-color text-bold">المستشفي<span class="text-danger">*</span></label>
@@ -136,6 +119,26 @@
 
             </div>
         </div>
+        </div>
+        <div class="row mt-4">
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">كودالطابق</label>
+                <input type="text" formControlName="codeNumber" class="form-control pr-3 my-2" >
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">اسم الطابق<span class="text-danger">*</span></label>
+                <input type="text" formControlName="name" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
+                    من فضلك ادخل الاسم
+                  </div>
+                </mat-error>
+            </div>
+          </div>
+
         <div class="col-12 filter-border">
           <div class="form-group mb-3">
               <label for="example-search-input" class="text-base-color text-bold">تفاصيل عن الطابق</label>
