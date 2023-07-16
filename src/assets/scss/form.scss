@@ -12,7 +12,7 @@
 }
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
   background-color: var(--dark-color-basic);
-  color: #fff;
+  color: var(--header-text-color);
 }
 input.ng-invalid.ng-touched {
   border: 1px solid red;
@@ -61,7 +61,7 @@ input.ng-invalid.ng-touched {
 }
 }
 .mat-form-field-appearance-legacy .mat-form-field-label {
-  color: rgb(255 255 255 / 54%);
+  color:var(--base-color-text);
 }
 .mat-input-element {
   caret-color: #ffffff;
@@ -69,9 +69,9 @@ input.ng-invalid.ng-touched {
 .mat-form-field.mat-focused .mat-form-field-label {
   color:var(--dark-color-basic);
 }
-.mat-input-element {
-  color:#fff !important;
-}
-.mat-select-value {
-  color:#fff !important;
-}
+// .mat-input-element {
+//   color:#fff !important;
+// }
+// .mat-select-value {
+//   color:#fff !important;
+// }

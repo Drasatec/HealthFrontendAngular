@@ -23,11 +23,11 @@ body {
 }
 .background-primary {
   background-color: var(--background-button);
-  color:var(--menu-item-active-text-color);
+  color:var(--color-button);
   font-size: 1rem;
   &:hover {
     color: var(--background-button);
-  background-color:var(--menu-item-active-text-color);
+    background-color:var(--color-button);
   }
 }
 .background-save {
@@ -268,4 +268,7 @@ div.cdk-overlay-container .cdk-overlay-pane {
   border: 2px solid #211f1f;
   border-top-color: #fffcfc;
   animation: spinner .8s linear infinite;
+}
+.translation {
+  background: var(--trans-background-color);
 }

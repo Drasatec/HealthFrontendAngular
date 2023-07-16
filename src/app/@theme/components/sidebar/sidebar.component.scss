@@ -22,7 +22,7 @@ Sidebar Nav
 ----------------*/
 .sidebar-nav {
   position: fixed;
-  background-color: var(--light-color-basic);
+  background-color: var(--sidebar-background-color);
   height: 100%;
   font-weight: 400;
   font-size: 1.2em;
@@ -65,15 +65,15 @@ Sidebar Nav
   display: flex;
 }
 .sidebar-nav ul li a:hover {
-  background-color: var(--dark-color-basic);
+  background-color: var(--sidebar-background-active);
   -webkit-transition: all 0.6s ease;
   -moz-transition: all 0.6s ease;
   transition: all 0.6s ease;
   color:#fff;
 }
 .sidebar-nav > ul > li > a.active {
-  background-color: var(--dark-color-basic);
-  color: #fff;
+  background-color: var(--sidebar-background-active);
+  color: var(--sidebar-text);
 }
 .sidebar-nav ul li i {
   font-size: 1.8em;
@@ -94,7 +94,7 @@ Sidebar Nav
 }
 .sidebar-nav .nav-flyout {
   position: absolute;
-  background-color: var(--dark-color-basic);
+  background-color: var(--sidebar-background-active);
   z-index: 9;
   right: 16.8em;
   top: 0;
@@ -109,7 +109,7 @@ Sidebar Nav
   transition: all 0.5s ease;
 }
 .sidebar-nav .nav-flyout a:hover {
-  background-color: var(--dark-color-basic);
+  background-color: var(--sidebar-background-active);
 }
 .sidebar-nav .nav-flyout li a.active {
   background-color: #7fa4dd;

@@ -14,7 +14,7 @@
     padding:0.3rem;
   }
   .ng-select .ng-select-container .ng-value-container .ng-placeholder {
-    color:#fff;
+    color:var(--text-base-color);
   }
   .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
     border-bottom: none
@@ -22,7 +22,11 @@
   }
   .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
     background-color: var(--dark-color-basic);
-    color: #fff;
+    color: var(--header-text-color);
+  }
+  .ng-select .ng-select-container {
+    color: var(--header-text-color);
+
   }
   .ng-dropdown-panel {
     background-color: var(--dark-color-basic);
