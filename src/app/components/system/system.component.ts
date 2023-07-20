@@ -19,7 +19,7 @@ export class SystemComponent  {
     {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/specialities'},
     {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/clinics'},
     {name:'الاطباء',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctorss'},
-    // {name:'خدمات',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/services'},
+    {name:'المرضي',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/patients'},
 
   ]
   // getLink(){

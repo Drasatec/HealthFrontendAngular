@@ -10,7 +10,8 @@ const routes: Routes = [
     { path: 'rooms', loadChildren: () => import('./components/rooms/rooms.module').then(m => m.RoomsModule) },
     { path: 'specialities', loadChildren: () => import('./components/specialities/specialities.module').then(m => m.SpecialitiesModule) },
     { path: 'clinics', loadChildren: () => import('./components/clinics/clinics.module').then(m => m.ClinicsModule) },
-  { path: 'doctorss', loadChildren: () => import('./components/doctorss/doctorss.module').then(m => m.DoctorssModule) },
+    { path: 'doctorss', loadChildren: () => import('./components/doctorss/doctorss.module').then(m => m.DoctorssModule) },
+    { path: 'patients', loadChildren: () => import('./components/patients/patients.module').then(m => m.PatientsModule) },
 
     {path:'',redirectTo:'hospitals',pathMatch:'full'}
   ] },

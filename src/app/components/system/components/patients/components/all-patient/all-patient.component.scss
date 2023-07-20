@@ -1,0 +1,12 @@
+.equal-width-table {
+  width: 100%;
+}
+
+/* Use Angular Flex Layout to create equal-width columns */
+.equal-width-table .mat-header-cell,
+.equal-width-table .mat-cell {
+  flex: 1;
+  text-align: right;
+  overflow: hidden;
+  white-space: nowrap;
+}

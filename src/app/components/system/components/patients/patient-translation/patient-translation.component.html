@@ -1,0 +1,82 @@
+<div class="card trans">
+  <!-- Header -->
+  <div
+  class="card-header  d-flex justify-content-between align-items-center"
+>
+  <!-- begin:: card title  -->
+  <h3 class="card-title align-items-start flex-column mt-0">
+    <span class="card-label">اضافة لغة</span>
+  </h3>
+  <button mat-button (click)="closeDialog()" class="btn-close-trans" >
+    <i mat-dialog-close class="fas fa-times" ></i>
+  </button>
+
+</div>
+  <!-- Body -->
+  <div class="card-body px-6 px-lg-10 pt-3 pb-0">
+    <div [formGroup]="formTrans">
+      <div formArrayName="translations" class="row">
+        <div class="col-12 d-flex justify-content-end">
+          <button  extended aria-label="Add" class="btn btn-primary background-primary"
+          (click)="addEmailFormGroup()" matTooltip="Add">
+          <i class="fa-solid fa-circle-plus"></i>
+          اضافة
+        </button>
+        <button  extended aria-label="Add" (click)="save()"
+        [class.spinnerBtn]="loading" [disabled]="!formTrans.valid || loading" matTooltip="Add" class="btn background-save mx-2">
+          <i class="fa-regular fa-floppy-disk"></i>
+          حفظ
+        </button>
+        </div>
+        <div *ngFor="let lang of myFormArray['controls']; let i = index"
+            [formGroupName]="i">
+            <div class="translation">
+              <div class=" row">
+                <mat-form-field class="col-2">
+                  <mat-label>اللغة</mat-label>
+                  <mat-select formControlName="LangCode">
+                    <mat-option *ngFor="let label of codes" [value]="label.value">
+                      {{label.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error>
+                    <div *ngIf="myFormArray.controls[i].get('LangCode').errors && myFormArray.controls[i].get('LangCode').touched">
+                      <div *ngIf="myFormArray.controls[i].get('LangCode').hasError('required')">من فضلك اختر اللغة
+                      </div>
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="col-5">
+                  <input matInput formControlName="FullName" placeholder="الاسم" autocomplete="email">
+                  <mat-error>
+                    <div *ngIf="myFormArray.controls[i].get('FullName').errors && myFormArray.controls[i].get('FullName').touched">
+                      <div *ngIf="myFormArray.controls[i].get('FullName').hasError('required')">من فضلك ادخل الاسم
+                      </div>
+                    </div>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                  <input matInput formControlName="Occupation" placeholder=" المهنة" autocomplete="email">
+                </mat-form-field>
+                <mat-form-field class="col-6">
+                  <input matInput formControlName="Address" placeholder=" العنوان" autocomplete="email">
+                </mat-form-field>
+              </div>
+              <button extended aria-label="Remove/clear" class="btn btn-remove"
+              (click)="removeOrClearEmail(i,lang.value.id)"
+               matTooltip="Remove">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+            </div>
+
+        </div>
+      </div>
+      <div class="col-12 d-flex justify-content-end">
+        <button  mat-fab extended aria-label="Add"
+          (click)="save()" matTooltip="Add">حفظ
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
