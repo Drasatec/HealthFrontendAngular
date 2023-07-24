@@ -83,4 +83,16 @@ getAllHospitalsNames(fetchCriteria?: any): Observable<any> {
     const url = `${this.baseURL}Ssntype/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getAllDoctors(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Doctor/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllPatients(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}Patient/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  getAllBookingStatus(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}BookingStatus/names?lang=ar`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
 }

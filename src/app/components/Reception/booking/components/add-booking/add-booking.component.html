@@ -2,161 +2,302 @@
 
   <div class="card">
     <div class="card-header">
-      <h5 class="text-base-color text-bold" *ngIf="!isEdit">إضافة حجز</h5>
-      <h5 class="text-base-color text-bold"  *ngIf="isEdit">تعديل حجز</h5>
-
+      <h5 class="text-base-color text-bold">{{isEdit ?'تعديل الحجز':'اضافة حجز'}}</h5>
     </div>
     <div class="card-body">
       <div  class="row">
         <div class="col-md-6 col-xxl-6 filter-border">
+          <label for="example-search-input" class="text-base-color text-bold" >المستشفي</label>
+            <div class="form-group mb-3">
+              <ng-select class="pr-3 my-2"
+                [items]="hospitals"
+                bindLabel="name"
+                bindValue="hospitalId"
+                labelForId="state"
+                [multiple]="false"
+                placeholder=""
+                clearAllText="Clear"
+                formControlName="HospitalId">
+              </ng-select>
+              <mat-error>
+                <div *ngIf="form.get('HospitalId').hasError('required')&& form.get('HospitalId').touched">
+                  من فضلك ادخل المستشفي
+                </div>
+              </mat-error>
+            </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <label for="example-search-input" class="text-base-color text-bold" *ngIf="!isEdit"> البحث عن مريض</label>
+            <div class="form-group mb-3">
+              <ng-select class="pr-3 my-2"
+                [items]="patients"
+                bindLabel="fullName"
+                bindValue="patientId"
+                labelForId="state"
+                [multiple]="false"
+                placeholder=""
+                clearAllText="Clear"
+                formControlName="PatientId"  *ngIf="!isEdit">
+              </ng-select>
+              <mat-error>
+                <div *ngIf="form.get('PatientId').hasError('required')&& form.get('PatientId').touched">
+                  من فضلك ادخل الاسم
+                </div>
+              </mat-error>
+            </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
           <!-- begin:: search  -->
-          <label for="example-search-input" class="text-base-color text-bold"> العيادة</label>
+          <label for="example-search-input" class="text-base-color text-bold"> التخصصص</label>
           <div class="form-group mb-3">
             <ng-select class="pr-3 my-2"
-              [items]="clinics"
+              [items]="speciality"
               bindLabel="name"
-              bindValue="id"
+              bindValue="medicalSpecialtyId"
               labelForId="state"
               [multiple]="false"
               placeholder=""
               clearAllText="Clear"
-              formControlName="clinic">
+              (change)="getDoctors($event)"
+              formControlName="SpecialtyId"
+              >
             </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('SpecialtyId').hasError('required')&& form.get('SpecialtyId').touched">
+                من فضلك ادخل التخصص
+              </div>
+            </mat-error>
           </div>
         </div>
         <div class="col-md-6 col-xxl-6 filter-border">
-          <!-- begin:: search  -->
-          <label for="example-search-input" class="text-base-color text-bold"> التاريخ</label>
-          <div class="form-group mb-3">
-
-            <div class="input-group calendar pr-3 my-2">
-              <input formControlName="from_date" class="border-color-primary form-control border-right-0"
-                  placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off"
-                  (click)="d.toggle()" >
-              <button class="btn btn-outline-primary calendar rounded-0 rounded-right border-left-0 py-0"
-                  (click)="d.toggle()" type="button">
-                  <img width="20" src="assets/images/calendar3.svg" alt="Icon">
-              </button>
-          </div>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 col-xxl-6 filter-border">
-          <!-- begin:: search  -->
-          <div class="form-group mb-3 recerve">
-            <label id="example-radio-group-label text-bold text-base-color">الفترة  </label>
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1" selected>صباخية</mat-radio-button>
-              <mat-radio-button value="2">مسائية</mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
-        <div class="col-md-6 col-xxl-6 filter-border">
-          <!-- begin:: search  -->
-          <div class="form-group mb-3 recerve">
-            <label id="example-radio-group-label text-bold text-base-color">نوع الحجز</label>
-            <mat-radio-group aria-label="Select an option">
-              <mat-radio-button value="1" selected>كشف</mat-radio-button>
-              <mat-radio-button value="2">اعادة</mat-radio-button>
-              <mat-radio-button value="3">استدعاء</mat-radio-button>
-            </mat-radio-group>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="card my-2">
-        <div class="card-header">
-          <h5 class="text-primary text-bold"> الاطباء</h5>
-        </div>
-        <div class="card-body">
           <label for="example-search-input" class="text-base-color text-bold"> البحث عن طبيب</label>
           <div class="form-group mb-3">
             <ng-select class="pr-3 my-2"
-              [items]="clinics"
-              bindLabel="name"
-              bindValue="id"
+              [items]="doctors"
+              bindLabel="fullName"
+              bindValue="doctorId"
               labelForId="state"
               [multiple]="false"
               placeholder=""
               clearAllText="Clear"
-              formControlName="clinic">
+              formControlName="DoctorId">
             </ng-select>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <p class="text-bold text-base-color">اسم الطبيب : <span class="text-primary">محمد علي  </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color"> التخصص : <span class="text-primary"> قلب </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color"> عدد حجوزات اليوم : <span class="text-primary"> 10  </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color"> عدد الحجوزات المتبقية لليوم : <span class="text-primary"> 5  </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color"> سعر الكشف : <span class="text-primary"> 100 فرنك  </span></p>
-
-            </div>
-          </div>
-
+            <mat-error>
+              <div *ngIf="form.get('DoctorId').hasError('required')&& form.get('DoctorId').touched">
+                من فضلك ادخل الطبيب
+              </div>
+            </mat-error>
         </div>
-      </div>
-    </div>
-    <div class="col-md-6">
-      <div class="card my-2">
-        <div class="card-header">
-          <h5 class="text-primary text-bold"> المريض</h5>
         </div>
-        <div class="card-body">
-          <label for="example-search-input" class="text-base-color text-bold" *ngIf="!isEdit"> البحث عن مريض</label>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <div class="form-group mb-3">
+            <label for="example-search-input" class="text-base-color text-bold">التاريخ</label>
+
+          <div class="input-group  pr-3 my-2">
+
+            <input formControlName="VisitingDate" class="form-control border-right-0"
+                placeholder="dd-mm-yyyy" name="dp" ngbDatepicker #d="ngbDatepicker" autocomplete="off"
+                (click)="d.toggle()" >
+            <button class="btn btn-outline-primary calendar rounded-0 rounded-right border-left-0 py-0"
+                (click)="d.toggle()" type="button">
+                <i class="fa-solid fa-calendar-days"></i>
+            </button>
+        </div>
+        <mat-error>
+          <div *ngIf="form.get('VisitingDate').hasError('required')&& form.get('VisitingDate').touched">
+            من فضلك ادخل التاريخ
+          </div>
+        </mat-error>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <label for="example-search-input" class="text-base-color text-bold"> اليوم</label>
           <div class="form-group mb-3">
             <ng-select class="pr-3 my-2"
-              [items]="clinics"
+              [items]="days"
+              bindLabel="weekdayName"
+              bindValue="dayNumber"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="dayNumber"
+              (change)="getPeriodTypes($event)"
+              >
+            </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('dayNumber').hasError('required')&& form.get('dayNumber').touched">
+                من فضلك ادخل اليوم
+              </div>
+            </mat-error>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 ">
+            <label id="example-radio-group-label text-bold text-base-color">الفترة</label>
+            <ng-select class="pr-3 my-2"
+            [items]="periodType"
+            bindLabel="workingPeriod"
+            bindValue="workingPeriodId"
+            labelForId="state"
+            [multiple]="false"
+            placeholder=""
+            clearAllText="Clear"
+            formControlName="WorkingPeriodId">
+          </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('WorkingPeriodId').hasError('required')&& form.get('WorkingPeriodId').touched">
+              من فضلك ادخل الفترة
+            </div>
+          </mat-error>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 ">
+            <label id="example-radio-group-label text-bold text-base-color">نوع الحجز</label>
+            <ng-select class="pr-3 my-2"
+              [items]="visitType"
               bindLabel="name"
+              bindValue="typeVisitId"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="TypeVisitId">
+            </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('TypeVisitId').hasError('required')&& form.get('TypeVisitId').touched">
+                من فضلك ادخل نوع الحجز
+              </div>
+            </mat-error>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 ">
+            <label id="example-radio-group-label text-bold text-base-color"> الفئة السعرية</label>
+            <ng-select class="pr-3 my-2"
+              [items]="priceCategory"
+              bindLabel="name"
+              bindValue="priceCategoryId"
+              labelForId="state"
+              [multiple]="false"
+              placeholder=""
+              clearAllText="Clear"
+              formControlName="PriceCategoryId">
+            </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('PriceCategoryId').hasError('required')&& form.get('PriceCategoryId').touched">
+                من فضلك ادخل الفئة السعرية
+              </div>
+            </mat-error>
+          </div>
+        </div>
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <!-- begin:: search  -->
+          <div class="form-group mb-3 ">
+            <label id="example-radio-group-label text-bold text-base-color">  العملة</label>
+            <ng-select class="pr-3 my-2"
+              [items]="currency"
+              bindLabel="currencyName"
               bindValue="id"
               labelForId="state"
               [multiple]="false"
               placeholder=""
               clearAllText="Clear"
-              formControlName="clinic"  *ngIf="!isEdit">
+              formControlName="CurrencyId">
             </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('CurrencyId').hasError('required')&& form.get('CurrencyId').touched">
+                من فضلك ادخل العملة
+              </div>
+            </mat-error>
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              <p class="text-bold text-base-color">اسم المريض : <span class="text-primary">محمد علي  </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color"> اسم العميل : <span class="text-primary"> سامسونج </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color">   تاريخ اخر زيارة : <span class="text-primary"> 10/10/2010  </span></p>
-
-            </div>
-            <div class="col-md-6">
-              <p class="text-bold text-base-color">  الموعد المحدد للزيارة القادمة: <span class="text-primary"> 5/5/2005  </span></p>
-
-            </div>
-          </div>
-
         </div>
+        <div class="col-6 filter-border">
+          <div class="form-group mb-3">
+              <label for="example-search-input" class="text-base-color text-bold">السعر</label>
+              <input type="text" formControlName="Price" class="form-control pr-3 my-2" >
+          </div>
+          <mat-error>
+            <div *ngIf="form.get('Price').hasError('required')&& form.get('Price').touched">
+              من فضلك ادخل السعر
+            </div>
+          </mat-error>
+        </div>
+
       </div>
     </div>
     <button type="button" class="background-primary my-3" mat-raised-button (click)="save()">
-      <span *ngIf="!isEdit">حجز</span>
-      <span *ngIf="isEdit">تعديل حجز</span>
+      {{isEdit ?'تعديل ':'اضافة '}}
 
     </button>
   </div>
 </div>
+<!-- <div class="row">
+  <div class="col-md-6">
+    <div class="card my-2">
+      <div class="card-header">
+        <h5 class="text-primary text-bold"> الاطباء</h5>
+      </div>
+      <div class="card-body">
+
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-bold text-base-color">اسم الطبيب : <span class="text-primary">محمد علي  </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color"> التخصص : <span class="text-primary"> قلب </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color"> عدد حجوزات اليوم : <span class="text-primary"> 10  </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color"> عدد الحجوزات المتبقية لليوم : <span class="text-primary"> 5  </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color"> سعر الكشف : <span class="text-primary"> 100 فرنك  </span></p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card my-2">
+      <div class="card-header">
+        <h5 class="text-primary text-bold"> المريض</h5>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+          <div class="col-md-6">
+            <p class="text-bold text-base-color">اسم المريض : <span class="text-primary">محمد علي  </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color"> اسم العميل : <span class="text-primary"> سامسونج </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color">   تاريخ اخر زيارة : <span class="text-primary"> 10/10/2010  </span></p>
+
+          </div>
+          <div class="col-md-6">
+            <p class="text-bold text-base-color">  الموعد المحدد للزيارة القادمة: <span class="text-primary"> 5/5/2005  </span></p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div> -->

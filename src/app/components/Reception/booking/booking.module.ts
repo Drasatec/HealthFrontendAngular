@@ -19,31 +19,23 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { AddBookingComponent } from './components/add-booking/add-booking.component';
 import { ThemeModule } from '../../../@theme/theme.module';
+import { FilterBookingComponent } from './components/filter-booking/filter-booking.component';
+import { ThemeGeneralModule } from '../../themegeneral.module';
 
 
 @NgModule({
   declarations: [
     BookingComponent,
     AllBookingsComponent,
-    AddBookingComponent
+    AddBookingComponent,
+    FilterBookingComponent
   ],
   imports: [
     CommonModule,
     ThemeModule,
     BookingRoutingModule,
     FormsModule,
-    ReactiveFormsModule,
-    NgSelectModule,
-    NgbDatepickerModule,
-    MatRadioModule,
-    MatTableModule,
-    MatFormFieldModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDialogModule
+    ThemeGeneralModule
   ]
 })
 export class BookingModule { }

@@ -29,23 +29,23 @@ export const items = [
 
     ],
   },
-  // {
-  //   title: ' نظام إدارة الاستقبال',
-  //   icon:'fa-solid fa-receipt',
-  //   link:'/dashboard/booking/',
-  //   children: [
-  //     {
-  //       title: ' الاجراءات',
-  //       icon:'fa-solid fa-phone',
-  //       link:'/dashboard/booking/all-booking'
-  //     },
-  //     {
-  //       title: ' التقارير',
-  //       icon:'fa-solid fa-phone',
-  //       link:'/dashboard/all-seeting'
-  //     },
-  //   ],
-  // },
+  {
+    title: ' نظام إدارة الاستقبال',
+    icon:'fa-solid fa-receipt',
+    link:'/dashboard/booking/',
+    children: [
+      {
+        title: ' الاجراءات',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/booking/all-booking'
+      },
+      {
+        title: ' التقارير',
+        icon:'fa-solid fa-phone',
+        link:'/dashboard/all-seeting'
+      },
+    ],
+  },
   // {
   //   title: ' نظام العيادات',
   //   icon:'fa-solid fa-receipt',

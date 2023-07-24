@@ -1,10 +1,20 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatPaginator, MatPaginatorIntl } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { MyCustomPaginatorIntl } from '../../../../../pages/paginator/paginator.srvice';
+import { BookingService } from '../../services/booking.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
+import { environment } from '../../../../../../environments/environment';
+import { AddBuildTranslateComponent } from '../../../../system/components/buildings/components/add-build-translate/add-build-translate.component';
+import { AddBuildingComponent } from '../../../../system/components/buildings/components/add-building/add-building.component';
+import { BuildingModel } from '../../../../system/components/buildings/models/building.model';
+import { BuildingService } from '../../../../system/components/buildings/services/building.service';
+import Swal from 'sweetalert2';
 export class UserData{
   id:string;
   name:string;
@@ -18,54 +28,71 @@ export class UserData{
   providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 
 })
-export class AllBookingsComponent implements OnInit,AfterViewInit {
-  form: FormGroup;
-  ngModelDate = new Date();
-  patients=[
-    {id:0,name:'محمد علي'},
-    {id:1,name:' احمد محمود'},
-    {id:2,name:' اسماعيل السيد'},
-    {id:2,name:'عبد الله علي'},
+export class AllBookingsComponent implements OnInit {
+  imgUrl=`${environment.imgUrl}`;
+  displayedColumns: string[] = ["name","hospital","period","doctor","clinic","date","visit","action"];
+  dataSource: MatTableDataSource<BuildingModel>;
+  private subscriptions: Subscription = new Subscription();
+  totalItems: number ;
+  pageSize: number = 10;
+  pageIndex: number = 0;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  filterElements = {
+    global_search: true,
+    status:true,
+    hospitals:true,
+    clinics:true,
+    doctors:true,
+    specialtyId:true
 
-  ]
-  constructor(
-    private _FormBuilder: FormBuilder,
-    private router:Router,
-  ) { }
+  };
+  loading=true;
+  constructor(private router:Router,private _bookingservice:BookingService,
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar,
+    ) {
 
-  ngOnInit(): void {
-    this.createForm();
-     // Create 100 users
-     const users = [
-      {id:'0',name:' الرحمة',address:'طنطا',img:'kitten-cosmic.png'},
-     {id:'1',name:'مستشفي الرحمة',address:'طنطا',img:'kitten-cosmic.png'}
-   ];
-
-// Assign the data to the data source for the table to render
-this.dataSource = new MatTableDataSource(users);
   }
-  createForm(): void {
-    this.form = this._FormBuilder.group({
-      patient: [null],
-      doctor: [null,Validators.required],
-      clinic: [null],
-      date:[],
-    });
+  fetch={
+    lang:'ar'
   }
-  get formControls() {
-    return this.form.controls;
+  timestamp = new Date().getTime();
+
+  ngOnInit() {
+    this.getTableData(this.fetch)
+
   }
+  pageChanged(event: PageEvent) {
+    console.log(event)
+    this.pageSize = event.pageSize;
+    this.pageIndex = event.pageIndex;
+    this.getTableData(this.fetch);
+  }
+  bookings:any;
+  getTableData(payload?){
+    let para
+      para={
+        lang:'ar',
+        ...payload,
+        page:this.pageIndex+1,
+        pageSize:this.pageSize
+      }
 
-  displayedColumns: string[] = ['id','name','address','img','action'];
-  dataSource: MatTableDataSource<UserData>;
+    this.subscriptions.add(
+      this._bookingservice.getAllBookings(para).subscribe((res: any) => {
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+      this.bookings = res;
+      this.dataSource = new MatTableDataSource(this.bookings);
+      this.dataSource.paginator = this.paginator;
+      this.totalItems = res.total;
+      this.loading=false;
 
+      }, err => {
+        // this._SnackBarService.openSnackBar('Error, please try again!', 'Error', 'error');
+      })
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    );
   }
 
   applyFilter(event: Event) {
@@ -76,12 +103,63 @@ this.dataSource = new MatTableDataSource(users);
       this.dataSource.paginator.firstPage();
     }
   }
-  rowAction(action){
-    this.router.navigate(['/dashboard/booking/edit-booking/1'])
+  rowAction(action,id){
+    if (action === 'edit'){
+      console.log("edit")
+      this.openEditDialog(id)
+    }else if(action === 'delete'){
+      this.openTranslateDialog(id);
+    }
+  }
+  translateData;
+  openEditDialog(id){
+    this.router.navigate(['/dashboard/booking/edit-booking',id])
+  }
+  openTranslateDialog(id){
+    Swal.fire({
+      title: "هل انت متأكد من حذف الحجز ؟",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "نعم",
+      cancelButtonText: "الغاء",
+    }).then((result) => {
+      if (result.isConfirmed === true) {
+        this._bookingservice.deleteBooking(id).subscribe(
+          (res: any) => {
+              this.snackBar.open("تم الحذف بنجاح ", "ُsuccess", {
+                duration: 3000,
+                panelClass: 'success'
+              });
+
+            this.getTableData(this.fetch);
+          },
+          (err) => {
+            this.snackBar.open("لا يمكن الحذف", "ُError", {
+              duration: 3000,
+              panelClass: 'error'
+            });
+
+          }
+        )
+      }
+
+      // Remove Deleted Academic From List & Update the Service Academic Years
+    });
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/hospitals/view-building/',id])
+    this.router.navigate(['/dashboard/booking/view-booking/',id])
   }
+  openAddBuilding(){
+    this.router.navigate(['/dashboard/booking/add-booking'])
+
+  }
+  onFilterChange(e) {
+    console.log(e)
+    this.getTableData(e)
+  }
+
 }
 
