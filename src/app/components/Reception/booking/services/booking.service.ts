@@ -18,10 +18,11 @@ export class BookingService {
     const url = `${this.baseURL}Booking`;
     return this.http.get(url,{ params: fetchCriteria });
   }
-  createBooking(body: any): Observable<any> {
-    const url = `${this.baseURL}Booking/add`;
+  createBooking(body: any,id): Observable<any> {
+    const url = `${this.baseURL}Booking/add?clinicId=${id}&lang=ar`;
     return this.http.post(url,body);
   }
+
   editBooking(body: any): Observable<any> {
     const url = `${this.baseURL}Booking/edit`;
     return this.http.put(url,body);

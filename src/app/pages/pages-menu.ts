@@ -12,20 +12,21 @@ export const items = [
   //   link: '/pages/iot-dashboard',
   // }
   {
-    title: 'اعدادات النظام',
+    title: 'الاعدادات الرئيسية',
     icon:'fa-solid fa-gear',
     link:'/dashboard/system/',
     children: [
+      {
+        title: ' اعدادات النظام',
+        icon:'fa-solid fa-notes-medical',
+        link:'/dashboard/system/hospitals/all-hospital'
+      },
       {
         title: ' الاعدادات',
         icon:'fa-solid fa-gears',
         link:'/dashboard/system/settings/room-types'
       },
-      {
-        title: 'البيانات الاساسية',
-        icon:'fa-solid fa-notes-medical',
-        link:'/dashboard/system/hospitals/all-hospital'
-      },
+
 
     ],
   },

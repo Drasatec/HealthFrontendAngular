@@ -82,7 +82,7 @@ export class AllBookingsComponent implements OnInit {
     this.subscriptions.add(
       this._bookingservice.getAllBookings(para).subscribe((res: any) => {
 
-      this.bookings = res;
+      this.bookings = res.data;
       this.dataSource = new MatTableDataSource(this.bookings);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;

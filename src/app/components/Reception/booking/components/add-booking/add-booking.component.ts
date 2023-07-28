@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LookupService } from '../../../../../@theme/services/lookup.service';
@@ -6,6 +6,7 @@ import { DoctorsService } from '../../../../system/components/doctorss/services/
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as moment from "moment";
 import { BookingService } from '../../services/booking.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'ngx-add-booking',
@@ -25,7 +26,8 @@ export class AddBookingComponent implements OnInit {
     private lookupservice:LookupService,
     private _doctorsrvice:DoctorsService,
     public snackBar: MatSnackBar,
-    private _bookingservice:BookingService
+    private _bookingservice:BookingService,
+    private dialog:MatDialog
 
   ) { }
 
@@ -61,6 +63,7 @@ export class AddBookingComponent implements OnInit {
       PriceCategoryId:[null,Validators.required],
       CurrencyId:[null,Validators.required],
       Price:[null,Validators.required],
+      ClinicId:[null]
     });
   }
   hospitals
@@ -136,6 +139,9 @@ export class AddBookingComponent implements OnInit {
       day:e.dayNumber,
       lang:'ar'
     }
+    this.getPeriod(payload)
+  }
+  getPeriod(payload){
     this._doctorsrvice.getDoctorPeriod(payload).subscribe(
       (res)=>{
         this.periodType = res
@@ -158,7 +164,10 @@ export class AddBookingComponent implements OnInit {
   }
   currency
   getCurrency(){
-    this.lookupservice.getAllCurrency().subscribe(
+    let payload={
+      lang:'ar'
+    }
+    this.lookupservice.getAllCurrency(payload).subscribe(
       (res)=>{
         this.currency=res
       }
@@ -172,19 +181,57 @@ export class AddBookingComponent implements OnInit {
     }
     this._bookingservice.getAllBookings(payload).subscribe(
       (res)=>{
-        this.book = res;
-        this.form.patchValue(this.book)
+        this.book = res.data[0];
+        this.patch(this.book)
       }
     )
   }
+  patch(data){
+    let payload={
+      docId:data.doctorId,
+      day:data.dayNumber,
+      lang:'ar'
+    }
+    this.getPeriod(payload)
+    let date =data.visitingDate.split("T")[0].split("-")
+    let visitdate= {
+      day: date ? +date[2].split(" ")[0] : null,
+      month: date ? +date[1] : null,
+      year: date ? +date[0] : null,
+    }
+    this.form.patchValue({
+      HospitalId:data.hospitalId,
+      PatientId:data.patientId,
+      SpecialtyId:data.specialtyId,
+      DoctorId:data.doctorId,
+      VisitingDate:visitdate,
+      dayNumber:data.dayNumber,
+      WorkingPeriodId:data.workingPeriodId,
+      TypeVisitId:data.typeVisitId,
+      PriceCategoryId:data.priceCategoryId,
+      CurrencyId:data.currencyId,
+      Price:data.price,
+      ClinicId:data.clinicId,
+    })
+  }
   loading=false
   sendData;
+  clinicId;
+  clinicName;
   readonly DT_FORMAT = "YYYY-MM-DD";
-
+  selectPeriod(e){
+    console.log(e)
+    this.clinicId=e.clinicId;
+    this.clinicName=e.clinic
+    this.form.patchValue({
+      ClinicId:this.clinicId,
+    })
+  }
   prepareDataBeforeSend(data){
     console.log(data)
     let paylod={
       ...data,
+      ClinicId:this.clinicId,
       VisitingDate:data.VisitingDate ? moment([
         data.VisitingDate.year,
         data.VisitingDate.month-1,
@@ -209,19 +256,41 @@ export class AddBookingComponent implements OnInit {
     });
     return body;
   }
+  @ViewChild('callAPIDialog') callAPIDialog: TemplateRef<any>;
+  clinicInfo;
+  findClinic(){
+
+        let dialogRef = this.dialog.open(this.callAPIDialog,{
+          width:'500px',
+
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            // Note: If the user clicks outside the dialog or presses the escape key, there'll be no result
+            if (result !== undefined) {
+                if (result === 'yes') {
+                    // TODO: Replace the following line with your code.
+                }
+            }
+        })
+
+
+  }
   save(){
     this.form.markAllAsTouched();
     if (this.form.valid) {
       this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-        this._bookingservice.createBooking(this.sendData).subscribe(
+        this._bookingservice.createBooking(this.sendData,this.form.value.ClinicId).subscribe(
           (res)=>{
             this.loading=false
+            this.clinicInfo=res
             this.snackBar.open("تم اضافة الحجز بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
+            this.findClinic()
+            this.form.reset()
           },
           (err) => {
             this.loading=false

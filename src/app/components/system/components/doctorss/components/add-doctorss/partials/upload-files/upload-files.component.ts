@@ -269,7 +269,7 @@ export class UploadFilesComponent implements OnInit {
 
   showAttach(name){
     window.open(this.attachLink+name, "_blank");
-    var blob = new Blob([this.attachLink+name], { type: "application/octet-stream" });
+    var blob = new Blob([this.attachLink+name], { type: "application/pdf" });
     FileSaver.saveAs(blob, name);
   }
 editAttachment(id){

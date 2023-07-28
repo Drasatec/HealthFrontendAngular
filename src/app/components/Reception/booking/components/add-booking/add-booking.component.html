@@ -145,7 +145,8 @@
             [multiple]="false"
             placeholder=""
             clearAllText="Clear"
-            formControlName="WorkingPeriodId">
+            formControlName="WorkingPeriodId"
+            (change)="selectPeriod($event)">
           </ng-select>
           <mat-error>
             <div *ngIf="form.get('WorkingPeriodId').hasError('required')&& form.get('WorkingPeriodId').touched">
@@ -237,67 +238,18 @@
     </button>
   </div>
 </div>
-<!-- <div class="row">
-  <div class="col-md-6">
-    <div class="card my-2">
-      <div class="card-header">
-        <h5 class="text-primary text-bold"> الاطباء</h5>
-      </div>
-      <div class="card-body">
+<ng-template #callAPIDialog>
+  <h2 mat-dialog-title class="p-3">بيانات الحجز </h2>
+  <div mat-dialog-content class="p-3 m-0 text-center">
+    <p>عيادة : {{clinicName}}  </p>
+    <p>مستشفي : {{clinicInfo.hospitalName}} </p>
+    <p>مبني : {{clinicInfo.buildName}}  </p>
+    <p>طابق : {{clinicInfo.floorName}} </p>
+    <p>غرفة : {{clinicInfo.roomName}}  </p>
 
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <p class="text-bold text-base-color">اسم الطبيب : <span class="text-primary">محمد علي  </span></p>
 
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color"> التخصص : <span class="text-primary"> قلب </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color"> عدد حجوزات اليوم : <span class="text-primary"> 10  </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color"> عدد الحجوزات المتبقية لليوم : <span class="text-primary"> 5  </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color"> سعر الكشف : <span class="text-primary"> 100 فرنك  </span></p>
-
-          </div>
-        </div>
-
-      </div>
     </div>
-  </div>
-  <div class="col-md-6">
-    <div class="card my-2">
-      <div class="card-header">
-        <h5 class="text-primary text-bold"> المريض</h5>
-      </div>
-      <div class="card-body">
-
-        <div class="row">
-          <div class="col-md-6">
-            <p class="text-bold text-base-color">اسم المريض : <span class="text-primary">محمد علي  </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color"> اسم العميل : <span class="text-primary"> سامسونج </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color">   تاريخ اخر زيارة : <span class="text-primary"> 10/10/2010  </span></p>
-
-          </div>
-          <div class="col-md-6">
-            <p class="text-bold text-base-color">  الموعد المحدد للزيارة القادمة: <span class="text-primary"> 5/5/2005  </span></p>
-
-          </div>
-        </div>
-
-      </div>
+    <div mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="'yes'" cdkFocusInitial>اغلاق</button>
     </div>
-  </div> -->
+</ng-template>
