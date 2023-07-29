@@ -1,0 +1,27 @@
+.translation{
+  border: 1px solid #ddd;
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+
+}
+::ng-deep {
+  .translation .mat-form-field-flex {
+    border:none !important;
+  }
+}
+
+.trans .mat-fab.mat-accent {
+    background-color: #222d32;
+    color: #fff;
+}
+::ng-deep {
+  div.cdk-overlay-container {
+    z-index:1040
+  }
+}
+

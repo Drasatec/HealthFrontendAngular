@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SystemModule } from '../../system.module';
 import { RouterModule } from '@angular/router';
 import { AddInfoTranslateComponent } from './components/add-info-translate/add-info-translate.component';
+import { MainInfoComponent } from './components/add-hospital/partials/main-info/main-info.component';
+import { FeaturesComponent } from './components/add-hospital/partials/features/features.component';
 
 
 @NgModule({
@@ -19,6 +21,8 @@ import { AddInfoTranslateComponent } from './components/add-info-translate/add-i
     AddHospitalComponent,
     ViewHospitalComponent,
     AddInfoTranslateComponent,
+    MainInfoComponent,
+    FeaturesComponent,
   ],
   imports: [
     RouterModule,

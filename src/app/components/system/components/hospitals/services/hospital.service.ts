@@ -59,4 +59,32 @@ export class HospitalService {
     const url = `${this.baseURL}Hospital/delete-translat?translteId=${id}`;
     return this.http.delete(url);
   }
+  createFeatureHospital(body: any,): Observable<any> {
+    const url = `${this.baseURL}HospitalFeature/add`;
+    return this.http.post(url,body);
+  }
+  editFeatureHospital(id,body: any,): Observable<any> {
+    const url = `${this.baseURL}HospitalFeature/edit/${id}`;
+    return this.http.put(url,body);
+  }
+  featuresHospital(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}HospitalFeature/all`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
+  deleteFeature(id) {
+    const url = `${this.baseURL}HospitalFeature/delete?id=${id}`;
+    return this.http.delete(url);
+  }
+  getFeatureById(id,paylod?){
+    const url = `${this.baseURL}HospitalFeature?id=${id}`;
+    return this.http.get(url,{ params: paylod });
+  }
+  deleteFeatTrans(id) {
+    const url = `${this.baseURL}HospitalFeature/delete-translat?translteId=${id}`;
+    return this.http.delete(url);
+  }
+  addFeatuTranslation(body){
+    const url = `${this.baseURL}HospitalFeature/edit-translations`;
+    return this.http.put(url,body);
+  }
 }

@@ -11,6 +11,7 @@ import { SpecialService } from '../../../specialities/services/special.service';
 import { ClinicService } from '../../../clinics/services/clinic.service';
 import { SnackBarService } from '../../../../../../@theme/services/snackbar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { HospitalService } from '../../../hospitals/services/hospital.service';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -31,6 +32,7 @@ export class AddBuildTranslateComponent implements OnInit {
     private _roomService:RoomService,
     private _specialService:SpecialService,
     private _clinicService:ClinicService,
+    private _featureService:HospitalService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -50,6 +52,8 @@ export class AddBuildTranslateComponent implements OnInit {
       this.getSpecialById(this.data.id)
     }else if(this.data.type === "clinic"){
       this.getClinicById(this.data.id)
+    }else if(this.data.type === "features"){
+      this.getFeatureById(this.data.id)
     }
   }
   get formControls() {
@@ -115,6 +119,18 @@ export class AddBuildTranslateComponent implements OnInit {
       }
     )
   }
+  feat
+  getFeatureById(id){
+    this._featureService.getFeatureById(id).subscribe(
+      (res:any)=>{
+        this.feat=res;
+        this.translationData=res.hospitalFeatureTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -157,6 +173,8 @@ export class AddBuildTranslateComponent implements OnInit {
       this.delSpecialById(id)
     }else if(this.data.type === "clinic"){
       this.delClinicById(id)
+    }else if(this.data.type === "features"){
+      this.delFeatureById(id)
     }
   }
   delBuildingById(id){
@@ -224,6 +242,19 @@ export class AddBuildTranslateComponent implements OnInit {
       }
     )
   }
+  delFeatureById(id){
+    this._featureService.deleteFeatTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
@@ -265,6 +296,8 @@ export class AddBuildTranslateComponent implements OnInit {
               body.append('translations['+(i)+'][MedicalSpecialtyId]', this.data.id);
             }else if(this.data.type === 'clinic'){
               body.append('translations['+(i)+'][ClinicId]', this.data.id);
+            }else if(this.data.type === 'features'){
+              body.append('translations['+(i)+'][FeatureId]', this.data.id);
             }
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id ?formVal.translations[i].id :0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
@@ -320,6 +353,14 @@ export class AddBuildTranslateComponent implements OnInit {
         )
       }else if(this.data.type === 'clinic'){
         this._clinicService.addTranslation(this.data.id,this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
+
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'features'){
+        this._featureService.addFeatuTranslation(this.dataSend).subscribe(
           (res)=>{
             this.loading=false
 
