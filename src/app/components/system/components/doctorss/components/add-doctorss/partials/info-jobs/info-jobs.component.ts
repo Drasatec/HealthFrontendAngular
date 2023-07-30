@@ -59,6 +59,7 @@ export class InfoJobsComponent implements OnInit {
     this.getHospitals()
     this.getWorkingPeriods()
     this.getWorkWeek()
+    this.getSpeciality()
     this.createForm();
     this.getId()
   }
@@ -108,7 +109,17 @@ getWorkWeek(){
     }
   )
 }
-
+speciality
+getSpeciality(){
+  let payload={
+    pageSize:30
+  }
+  this._lookpservice.getAllSpecialNames(payload).subscribe(
+    (res)=>{
+      this.speciality = res
+    }
+  )
+}
 
   getId(){
     if(this.doctorDataOfAdd){
@@ -147,6 +158,8 @@ getWorkWeek(){
       ClinicId:[null,Validators.required],
       WorkingPeriodId:[null,Validators.required],
       onDay:[null,Validators.required],
+      SpecialtyId:[null,Validators.required],
+
     });
   }
   get formControls() {

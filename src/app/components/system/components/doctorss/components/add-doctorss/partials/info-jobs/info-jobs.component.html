@@ -17,6 +17,19 @@
       </div>
       <div class="col-md-6 col-xxl-6 filter-border">
         <div class="form-group mb-3">
+          <label for="example-search-input" class="text-base-color text-bold"> التخصص<span class="text-danger">*</span></label>
+          <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="speciality" formControlName="SpecialtyId"
+              bindValue="id" bindLabel="name" appDebounceInputChange >
+          </ng-select>
+          <mat-error>
+            <div *ngIf="form.get('SpecialtyId').hasError('required')&& form.get('SpecialtyId').touched">
+              من فضلك اختر التخصص
+            </div>
+          </mat-error>
+        </div>
+    </div>
+      <div class="col-md-6 col-xxl-6 filter-border">
+        <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">العيادة<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="clinics" formControlName="ClinicId"
               bindValue="clinicId" bindLabel="name" appDebounceInputChange >

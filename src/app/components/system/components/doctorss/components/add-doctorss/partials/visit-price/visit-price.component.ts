@@ -60,6 +60,7 @@ export class VisitPriceComponent implements OnInit {
 
     this.getVisitType()
     this.getPriceCategory()
+
     this.createForm();
     this.getId()
 
