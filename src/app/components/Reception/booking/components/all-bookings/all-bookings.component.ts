@@ -15,6 +15,7 @@ import { AddBuildingComponent } from '../../../../system/components/buildings/co
 import { BuildingModel } from '../../../../system/components/buildings/models/building.model';
 import { BuildingService } from '../../../../system/components/buildings/services/building.service';
 import Swal from 'sweetalert2';
+import { ChangeStatusComponent } from '../change-status/change-status.component';
 export class UserData{
   id:string;
   name:string;
@@ -109,6 +110,8 @@ export class AllBookingsComponent implements OnInit {
       this.openEditDialog(id)
     }else if(action === 'delete'){
       this.openTranslateDialog(id);
+    }else if(action === 'status'){
+      this.openStatusDialog(id);
     }
   }
   translateData;
@@ -147,6 +150,22 @@ export class AllBookingsComponent implements OnInit {
 
       // Remove Deleted Academic From List & Update the Service Academic Years
     });
+  }
+  openStatusDialog(id){
+      const dialogRef = this.dialog.open(ChangeStatusComponent,{
+        width: "1200px",
+        disableClose: true,
+        data:{
+          id:id,
+        }
+      })
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(result)
+        if(result){
+          this.getTableData(this.fetch)
+        }
+      });
+
   }
   onClickPublisher(id){
     console.log(id)

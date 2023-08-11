@@ -31,4 +31,8 @@ export class BookingService {
     const url = `${this.baseURL}Booking?id=${id}`;
     return this.http.delete(url);
   }
+  editStatusBooking(id,statusId): Observable<any> {
+    const url = `${this.baseURL}Booking/edit-status?bookingId=${id}&statusId=${statusId}`;
+    return this.http.put(url,'');
+  }
 }

@@ -61,6 +61,7 @@ export class FeaturesComponent implements OnInit {
   }
 
   getId(){
+    console.log(this.newHospitalId,this.data.id)
     if(this.newHospitalId){
       this.idOfDoctor =  this.newHospitalId
       this.fetch={
@@ -87,7 +88,7 @@ export class FeaturesComponent implements OnInit {
       description:this.doctorPeriod.hospitalFeatureTranslations.length >0 ? this.doctorPeriod.hospitalFeatureTranslations[0].description : null,
       id:this.doctorPeriod.hospitalFeatureTranslations.length >0 ? this.doctorPeriod.hospitalFeatureTranslations[0].id : null,
     })
-  console.log(this.form.value)
+  // console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
@@ -162,7 +163,7 @@ export class FeaturesComponent implements OnInit {
 
   sendData;
   prepareDataBeforeSend(data){
-    console.log(data)
+    console.log(this.data.id)
 
     let paylod={
       ...data,
@@ -207,7 +208,7 @@ export class FeaturesComponent implements OnInit {
   }
 
   pageChanged(event: PageEvent) {
-    console.log(event)
+    // console.log(event)
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
     this.getTableData(this.fetch);
@@ -225,7 +226,7 @@ export class FeaturesComponent implements OnInit {
       this._hospitalService.featuresHospital(para).subscribe((res: any) => {
 
       this.visitPriceData = res.data;
-      console.log(this.visitPriceData);
+      // console.log(this.visitPriceData);
 
       this.dataSource = new MatTableDataSource(this.visitPriceData);
       this.dataSource.paginator = this.paginator;
@@ -267,7 +268,7 @@ export class FeaturesComponent implements OnInit {
         }
       })
       dialogRef.afterClosed().subscribe((result) => {
-        console.log(result)
+        // console.log(result)
         if(result){
           this.getTableData(this.fetch)
         }
@@ -313,7 +314,7 @@ getPeriodById(id){
   this._hospitalService.getFeatureById(id,fetch).subscribe(
     (res)=>{
       this.doctorPeriod = res
-      console.log(this.doctorPeriod)
+      // console.log(this.doctorPeriod)
       // this.getClinics(this.doctorPeriod)
 
       this.patchForm()

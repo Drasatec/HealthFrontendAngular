@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="text-base-color text-bold"> تعديل حالة الحجز</h5>
+    <button mat-button (click)="closeEditDialog()" class="btn-close-trans">
+      <i mat-dialog-close class="fas fa-times" ></i>
+    </button>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 col-xxl-6 filter-border">
+        <label for="example-search-input" class="text-base-color text-bold" >حالة الحجز</label>
+        <ng-select [items]="status" appendTo="body" placeholder="حالة الحجز"
+          bindValue="bookingStatusId" bindLabel="statusName" [virtualScroll]="true"
+          aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
+          (change)="filters($event)"
+          [multiple]="false" >
+        </ng-select>
+      </div>
+      <div class="col-12">
+        <button type="button" class="background-primary my-3" mat-raised-button (click)="save()">
+          حفظ
+
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
