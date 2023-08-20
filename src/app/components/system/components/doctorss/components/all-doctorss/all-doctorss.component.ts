@@ -26,11 +26,11 @@ export class AllDoctorssComponent  implements OnInit{
   imgUrl=`${environment.imgUrl}`;
   timestamp = new Date().getTime();
 
-  dataSource: MatTableDataSource<FloorModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
   pageSize: number = 10;
   pageIndex: number = 0;
+  dataSource: MatTableDataSource<FloorModel>;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   filterElements = {

@@ -84,7 +84,7 @@ export class AddInfoTranslateComponent implements OnInit{
       this._hospitalService.deleteTrans(id).subscribe(
         (res:any)=>{
           if(res.success){
-            this.snackbar.open("تم حذف المستشفي بنجاح ", "ُsuccess", {
+            this.snackbar.open("تم حذف الفرع بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });

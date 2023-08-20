@@ -1,0 +1,48 @@
+<div class="card">
+    <div class="card-header">
+      <h5 class="text-base-color text-bold"> اعدادات عامة</h5>
+      
+    </div>
+
+    <div class="card-body">
+      <!-- begin:Table -->
+  
+      <div class="table-data" *ngIf="!loading;else progressSpinner">
+        <h4>طريقة تفعيل الحساب</h4>
+        <!-- <div class="form-check d-flex justify-content-center flex-row" >
+            <ng-container >
+                <input class="form-check-input"  type="radio" [name]="'flexRadioDefault'+i" [id]="'flexRadioDefault'+i"
+             [checked]="method.chosen" [value]="method.code" (change)="choseMethod($event)">
+            <label class="form-check-label" for="flexRadioDefault2">
+                {{method.optionName}}
+            </label>
+            </ng-container>
+            
+          </div> -->
+          <mat-radio-group name="flavors">
+            <mat-radio-button *ngFor="let method of confirmationMethod;let i = index" (change)="choseMethod($event)"
+            [checked]="method.chosen" [value]="method.code">{{method.optionName}}</mat-radio-button>
+          </mat-radio-group>
+        <button  type="button " class="btn btn-primary background-primary col-3 mx-3" (click)="save()">تعديل</button>
+      </div>
+  
+  
+    <!-- end: Table -->
+    </div>
+  </div>
+  <ng-template #progressSpinner>
+    <div class="overlay" >
+      <div class="center">
+  
+      <mat-progress-spinner
+       diameter="100"
+       mode="indeterminate"
+       color="primary"
+       strokeWidth="10"
+       value="100">
+      </mat-progress-spinner>
+  
+      </div>
+    </div>
+    </ng-template>
+  

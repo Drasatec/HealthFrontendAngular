@@ -101,12 +101,12 @@ export class AllHospitalsComponent implements OnInit{
       this._hospitalservice.activeHospital(id,action).subscribe(
         (res: any) => {
           if(action === 'active'){
-            this.snackBar.open("تم تشغيل المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تشغيل الفرع بنجاح ", "ُsuccess", {
               duration: 3000,
               panelClass: 'success'
             });
           }else{
-            this.snackBar.open("تم ايقاف المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم ايقاف الفرع بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });

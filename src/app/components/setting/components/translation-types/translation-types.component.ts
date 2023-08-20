@@ -26,7 +26,7 @@ export class TranslationTypesComponent implements OnInit {
   formTrans:FormGroup;
   public codes = [{name:'Ar',value:'ar'}, {name:'En',value:'en'}, {name:'Fr',value:'fr'}];
 
-  @Output() onAddTranslate: EventEmitter<any> = new EventEmitter();
+  @Output() AddTranslate: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public dialogRef: MatDialogRef<AddInfoTranslateComponent>,
@@ -88,6 +88,21 @@ export class TranslationTypesComponent implements OnInit {
       this.dataRec="employeesStatusTranslations"
       this.dataId="EmployeeStatusId"
 
+    }else if(this.data.type === "religion"){
+      this._translationservice.sendController("Religion")
+      this.dataRec="religionsTranslations"
+      this.dataId="ReligionId"
+
+    }else if(this.data.type === "maritial"){
+      this._translationservice.sendController("MaritalStatus")
+      this.dataRec="maritalStatusTranslations"
+      this.dataId="MaritalId"
+
+    }else if(this.data.type === "bookingStatus"){
+      this._translationservice.sendController("BookingStatus")
+      this.dataRec="bookingStatusesTranslations"
+      this.dataId="BookingStatusId"
+
     }
     this.getById(this.data.id,this.dataRec)
   }
@@ -101,6 +116,7 @@ export class TranslationTypesComponent implements OnInit {
         this.translationData?.forEach(el => {
           if(this.data.type === 'degree') el.name =el.degreeName
           if(this.data.type === 'status') el.name = el.statusName
+          if(this.data.type === 'bookingStatus') el.name = el.statusName
 
           this.addTrans(el);
         })
@@ -192,6 +208,8 @@ delTranslation(id){
             if(this.data.type === 'degree'){
               body.append('translations['+(i)+'][DegreeName]', formVal.translations[i].Name);
             }else if(this.data.type === 'status'){
+              body.append('translations['+(i)+'][StatusName]', formVal.translations[i].Name);
+            }else if(this.data.type === 'bookingStatus'){
               body.append('translations['+(i)+'][StatusName]', formVal.translations[i].Name);
             }
           }

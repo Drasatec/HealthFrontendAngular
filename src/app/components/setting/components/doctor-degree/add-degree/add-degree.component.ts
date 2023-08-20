@@ -171,7 +171,6 @@ loading=false
         else {
           body.append(key, formVal[key]);
         }
-
       }
     });
     return body;

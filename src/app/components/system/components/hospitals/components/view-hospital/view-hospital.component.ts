@@ -101,7 +101,7 @@ export class ViewHospitalComponent implements OnInit{
       status='inactive'
     }
     Swal.fire({
-      title: "هل انت متأكد من تغيير حال المستشفي ؟",
+      title: "هل انت متأكد من تغيير حال الفرع ؟",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",

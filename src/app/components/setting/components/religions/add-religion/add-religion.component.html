@@ -1,0 +1,43 @@
+
+<div class="card">
+    <div class="card-header">
+      <h5 class="text-base-color text-bold"> {{id ?"تعديل  ديانة":'إضافة ديانة '}} </h5>
+      <button mat-button (click)="closeEditDialog()" class="btn-close-trans">
+        <i mat-dialog-close class="fas fa-times" ></i>
+      </button>
+    </div>
+    <div class="card-body">
+      <div [formGroup]="form" class="row d-flex flex-wrap justify-content-md-start mb-7 align-items-center">
+        <div class="row justify-content-center align-items-center">
+  
+          <div class="row mt-4">
+            <div class="col-6 filter-border">
+              <div class="form-group mb-3">
+                  <label for="example-search-input" class="text-base-color text-bold">الاسم <span class="text-danger">*</span></label>
+                  <input type="text" formControlName="name" class="form-control pr-3 my-2" >
+                  <mat-error>
+                    <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
+                      من فضلك ادخل الاسم
+                    </div>
+                  </mat-error>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <!-- begin:: search  -->
+            <div class="d-flex justify-content-center mt-4">
+              <button type="button " class="btn btn-primary background-primary col-3"
+                  [class.spinnerBtn]="loading" [disabled]="!form.valid || loading" (click)="save()">
+                  <span>{{id ? 'تعديل' :'إضافة'}}</span>
+              </button>
+              <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">
+                <span>الغاء</span>
+              </button>
+            </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

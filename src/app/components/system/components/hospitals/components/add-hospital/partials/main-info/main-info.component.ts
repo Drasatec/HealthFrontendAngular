@@ -138,7 +138,7 @@ export class MainInfoComponent implements OnInit {
           (res)=>{
             this.loading=false
             this.newHospitalId = res.id
-            this.snackBar.open("تم اضافة المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم اضافة الفرع بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });
@@ -158,7 +158,7 @@ export class MainInfoComponent implements OnInit {
         this._hospitalservice.editHospital(this.id,this.sendData).subscribe(
           (res)=>{
             this.loading=false
-            this.snackBar.open("تم تعديل المستشفي بنجاح ", "ُsuccess", {
+            this.snackBar.open("تم تعديل الفرع بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
             });

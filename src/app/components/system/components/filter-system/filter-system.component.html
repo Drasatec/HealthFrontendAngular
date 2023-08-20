@@ -30,7 +30,7 @@
           <div class="col-md-3 col-xxl-3 filter-border" *ngIf="filterElements?.hospitals">
               <div class="form-group">
                   <!-- <label> المستشفيات</label> -->
-                  <ng-select [items]="lookups.hospitals" appendTo="body" placeholder="مستشفيات"
+                  <ng-select [items]="lookups.hospitals" appendTo="body" placeholder="فروع"
                       bindValue="hospitalId" bindLabel="name" [virtualScroll]="true"
                       aria-describedby="search-addon" appDebounceInputChange [debounceTime]="1000"
                       formControlName="hosId" (change)="chooseBuilding($event);filters()"

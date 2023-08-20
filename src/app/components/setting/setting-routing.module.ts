@@ -10,6 +10,12 @@ import { PriceCategoryComponent } from './components/price-category/price-catego
 import { WorkWeekComponent } from './components/work-week/work-week.component';
 import { DoctorDegreeComponent } from './components/doctor-degree/doctor-degree.component';
 import { DoctorStatusComponent } from './components/doctor-status/doctor-status.component';
+import { MaritalStatusComponent } from './components/marital-status/marital-status.component';
+import { ReligionsComponent } from './components/religions/religions.component';
+import { GenderComponent } from './components/gender/gender.component';
+import { CurrancyComponent } from './components/currancy/currancy.component';
+import { BookingStatusComponent } from './components/booking-status/booking-status.component';
+import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
@@ -22,9 +28,16 @@ const routes: Routes = [
     {path:'work-week',component:WorkWeekComponent},
     {path:'doctor-degree',component:DoctorDegreeComponent},
     {path:'doctor-status',component:DoctorStatusComponent},
+    {path:'religions',component:ReligionsComponent},
+    {path:'maritalStatus',component:MaritalStatusComponent},
+    {path:'bookingStatus',component:BookingStatusComponent},
+    {path:'currancy',component:CurrancyComponent},
+    {path:'gender',component:GenderComponent},
+    {path:'general-setting',component:GeneralSettingComponent},
 
 
-    {path:'',redirectTo:'room-types',pathMatch:'full'},
+
+    {path:'',redirectTo:'general-setting',pathMatch:'full'},
 
     ]
   }

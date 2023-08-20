@@ -24,6 +24,18 @@ import { DoctorStatusComponent } from './components/doctor-status/doctor-status.
 import { DoctorDegreeComponent } from './components/doctor-degree/doctor-degree.component';
 import { AddDegreeComponent } from './components/doctor-degree/add-degree/add-degree.component';
 import { AddStatusComponent } from './components/doctor-status/add-status/add-status.component';
+import { ReligionsComponent } from './components/religions/religions.component';
+import { MaritalStatusComponent } from './components/marital-status/marital-status.component';
+import { AddReligionComponent } from './components/religions/add-religion/add-religion.component';
+import { AddMaritalstatusComponent } from './components/marital-status/add-maritalstatus/add-maritalstatus.component';
+import { CurrancyComponent } from './components/currancy/currancy.component';
+import { AddBookingstatusComponent } from './components/booking-status/add-bookingstatus/add-bookingstatus.component';
+import { BookingStatusComponent } from './components/booking-status/booking-status.component';
+import { AddCurrancyComponent } from './components/currancy/add-currancy/add-currancy.component';
+import { AddGenderComponent } from './components/gender/add-gender/add-gender.component';
+import { GenderComponent } from './components/gender/gender.component';
+import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
@@ -48,12 +60,24 @@ import { AddStatusComponent } from './components/doctor-status/add-status/add-st
     DoctorDegreeComponent,
     AddDegreeComponent,
     AddStatusComponent,
+    ReligionsComponent,
+    MaritalStatusComponent,
+    AddReligionComponent,
+    AddMaritalstatusComponent,
+    GenderComponent,
+    BookingStatusComponent,
+    AddGenderComponent,
+    AddBookingstatusComponent,
+    AddCurrancyComponent,
+    CurrancyComponent,
+    GeneralSettingComponent,
   ],
   imports: [
     CommonModule,
     SettingRoutingModule,
     ThemeGeneralModule,
-    SystemModule
+    SystemModule,
+    MatRadioModule
   ]
 })
 export class SettingModule { }

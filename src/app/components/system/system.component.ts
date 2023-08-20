@@ -12,7 +12,7 @@ export class SystemComponent  {
   constructor(private router:Router) { }
   active:boolean;
   icons=[
-    {name:'مستشفيات',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals'},
+    {name:'الفروع',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals'},
     {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings'},
     {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/floors'},
     {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/rooms'},

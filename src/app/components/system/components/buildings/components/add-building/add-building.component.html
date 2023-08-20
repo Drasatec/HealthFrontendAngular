@@ -68,7 +68,7 @@
           <div class="row mt-4">
             <div class="col-6 filter-border">
               <div class="form-group mb-3">
-                <label for="state" class="text-base-color text-bold">المستشفي<span class="text-danger">*</span></label>
+                <label for="state" class="text-base-color text-bold">الفرع<span class="text-danger">*</span></label>
                 <div class="add-btn">
                   <ng-select class="pr-3 my-2"
                     [items]="hospitals"
@@ -82,7 +82,7 @@
                   </ng-select>
                   <mat-error>
                     <div *ngIf="form.get('HospitalId').hasError('required')&& form.get('HospitalId').touched">
-                      من فضلك اختر المستشفي
+                      من فضلك اختر الفرع
                     </div>
                   </mat-error>
                   <button class="btn background-primary" (click)="openDialog()">
