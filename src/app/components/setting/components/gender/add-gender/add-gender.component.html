@@ -11,7 +11,7 @@
         <div class="row justify-content-center align-items-center">
   
           <div class="row mt-4">
-            <div class="col-6 filter-border">
+            <!-- <div class="col-6 filter-border">
                 <div class="form-group mb-3">
                     <label for="example-search-input" class="text-base-color text-bold">كود <span class="text-danger">*</span></label>
                     <input type="text" formControlName="GenderNumber" class="form-control pr-3 my-2" >
@@ -21,13 +21,13 @@
                       </div>
                     </mat-error>
                 </div>
-              </div>
+              </div> -->
             <div class="col-6 filter-border">
               <div class="form-group mb-3">
                   <label for="example-search-input" class="text-base-color text-bold">الاسم <span class="text-danger">*</span></label>
-                  <input type="text" formControlName="GenderName" class="form-control pr-3 my-2" >
+                  <input type="text" formControlName="name" class="form-control pr-3 my-2" >
                   <mat-error>
-                    <div *ngIf="form.get('GenderName').hasError('required')&& form.get('GenderName').touched">
+                    <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
                       من فضلك ادخل الاسم
                     </div>
                   </mat-error>

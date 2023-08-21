@@ -27,7 +27,7 @@ export class WorkweekService {
     return this.http.get(url,{ params: fetchCriteria });
   }
   getAllWorkWeek(fetchCriteria?: any): Observable<any> {
-    const url = `${this.baseURL}Weekday/names`;
+    const url = `${this.baseURL}Weekday/all`;
     return this.http.get(url,{ params: fetchCriteria });
   }
   deleteWorkWeek(id): Observable<any> {

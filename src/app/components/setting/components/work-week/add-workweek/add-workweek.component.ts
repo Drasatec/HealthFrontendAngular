@@ -19,7 +19,7 @@ export class AddWorkweekComponent implements OnInit {
     private _FormBuilder: FormBuilder,
     private router:Router,
     public dialog: MatDialog,
-    private _weekService:WorkweekService,
+    private _nationalservice:WorkweekService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
     private _helpservice:HelperService,
@@ -41,33 +41,33 @@ export class AddWorkweekComponent implements OnInit {
     this.id=this.data? this.data.id :null
     this.createForm();
     if(this.id){
-      this.getVisitTypeById(this.id);
+      this.getNationalById(this.id);
     }
   }
-  week
-  getVisitTypeById(id){
+  nationals
+  getNationalById(id){
     let paylod={
       lang:'ar'
     }
-    this._weekService.getWorkWeekById(id,paylod).subscribe(
+    this._nationalservice.getWorkWeekById(id,paylod).subscribe(
       (res:any)=>{
-        this.week = res;
+        this.nationals = res;
         this.patchForm();
       }
     )
   }
   patchForm(){
     this.form.patchValue({
-      dayNumber:this.week.dayNumber?this.week.dayNumber:null,
-      WeekdayName:this.week.weekdayName?this.week.weekdayName:null,
+      // symbol:this.nationals.symbol?this.nationals.symbol:null,
+      name:this.nationals.weekdaysTranslations.length > 0?this.nationals.weekdaysTranslations[0].name:null,
 
   })
   console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
-      dayNumber: [null],
-      WeekdayName:[null,Validators.required],
+      // Symbol: [null],
+      name:[null,Validators.required],
     });
   }
   get formControls() {
@@ -80,10 +80,9 @@ export class AddWorkweekComponent implements OnInit {
       this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-        this._weekService.addWorkWeek(this.sendData).subscribe(
+        this._nationalservice.addWorkWeek(this.sendData).subscribe(
           (res)=>{
             this.loading=false
-
             this.snackBar.open("تم الاضافة  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -101,7 +100,7 @@ export class AddWorkweekComponent implements OnInit {
           }
         )
       }else{
-        this._weekService.editWorkWeek(this.sendData).subscribe(
+        this._nationalservice.editWorkWeek(this.sendData).subscribe(
           (res)=>{
             this.loading=false
 
@@ -138,7 +137,12 @@ export class AddWorkweekComponent implements OnInit {
     let paylod={
       id:this.id?this.id:null,
       ...data,
-      LangCode:'ar'
+      weekdaysTranslations:[{
+        id:this.id ? this.nationals.weekdaysTranslations[0].id:0,
+        Name:data.name,
+        // Description:data.description,
+        LangCode:'ar',
+      }],
     }
     this.sendData=this.formData(paylod)
   }
@@ -151,12 +155,12 @@ export class AddWorkweekComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "TypesVisitTranslations") {
-          for (let i = 0; i < formVal['TypesVisitTranslations'].length; i++) {
-            body.append('TypesVisitTranslations['+(i)+'][id]', formVal.TypesVisitTranslations[i].id );
-            body.append('TypesVisitTranslations['+(i)+'][Name]', formVal.TypesVisitTranslations[i].Name);
-            body.append('TypesVisitTranslations['+(i)+'][Address]', formVal.TypesVisitTranslations[i].Address);
-            body.append('TypesVisitTranslations['+(i)+'][LangCode]', formVal.TypesVisitTranslations[i].LangCode);
+        if (key == "weekdaysTranslations") {
+          for (let i = 0; i < formVal['weekdaysTranslations'].length; i++) {
+            body.append('weekdaysTranslations['+(i)+'][id]', formVal.weekdaysTranslations[i].id );
+            body.append('weekdaysTranslations['+(i)+'][Name]', formVal.weekdaysTranslations[i].Name);
+            body.append('weekdaysTranslations['+(i)+'][Address]', formVal.weekdaysTranslations[i].Address);
+            body.append('weekdaysTranslations['+(i)+'][LangCode]', formVal.weekdaysTranslations[i].LangCode);
           }
         }
         else if (key == "PhoneNumbers") {
@@ -178,4 +182,3 @@ export class AddWorkweekComponent implements OnInit {
   }
 
 }
-

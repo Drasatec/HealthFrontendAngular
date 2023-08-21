@@ -63,7 +63,7 @@ export class GenderComponent implements OnInit {
     this.subscriptions.add(
       this._weektypeservice.getHumanGender(payload).subscribe((res: any) => {
 
-      this.week = res;
+      this.week = res.data;
       this.dataSource = new MatTableDataSource(this.week);
       this.dataSource.paginator = this.paginator;
       this.totalItems = res.total;

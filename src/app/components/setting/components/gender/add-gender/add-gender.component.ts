@@ -20,12 +20,12 @@ export class AddGenderComponent implements OnInit {
     private _FormBuilder: FormBuilder,
     private router:Router,
     public dialog: MatDialog,
-    private _priceservice:GenderService,
+    private _nationalservice:GenderService,
     public snackBar: MatSnackBar,
     private route:ActivatedRoute,
     private _helpservice:HelperService,
     private _lookpservice:LookupService,
-    public dialogRef: MatDialogRef<AddMaritalstatusComponent>,
+    public dialogRef: MatDialogRef<AddGenderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
   }
@@ -42,34 +42,34 @@ export class AddGenderComponent implements OnInit {
     this.id=this.data? this.data.id :null
     this.createForm();
     if(this.id){
-      this.getPriceCatById(this.id);
+      this.getNationalById(this.id);
     }
   }
-  priceCat
-  getPriceCatById(id){
+  nationals
+  getNationalById(id){
     let paylod={
       lang:'ar',
       id:id
     }
-    this._priceservice.getHumanGenderById(paylod).subscribe(
+    this._nationalservice.getHumanGenderById(paylod).subscribe(
       (res:any)=>{
-        this.priceCat = res;
+        this.nationals = res;
         this.patchForm();
       }
     )
   }
   patchForm(){
     this.form.patchValue({
-      GenderNumber:this.priceCat.genderNumber?this.priceCat.genderNumber:null,
-      GenderName:this.priceCat.genderName?this.priceCat.genderName:null,
+      // symbol:this.nationals.symbol?this.nationals.symbol:null,
+      name:this.nationals.gendersTranslations.length > 0?this.nationals.gendersTranslations[0].name:null,
 
   })
   console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
-      GenderNumber:[null,Validators.required],
-      GenderName:[null,Validators.required],
+      // Symbol: [null],
+      name:[null,Validators.required],
     });
   }
   get formControls() {
@@ -82,7 +82,7 @@ export class AddGenderComponent implements OnInit {
       this.loading=true
       this.prepareDataBeforeSend(this.form.value);
       if(!this.id){
-        this._priceservice.createHumanGender(this.sendData).subscribe(
+        this._nationalservice.createHumanGender(this.sendData).subscribe(
           (res)=>{
             this.loading=false
             this.snackBar.open("تم الاضافة  بنجاح ", "ُsuccess", {
@@ -93,6 +93,7 @@ export class AddGenderComponent implements OnInit {
           },
           (err) => {
             this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -101,9 +102,10 @@ export class AddGenderComponent implements OnInit {
           }
         )
       }else{
-        this._priceservice.editHumanGender(this.sendData).subscribe(
+        this._nationalservice.editHumanGender(this.sendData).subscribe(
           (res)=>{
             this.loading=false
+
             this.snackBar.open("تم التعديل  بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -112,6 +114,7 @@ export class AddGenderComponent implements OnInit {
           },
           (err) => {
             this.loading=false
+
             this.snackBar.open("من فضلك حاول مرة اخري", "ُError", {
               duration: 3000,
               panelClass: 'error'
@@ -136,7 +139,12 @@ export class AddGenderComponent implements OnInit {
     let paylod={
       id:this.id?this.id:null,
       ...data,
-      langCode:'ar'
+      gendersTranslations:[{
+        id:this.id ? this.nationals.gendersTranslations[0].id:0,
+        Name:data.name,
+        // Description:data.description,
+        LangCode:'ar',
+      }],
     }
     this.sendData=this.formData(paylod)
   }
@@ -149,11 +157,12 @@ export class AddGenderComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "maritalStatusTranslations") {
-          for (let i = 0; i < formVal['maritalStatusTranslations'].length; i++) {
-            body.append('maritalStatusTranslations['+(i)+'][id]', formVal.maritalStatusTranslations[i].id );
-            body.append('maritalStatusTranslations['+(i)+'][Name]', formVal.maritalStatusTranslations[i].Name);
-            body.append('maritalStatusTranslations['+(i)+'][LangCode]', formVal.maritalStatusTranslations[i].LangCode);
+        if (key == "gendersTranslations") {
+          for (let i = 0; i < formVal['gendersTranslations'].length; i++) {
+            body.append('gendersTranslations['+(i)+'][id]', formVal.gendersTranslations[i].id );
+            body.append('gendersTranslations['+(i)+'][Name]', formVal.gendersTranslations[i].Name);
+            body.append('gendersTranslations['+(i)+'][Address]', formVal.gendersTranslations[i].Address);
+            body.append('gendersTranslations['+(i)+'][LangCode]', formVal.gendersTranslations[i].LangCode);
           }
         }
         else if (key == "PhoneNumbers") {
@@ -175,4 +184,3 @@ export class AddGenderComponent implements OnInit {
   }
 
 }
-

@@ -75,8 +75,8 @@ export class TranslationTypesComponent implements OnInit {
 
     }else if(this.data.type === "workweek"){
       this._translationservice.sendController("Weekday")
-      this.dataRec="weekdayName"
-      this.dataId="RoomTypeId"
+      this.dataRec="weekdaysTranslations"
+      this.dataId="WeekdayId"
 
     }else if(this.data.type === "degree"){
       this._translationservice.sendController("DoctorsDegree")
@@ -102,6 +102,11 @@ export class TranslationTypesComponent implements OnInit {
       this._translationservice.sendController("BookingStatus")
       this.dataRec="bookingStatusesTranslations"
       this.dataId="BookingStatusId"
+
+    }else if(this.data.type === "gender"){
+      this._translationservice.sendController("HumanGender")
+      this.dataRec="gendersTranslations"
+      this.dataId="GenderId"
 
     }
     this.getById(this.data.id,this.dataRec)
