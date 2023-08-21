@@ -1,0 +1,28 @@
+<div class="card">
+    <div class="card-header">
+      <h3 class="card-title align-items-start flex-column mr-3 mb-5 mt-0">
+        <span class="card-label text-primary"> رسالة عميل </span>
+      </h3>
+      <button mat-button (click)="closeDialog()" class="btn-close-trans">
+        <i mat-dialog-close class="fas fa-times" ></i>
+      </button>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-6">
+                <p>المرسل : {{contact.senderName}}</p>
+                <p>الايميل: {{contact.email}}</p>
+            </div>
+            <div class="col-6">
+                <p>عنوان الرسالة: {{contact.subject}}</p>
+                <p>التاريخ : {{contact.contactDate | date:'dd-mm-yyyy'}}</p>
+            </div>
+            <div class="col-12">
+                <p>{{contact.message}}</p>
+            </div>
+        </div>
+          
+  
+    </div>
+  </div>
+  

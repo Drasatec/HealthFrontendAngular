@@ -47,6 +47,24 @@ export const items = [
       },
     ],
   },
+
+  {
+  title: ' نظام إدارة التسويق',
+  icon:'fa-solid fa-receipt',
+  link:'/dashboard/marketing/',
+  children: [
+    {
+      title: ' العملاء',
+      icon:'fa-solid fa-phone',
+      link:'/dashboard/marketing/contactUs'
+    },
+    // {
+    //   title: ' التقارير',
+    //   icon:'fa-solid fa-phone',
+    //   link:'/dashboard/all-seeting'
+    // },
+  ],
+},
   // {
   //   title: ' نظام العيادات',
   //   icon:'fa-solid fa-receipt',

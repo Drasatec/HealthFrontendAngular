@@ -12,6 +12,7 @@ import { ClinicService } from '../../../clinics/services/clinic.service';
 import { SnackBarService } from '../../../../../../@theme/services/snackbar.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HospitalService } from '../../../hospitals/services/hospital.service';
+import { PromotionService } from '../../../../../marketing/services/promotion.service';
 
 @Component({
   selector: 'ngx-add-build-translate',
@@ -22,7 +23,7 @@ export class AddBuildTranslateComponent implements OnInit {
   formTrans:FormGroup;
   public codes = [{name:'Ar',value:'ar'}, {name:'En',value:'en'}, {name:'Fr',value:'fr'}];
   loading=false
-  @Output() onAddTranslate: EventEmitter<any> = new EventEmitter();
+  @Output() AddTranslate: EventEmitter<any> = new EventEmitter();
 
   constructor(
     public dialogRef: MatDialogRef<AddInfoTranslateComponent>,
@@ -33,6 +34,7 @@ export class AddBuildTranslateComponent implements OnInit {
     private _specialService:SpecialService,
     private _clinicService:ClinicService,
     private _featureService:HospitalService,
+    private _promotionservice:PromotionService,
     private __helper:HelperService,
     private snackbar:MatSnackBar,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -54,6 +56,9 @@ export class AddBuildTranslateComponent implements OnInit {
       this.getClinicById(this.data.id)
     }else if(this.data.type === "features"){
       this.getFeatureById(this.data.id)
+    }else if(this.data.type === 'promotion'){
+      this.getPromotionById(this.data.id)
+
     }
   }
   get formControls() {
@@ -131,6 +136,20 @@ export class AddBuildTranslateComponent implements OnInit {
       }
     )
   }
+  getPromotionById(id){
+    let pay={
+      id:id
+    }
+    this._promotionservice.getPromotionById(pay).subscribe(
+      (res:any)=>{
+        // this.feat=res;
+        this.translationData=res.promotionsTranslations;
+        this.translationData?.forEach(el => {
+          this.addTrans(el);
+        })
+      }
+    )
+  }
   addTrans(data?){
       // console.log(data)
 
@@ -175,6 +194,8 @@ export class AddBuildTranslateComponent implements OnInit {
       this.delClinicById(id)
     }else if(this.data.type === "features"){
       this.delFeatureById(id)
+    }else if(this.data.type === "promotion"){
+      this.delPromotionById(id)
     }
   }
   delBuildingById(id){
@@ -255,13 +276,26 @@ export class AddBuildTranslateComponent implements OnInit {
       }
     )
   }
+  delPromotionById(id){
+    this._promotionservice.deleteTrans(id).subscribe(
+      (res:any)=>{
+        if(res.success){
+          this.snackbar.open("تم حذف بنجاح ", "ُsuccess", {
+            duration: 5000,
+            panelClass: 'success'
+          });
+
+        }
+      }
+    )
+  }
   private createEmailFormGroup(data?): FormGroup {
     console.log(data)
     return this._FormBuilder.group({
       'buildingId':new FormControl(this.data.id),
       'id':new FormControl(data?.id? data?.id :null),
       'LangCode': new FormControl(data?.langCode ? data?.langCode :null, Validators.required),
-      'Name': new FormControl(data?.name ? data?.name :null, Validators.required),
+      'Name': new FormControl(data?.name ? data?.name :data?.title, Validators.required),
       'Description': new FormControl(data?.description ? data?.description :''),
 
 
@@ -298,6 +332,10 @@ export class AddBuildTranslateComponent implements OnInit {
               body.append('translations['+(i)+'][ClinicId]', this.data.id);
             }else if(this.data.type === 'features'){
               body.append('translations['+(i)+'][FeatureId]', this.data.id);
+            }else if(this.data.type === 'promotion'){
+              body.append('translations['+(i)+'][PromotionId]', this.data.id);
+            body.append('translations['+(i)+'][Title]', formVal.translations[i].Name);
+
             }
             body.append('translations['+(i)+'][Id]', formVal.translations[i].id ?formVal.translations[i].id :0);
             body.append('translations['+(i)+'][Name]', formVal.translations[i].Name);
@@ -361,6 +399,14 @@ export class AddBuildTranslateComponent implements OnInit {
         )
       }else if(this.data.type === 'features'){
         this._featureService.addFeatuTranslation(this.dataSend).subscribe(
+          (res)=>{
+            this.loading=false
+
+            this.closeDialog()
+          }
+        )
+      }else if(this.data.type === 'promotion'){
+        this._promotionservice.addTranslation(this.dataSend).subscribe(
           (res)=>{
             this.loading=false
 

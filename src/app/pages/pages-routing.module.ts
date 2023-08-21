@@ -17,6 +17,7 @@ const routes: Routes = [{
 
     { path: 'booking', loadChildren: () => import('../components/Reception/booking/booking.module').then(m => m.BookingModule) },
     { path: 'system/settings', loadChildren: () => import('../components/setting/setting.module').then(m => m.SettingModule) },
+    { path: 'marketing', loadChildren: () => import('../components/marketing/marketing.module').then(m => m.MarketingModule) },
 
     {
       path: '',

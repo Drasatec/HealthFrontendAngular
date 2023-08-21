@@ -136,7 +136,7 @@ export class AddBookingComponent implements OnInit {
   getPeriodTypes(e){
     let payload={
       docId:this.form.value.DoctorId,
-      day:e.dayNumber,
+      day:e.weekdayId,
       lang:'ar'
     }
     this.getPeriod(payload)
