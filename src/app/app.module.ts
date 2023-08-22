@@ -6,7 +6,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
@@ -25,10 +25,14 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PagerModule } from 'ng2-smart-table/lib/components/pager/pager.module';
+import { PagesModule } from './pages/pages.module';
+import { HttpRequestInterceptor } from './components/auth/guard/http.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
+    PagesModule,
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -51,6 +55,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatDialogModule
   ],
   bootstrap: [AppComponent],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true }
+  ],
 })
 export class AppModule {
 }

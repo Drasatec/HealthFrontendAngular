@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent  {
 
-  constructor() { }
+  constructor() {console.log('auth') }
 
 
 

@@ -1,24 +1,30 @@
-<div [formGroup]="form" class="bg-white p-5 text-center border rounded">
+<div class="p-5 text-center   row justify-content-center align-items-center h-100">
+  <div class="col-6 auth p-5 border rounded">
     <h3> تسجيل دخول</h3>
-    <div class="form-group my-2">
-      <input [class.is-invalid]="form.controls.UserName.invalid && form.controls.UserName.touched"
-      type="text" class="form-control" placeholder="الايميل" formControlName="UserName">
-      <div class="invalid-feedback">
-        <span *ngIf="form.controls.UserName.errors?.['required']">من فضلك ادخل الايميل</span>
+    <form [formGroup]="form" >
+      <div class="form-group my-2 col-12">
+        <input [class.is-invalid]="form.controls.UserName.invalid && form.controls.UserName.touched"
+        type="text" class="form-control" placeholder="الايميل" formControlName="UserName">
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.UserName.errors?.['required']">من فضلك ادخل الايميل</span>
+        </div>
       </div>
-    </div>
-    <div class="form-group my-2">
-      <input [class.is-invalid]="form.controls.password.invalid && form.controls.password.touched"
-        type="password" class="form-control" placeholder="كلمة السر" formControlName="password">
-      <div class="invalid-feedback">
-        <span *ngIf="form.controls.password.errors?.['required']">من فضلك ادخل الرقم السري</span>
+      <div class="form-group my-2 col-12">
+        <input [class.is-invalid]="form.controls.Password.invalid && form.controls.Password.touched"
+          type="password" class="form-control" placeholder="كلمة السر" formControlName="Password">
+        <div class="invalid-feedback">
+          <span *ngIf="form.controls.Password.errors?.['required']">من فضلك ادخل الرقم السري</span>
+        </div>
       </div>
-    </div>
-  
-    <div class="d-grid gap-2">
-      <button class="btn btn-primary" (click)="save()">تسجيل</button>
-    </div>
+    
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" (click)="save()">تسجيل</button>
+      </div>
+    </form>
   </div>
+    
+  </div>
+
   <!-- <div class="d-flex justify-content-between mt-2">
     <button class="btn btn-outline-primary" routerLink="/auth/register">تسجيل حساب</button>
     <button class="btn btn-link"> نسيت كلمة المرور؟</button>

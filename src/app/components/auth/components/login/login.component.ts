@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -9,16 +9,25 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent  {
-  form=new FormGroup({
-    UserName:  new FormControl ('admin',[Validators.required]),
-    password: new FormControl ('123456789',[Validators.required]),
-  }
-  )
-  redirectUrl:string=''
+export class LoginComponent  implements OnInit{
+  form:FormGroup
   constructor(private authService:AuthService,private snackBar: MatSnackBar,
-    private router:Router
+    private router:Router,private _FormBuilder:FormBuilder
     ){}
+    ngOnInit(): void {
+      console.log("lo")
+      this.createForm()
+      
+    }
+    createForm(): void {
+      this.form = this._FormBuilder.group({
+        UserName: [null,Validators.required],
+        Password:[null,Validators.required],
+      });
+    }
+    get formControls() {
+      return this.form.controls;
+    }
   save(){
     this.form.markAllAsTouched();
     if(this.form.valid){

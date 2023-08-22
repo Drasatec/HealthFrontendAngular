@@ -1,4 +1,4 @@
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
@@ -8,53 +8,61 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { ECommerceComponent } from './pages/e-commerce/e-commerce.component';
+import { NotFoundComponent } from './pages/miscellaneous/not-found/not-found.component';
+import { PagesComponent } from './pages/pages.component';
+import { AuthGuard } from './components/auth/guard/auth.guard';
 
 export const routes: Routes = [
   {
-    path: 'dashboard',
-    loadChildren: () => import('./pages/pages.module')
-      .then(m => m.PagesModule),
-  },
-  {
-    path: 'auth',
-    component: NbAuthComponent,
+    path: '',
+    component: PagesComponent,
+    canActivate:[AuthGuard],
     children: [
       {
-        path: '',
-        component: NbLoginComponent,
+        path: 'dashboard',
+        component: ECommerceComponent,
+        canActivate:[AuthGuard],
+
       },
-      {
-        path: 'login',
-        component: NbLoginComponent,
+      { path: 'system',
+       loadChildren: () => import('./components/system/system.module').then(m => m.SystemModule),
+       canActivate:[AuthGuard],
       },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
+  
+      { 
+        path: 'booking', 
+        loadChildren: () => import('./components/Reception/booking/booking.module').then(m => m.BookingModule),
+        canActivate:[AuthGuard],
+       },
+      { path: 'system/settings',
+       loadChildren: () => import('./components/setting/setting.module').then(m => m.SettingModule),
+       canActivate:[AuthGuard],
       },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
+      { path: 'marketing',
+       loadChildren: () => import('./components/marketing/marketing.module').then(m => m.MarketingModule),
+       canActivate:[AuthGuard],
       },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
+     
     ],
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  { path: '**', redirectTo: 'dashboard' },
+  {
+    path:'auth',
+    loadChildren: () => import('./components/auth/auth.module').then(m => m.AuthModule)
+  },
+  { path: '**', component:NotFoundComponent },
 ];
 
-const config: ExtraOptions = {
-  useHash: false,
-};
+// const config: ExtraOptions = {
+//   useHash: false,
+// };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, config)],
+  imports: [
+    RouterModule.forRoot(routes, {
+    preloadingStrategy: PreloadAllModules,
+    scrollPositionRestoration: 'enabled',
+  }),],
   exports: [RouterModule],
 })
 export class AppRoutingModule {

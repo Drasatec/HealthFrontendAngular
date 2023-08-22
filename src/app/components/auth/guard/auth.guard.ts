@@ -6,11 +6,13 @@ export const AuthGuard: CanActivateFn = (route, state): boolean => {
   const currentUserService = inject(AuthService);
 
   if (currentUserService.currentUser) {
+    console.log("guardauth")
     if (state.url === '/') {
         router.navigate(['/dashboard']);
     }
     return true;
   }
+  console.log("not guardauth")
 
   router.navigate(['/auth/login']);
   return false;

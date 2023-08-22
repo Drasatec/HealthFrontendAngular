@@ -17,4 +17,5 @@ import { items } from './pages-menu';
 export class PagesComponent {
 
   menu = items;
+  constructor(){console.log("lllll")}
 }
