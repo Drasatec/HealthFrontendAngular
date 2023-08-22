@@ -20,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NbRouteTabsetModule, NbTabsetModule } from '@nebular/theme';
 import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NbRouteTabsetModule,
     NbTabsetModule,
     NgbDatepickerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports:[
     DebounceInputChangeDirective,
@@ -72,7 +74,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NbRouteTabsetModule,
     NbTabsetModule,
     NgbDatepickerModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class ThemeGeneralModule { }

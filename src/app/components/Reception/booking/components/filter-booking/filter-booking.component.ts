@@ -83,8 +83,8 @@ export class FilterBookingComponent implements OnInit {
   prepareDataBeforeEmit(data: any) {
     let payload = {
       ...data,
-      StartDateTime:moment(data.StartDateTime).format(this.DT_FORMAT),
-      EndDateTime:moment(data.StartDateTime).format(this.DT_FORMAT)
+      StartDateTime:moment(data.StartDateTime).format(this.DT_FORMAT_Two),
+      EndDateTime:moment(data.EndDateTime).format(this.DT_FORMAT_Two)
     };
     return this.helpers.deleteNullValuesFetchCriteria(payload);
   }

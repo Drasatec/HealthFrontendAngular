@@ -13,6 +13,9 @@
   .ng-select {
     padding:0.3rem;
   }
+  .mat-form-field-appearance-outline .mat-form-field-flex{
+    background-color: transparent;
+  }
   .ng-select .ng-select-container .ng-value-container .ng-placeholder {
     color:var(--text-base-color);
   }
