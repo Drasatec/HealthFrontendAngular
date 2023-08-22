@@ -36,6 +36,8 @@ import { AddGenderComponent } from './components/gender/add-gender/add-gender.co
 import { GenderComponent } from './components/gender/gender.component';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
 import { MatRadioModule } from '@angular/material/radio';
+import { LanguageComponent } from './components/language/language.component';
+import { AddLanguageComponent } from './components/language/add-language/add-language.component';
 
 
 @NgModule({
@@ -71,6 +73,8 @@ import { MatRadioModule } from '@angular/material/radio';
     AddCurrancyComponent,
     CurrancyComponent,
     GeneralSettingComponent,
+    LanguageComponent,
+    AddLanguageComponent,
   ],
   imports: [
     CommonModule,

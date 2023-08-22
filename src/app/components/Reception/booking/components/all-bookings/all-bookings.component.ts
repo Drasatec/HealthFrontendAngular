@@ -31,7 +31,7 @@ export class UserData{
 })
 export class AllBookingsComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ["name","hospital","period","doctor","clinic","date","visit","action"];
+  displayedColumns: string[] = ["name","hospital","period","doctor","clinic","date","visit","status","action"];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;
@@ -45,8 +45,8 @@ export class AllBookingsComponent implements OnInit {
     hospitals:true,
     clinics:true,
     doctors:true,
-    specialtyId:true
-
+    specialtyId:true,
+    dateRange:true
   };
   loading=true;
   constructor(private router:Router,private _bookingservice:BookingService,

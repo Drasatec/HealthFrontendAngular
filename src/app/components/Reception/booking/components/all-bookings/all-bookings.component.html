@@ -41,13 +41,16 @@
         </ng-container>
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> التاريخ </th>
-          <td mat-cell *matCellDef="let row"> {{row?.visitingDate | date:'dd-mm-yyyy'}} </td>
+          <td mat-cell *matCellDef="let row"> {{row?.visitingDate | date:'dd-mm-yy'}} </td>
         </ng-container>
         <ng-container matColumnDef="visit">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الكشف </th>
           <td mat-cell *matCellDef="let row"> {{row?.typeVisit}} </td>
         </ng-container>
-
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> الحالة </th>
+          <td mat-cell *matCellDef="let row"> {{row?.bookingStatus}} </td>
+        </ng-container>
         <ng-container matColumnDef = 'action'>
           <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
           <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">

@@ -135,8 +135,8 @@
                   <div class="input-group calendar">
                       <mat-form-field appearance="outline">
                           <mat-date-range-input [rangePicker]="fromTo">
-                              <input matStartDate placeholder="From" formControlName="from">
-                              <input matEndDate placeholder="To" formControlName="to" (dateChange)="filters($event)">
+                              <input matStartDate placeholder="From" formControlName="StartDateTime">
+                              <input matEndDate placeholder="To" formControlName="EndDateTime" (dateChange)="filters($event)">
                           </mat-date-range-input>
                           <mat-datepicker-toggle matSuffix [for]="fromTo">
                           </mat-datepicker-toggle>

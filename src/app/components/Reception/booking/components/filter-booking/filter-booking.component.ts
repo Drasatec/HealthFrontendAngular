@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { HelperService } from '../../../../../@theme/services/helper.service';
 import { LookupService } from '../../../../../@theme/services/lookup.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'ngx-filter-booking',
@@ -71,7 +72,9 @@ export class FilterBookingComponent implements OnInit {
       floorId:[null],
       roomId:[null],
       specialtyId:[null],
-      docId:[null]
+      docId:[null],
+      StartDateTime:[null],
+      EndDateTime:[null],
     });
   }
   get formControls() {
@@ -80,6 +83,8 @@ export class FilterBookingComponent implements OnInit {
   prepareDataBeforeEmit(data: any) {
     let payload = {
       ...data,
+      StartDateTime:moment(data.StartDateTime).format(this.DT_FORMAT),
+      EndDateTime:moment(data.StartDateTime).format(this.DT_FORMAT)
     };
     return this.helpers.deleteNullValuesFetchCriteria(payload);
   }
@@ -193,3 +198,6 @@ export class FilterBookingComponent implements OnInit {
     )
   }
 }
+
+
+

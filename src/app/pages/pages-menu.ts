@@ -24,7 +24,7 @@ export const items = [
       {
         title: ' الاعدادات',
         icon:'fa-solid fa-gears',
-        link:'/dashboard/system/settings/room-types'
+        link:'/dashboard/system/settings/general-setting'
       },
 
 

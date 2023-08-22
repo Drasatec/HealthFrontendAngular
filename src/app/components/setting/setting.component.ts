@@ -10,6 +10,7 @@ export class SettingComponent {
   active:boolean;
   icons=[
     {name:'اعدادات عامة',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/settings/general-setting'},
+    {name:'اللغات',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/settings/languages'},
     {name:'انواع الغرف',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/settings/room-types'},
     {name:'انواع الهويات',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/settings/ssn-types'},
     {name:'انواع الزيارات',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/settings/visit-types'},

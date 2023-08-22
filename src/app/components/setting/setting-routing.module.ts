@@ -16,6 +16,7 @@ import { GenderComponent } from './components/gender/gender.component';
 import { CurrancyComponent } from './components/currancy/currancy.component';
 import { BookingStatusComponent } from './components/booking-status/booking-status.component';
 import { GeneralSettingComponent } from './components/general-setting/general-setting.component';
+import { LanguageComponent } from './components/language/language.component';
 
 const routes: Routes = [
   { path: '', component: SettingComponent,children:[
@@ -34,6 +35,7 @@ const routes: Routes = [
     {path:'currancy',component:CurrancyComponent},
     {path:'gender',component:GenderComponent},
     {path:'general-setting',component:GeneralSettingComponent},
+    {path:'languages',component:LanguageComponent},
 
 
 
