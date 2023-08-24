@@ -1,4 +1,4 @@
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
@@ -47,9 +47,9 @@ export const routes: Routes = [
   { path: '**', redirectTo: 'dashboard' },
 ];
 
-const config: ExtraOptions = {
-  useHash: false,
-};
+// const config: ExtraOptions = {
+//   useHash: false,
+// };
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
