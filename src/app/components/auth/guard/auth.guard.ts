@@ -23,9 +23,11 @@ import { tap } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
 
   constructor(private authService: NbAuthService, private router: Router) {
-  }
-
+  
+}
   canActivate() {
+  console.log("not guardauth")
+
     return this.authService.isAuthenticated()
       .pipe(
         tap(authenticated => {
