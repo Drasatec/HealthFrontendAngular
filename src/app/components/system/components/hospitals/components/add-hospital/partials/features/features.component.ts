@@ -163,7 +163,7 @@ export class FeaturesComponent implements OnInit {
 
   sendData;
   prepareDataBeforeSend(data){
-    console.log(this.data.id)
+    // console.log(this.data.id)
 
     let paylod={
       ...data,

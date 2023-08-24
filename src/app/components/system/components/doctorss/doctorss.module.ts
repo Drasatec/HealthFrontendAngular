@@ -15,6 +15,9 @@ import { AddDoctorTranslateComponent } from './components/add-doctor-translate/a
 import { VisitPriceComponent } from './components/add-doctorss/partials/visit-price/visit-price.component';
 import { DoctorProfileComponent } from './components/doctor-profile/doctor-profile.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { AddDoctorHosComponent } from './components/add-doctorss/partials/add-doctor-hos/add-doctor-hos.component';
+import { AddDoctorSpecialityComponent } from './components/add-doctorss/partials/add-doctor-speciality/add-doctor-speciality.component';
+import { NbTabsetModule } from '@nebular/theme';
 
 
 @NgModule({
@@ -28,14 +31,17 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     InfoJobsComponent,
     AddDoctorTranslateComponent,
     VisitPriceComponent,
-    DoctorProfileComponent
+    DoctorProfileComponent,
+    AddDoctorHosComponent,
+    AddDoctorSpecialityComponent
   ],
   imports: [
     CommonModule,
     DoctorssRoutingModule,
     ThemeGeneralModule,
     SystemModule,
-    CarouselModule
+    CarouselModule,
+    NbTabsetModule
   ]
 })
 export class DoctorssModule { }

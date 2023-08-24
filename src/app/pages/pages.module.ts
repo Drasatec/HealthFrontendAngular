@@ -16,7 +16,7 @@ import { MessageModule } from 'primeng/message';
 import { MessagesModule } from 'primeng/messages';
 @NgModule({
   imports: [
-    PagesRoutingModule,
+    // PagesRoutingModule,
     ThemeModule,
     NbMenuModule,
     MiscellaneousModule,
@@ -32,6 +32,9 @@ import { MessagesModule } from 'primeng/messages';
   declarations: [
     PagesComponent,
   ],
+  exports:[
+    PagesComponent
+  ]
 })
 export class PagesModule {
 }

@@ -1,38 +1,24 @@
-<div class="row">
-  <div class="col-xxl-5">
-    <div class="row">
-      <div class="col-md-6">
-        <ngx-profit-card></ngx-profit-card>
-      </div>
-      <div class="col-md-6">
-        <ngx-earning-card></ngx-earning-card>
-      </div>
-    </div>
-
-    <ngx-traffic-reveal-card></ngx-traffic-reveal-card>
+<div class="d-flex justify-content-between align-items-center">
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group.svg">
+    <p class="mt-2">المرضي : {{stat.patients}}</p>
   </div>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px" src="assets/images/hospital-icons/Group-1.svg">
+    <p class="mt-2">التخصصات : {{stat.specialties}}</p>
 
-  <div class="col-xxl-7">
-    <ngx-ecommerce-charts></ngx-ecommerce-charts>
   </div>
-</div>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group-2.svg">
+    <p class="mt-2">الاطباء: {{stat.doctors}}</p>
 
-<div class="row">
-  <div class="col-xxl-9">
-    <ngx-country-orders></ngx-country-orders>
   </div>
-
-  <div class="col-xxl-3">
-    <ngx-progress-section></ngx-progress-section>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group-3.svg">
+    <p class="mt-2">العيادات : {{stat.clinics}}</p>
   </div>
 </div>
+<div class="row my-3">
+  <chart type="line" [data]="data" [options]="options"></chart>
 
-<div class="row">
-  <div class="col-xxl-9">
-    <ngx-ecommerce-visitors-analytics></ngx-ecommerce-visitors-analytics>
-  </div>
-
-  <div class="col-xxl-3">
-    <ngx-user-activity></ngx-user-activity>
-  </div>
 </div>

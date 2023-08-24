@@ -11,8 +11,8 @@ export class MarketingComponent {
   constructor(private router:Router) { }
   active:boolean;
   icons=[
-    {name:'رسائل العملاء',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/marketing/contactUs'},
-    {name:'الاعلانات',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/marketing/promotions'},
+    {name:'رسائل العملاء',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/marketing/contactUs'},
+    {name:'الاعلانات',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/marketing/promotions'},
     
   ]
   // getLink(){

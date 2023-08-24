@@ -1,11 +1,11 @@
 
 export const items = [
-  // {
-  //   title: 'لوحة التحكم',
-  //   icon: 'fa-solid fa-shopping-cart',
-  //   // link: '/dashboard/dashboard',
-  //   home: true,
-  // },
+  {
+    title: 'لوحة التحكم',
+    icon: 'fa-solid fa-shopping-cart',
+    link: '/dashboard',
+    home: true,
+  },
   // {
   //   title: 'IoT Dashboard',
   //   icon: 'home-outline',
@@ -14,17 +14,17 @@ export const items = [
   {
     title: 'الاعدادات الرئيسية',
     icon:'fa-solid fa-gear',
-    link:'/dashboard/system/',
+    link:'/system/',
     children: [
       {
         title: ' اعدادات النظام',
         icon:'fa-solid fa-notes-medical',
-        link:'/dashboard/system/hospitals/all-hospital'
+        link:'/system/hospitals/all-hospital'
       },
       {
         title: ' الاعدادات',
         icon:'fa-solid fa-gears',
-        link:'/dashboard/system/settings/general-setting'
+        link:'/system/settings/general-setting'
       },
 
 
@@ -33,30 +33,30 @@ export const items = [
   {
     title: ' نظام إدارة الاستقبال',
     icon:'fa-solid fa-receipt',
-    link:'/dashboard/booking/',
+    link:'/booking/',
     children: [
       {
         title: ' الاجراءات',
         icon:'fa-solid fa-phone',
-        link:'/dashboard/booking/all-booking'
+        link:'/booking/all-booking'
       },
-      {
-        title: ' التقارير',
-        icon:'fa-solid fa-phone',
-        link:'/dashboard/all-seeting'
-      },
+      // {
+      //   title: ' التقارير',
+      //   icon:'fa-solid fa-phone',
+      //   link:'/all-seeting'
+      // },
     ],
   },
 
   {
   title: ' نظام إدارة التسويق',
   icon:'fa-solid fa-receipt',
-  link:'/dashboard/marketing/',
+  link:'/marketing/',
   children: [
     {
       title: ' العملاء',
       icon:'fa-solid fa-phone',
-      link:'/dashboard/marketing/contactUs'
+      link:'/marketing/contactUs'
     },
     // {
     //   title: ' التقارير',
