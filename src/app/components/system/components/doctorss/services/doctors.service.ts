@@ -42,8 +42,22 @@ export class DoctorsService {
     const url = `${this.baseURL}Doctor/edit/${id}`;
     return this.http.put(url,body);
   }
-
-
+  addDoctorToHos(body:any):Observable<any>{
+    const url = `${this.baseURL}Doctor/WorkHospital-add`;
+    return this.http.post(url,body);
+  }
+  deleteDocHos(hos,doc) {
+    const url = `${this.baseURL}Doctor/WorkHospital-delete?hospitalId=${hos}&doctorId=${doc}`;
+    return this.http.delete(url);
+  }
+  addDoctorToSpecial(body:any):Observable<any>{
+    const url = `${this.baseURL}Doctor/specialy-add`;
+    return this.http.post(url,body);
+  }
+  deleteDocSpecial(spe,doc) {
+    const url = `${this.baseURL}Doctor/specialy-delete?doctorId=${doc}&specialtyId=${spe}`;
+    return this.http.delete(url);
+  }
   activeDoctor(id,status) {
     const url = `${this.baseURL}Doctor/deactivate?id=${id}&status=${status}`;
     return this.http.put(url,'');

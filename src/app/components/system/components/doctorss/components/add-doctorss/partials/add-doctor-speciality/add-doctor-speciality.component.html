@@ -1,0 +1,72 @@
+<div [formGroup]="form">
+    <div class="row">
+      <!-- <div class="row filter-border"> -->
+        <!-- <h5 *ngIf="doctorDataOfAdd || doctorPeriod">اسم الطبيب :{{doctorDataOfAdd?.name ? doctorDataOfAdd?.name : doctorPeriod?.doctorName}}</h5> -->
+        <div class="col-md-6 col-xxl-6 filter-border">
+          <div class="form-group mb-3">
+            <label for="example-search-input" class="text-base-color text-bold">التخصص<span class="text-danger">*</span></label>
+            <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="MedicalSpecialty" formControlName="MedicalSpecialtyId"
+                bindValue="medicalSpecialtyId" bindLabel="name" appDebounceInputChange >
+            </ng-select>
+            <mat-error>
+              <div *ngIf="form.get('MedicalSpecialtyId').hasError('required')&& form.get('MedicalSpecialtyId').touched">
+                من فضلك اختر التخصص
+              </div>
+            </mat-error>
+          </div>
+        </div>
+        
+  
+        <div class="d-flex justify-content-center mt-4">
+          <button type="button" class="btn btn-primary background-primary col-3"  [class.spinnerBtn]="loading" [disabled]="loading || !form.valid"  (click)="save()">
+              <span>{{edit ? 'تعديل' : 'اضافة'}}</span>
+          </button>
+          <button type="button" class="btn btn-outline-primary col-3 me-2" (click)="cancel()">
+            <span>الغاء</span>
+          </button>
+        </div>
+    </div>
+  
+  </div>
+  <div class="table-data my-3">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> الرقم </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>  التخصص </th>
+        <td mat-cell *matCellDef="let row"> {{row?.name}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef = 'action'>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> خيارات </th>
+        <!-- Action Menu Items -->
+        <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()">
+  
+        <button mat-icon-button [matMenuTriggerFor]="mainMenu">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <mat-menu #mainMenu="matMenu">
+          <button mat-menu-item (click)="rowAction('delete',row.medicalSpecialtyId)">
+            <i class="fa-solid fa-trash"></i> حذف
+          </button>
+         
+        </mat-menu>
+      </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row (click)="onClickPublisher(row.id)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+    </table>
+  <!--
+    <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageIndex]="pageIndex"
+      [pageSizeOptions]="[5, 10, 25, 100]"  (page)="pageChanged($event)">
+  </mat-paginator> -->
+  </div>
+  

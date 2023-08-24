@@ -9,20 +9,29 @@
   </div>
   <div class="card-body">
 
-        <nb-tabset>
+        <nb-tabset (changeTab)="onTabChange($event)">
           <nb-tab tabTitle="البيانات الرئيسية" [active]="selectedTabIndex === 0">
             <ngx-info-basic (navigateToAccountTab)="goToAccountTab($event)" ></ngx-info-basic>
           </nb-tab>
-          <nb-tab tabTitle="البيانات الوظيفية" [active]="selectedTabIndex === 1">
-            <ngx-info-jobs [doctorDataOfAdd]="doctorInfo"></ngx-info-jobs>
+          
+          <nb-tab tabTitle=" مستشفيات يعمل بها" [active]="selectedTabIndex === 1">
+            <ngx-add-doctor-hos [doctorDataOfAdd]="doctorInfo"></ngx-add-doctor-hos>
           </nb-tab>
-          <nb-tab tabTitle="اسعار زيارة الطبيب" [active]="selectedTabIndex === 2">
+          
+          <nb-tab tabTitle=" تخصصات الطبيب" [active]="selectedTabIndex === 2">
+            <ngx-add-doctor-speciality  [doctorDataOfAdd]="doctorInfo"  ></ngx-add-doctor-speciality>
+          </nb-tab>
+          <nb-tab tabTitle="البيانات الوظيفية" [active]="selectedTabIndex === 3">
+            <ngx-info-jobs [doctorDataOfAdd]="doctorInfo" [hospitals]="hospitals"
+            [speciality]="speciality"></ngx-info-jobs>
+          </nb-tab>
+          <nb-tab tabTitle="اسعار زيارة الطبيب" [active]="selectedTabIndex === 4">
             <ngx-visit-price [doctorDataOfAdd]="doctorInfo"></ngx-visit-price>
           </nb-tab>
-          <nb-tab tabTitle="المرفقات" [active]="selectedTabIndex === 3">
+          <nb-tab tabTitle="المرفقات" [active]="selectedTabIndex === 5">
             <ngx-upload-files  [doctorDataOfAdd]="doctorInfo"></ngx-upload-files>
           </nb-tab>
-          <nb-tab tabTitle="بيانات الحساب" [active]="selectedTabIndex === 4">
+          <nb-tab tabTitle="بيانات الحساب" [active]="selectedTabIndex === 6">
             <ngx-info-account></ngx-info-account>
           </nb-tab>
         </nb-tabset>

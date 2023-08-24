@@ -24,6 +24,8 @@ import { FloorModel } from '../../../../../floors/models/floors.model';
 export class InfoJobsComponent implements OnInit {
   form: FormGroup;
   @Input() doctorDataOfAdd;
+  @Input() hospitals;
+  @Input() speciality;
   currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
   private subscriptions: Subscription = new Subscription();
   fetch
@@ -55,11 +57,11 @@ export class InfoJobsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.getHospitals()
+    console.log(this.data,this.doctorDataOfAdd)
+    // this.getHospitals()
     this.getWorkingPeriods()
     this.getWorkWeek()
-    this.getSpeciality()
+    // this.getSpeciality()
     this.createForm();
     this.getId()
   }
@@ -76,17 +78,19 @@ export class InfoJobsComponent implements OnInit {
       }
     )
   }
-  hospitals;
-getHospitals(){
-  let payload={
-    pageSize:30
-  }
-  this._lookpservice.getAllHospitalsNames(payload).subscribe(
-    (res)=>{
-      this.hospitals = res
-    }
-  )
-}
+//   hospitals;
+// getHospitals(){
+//   let payload={
+//     pageSize:30,
+//     doctorId:this.doctorDataOfAdd?this.doctorDataOfAdd.id :this.data?.id,
+    
+//   }
+//   this._lookpservice.getAllHospitalsNames(payload).subscribe(
+//     (res)=>{
+//       this.hospitals = res
+//     }
+//   )
+// }
 workingPeriods;
 getWorkingPeriods(){
   let payload={
@@ -109,17 +113,20 @@ getWorkWeek(){
     }
   )
 }
-speciality
-getSpeciality(){
-  let payload={
-    pageSize:30
-  }
-  this._lookpservice.getAllSpecialNames(payload).subscribe(
-    (res)=>{
-      this.speciality = res
-    }
-  )
-}
+// speciality
+// getSpeciality(){
+//   let payload={
+//     pageSize:30,
+//     doctorId:this.doctorDataOfAdd?this.doctorDataOfAdd.id :this.data?.id,
+
+
+//   }
+//   this._lookpservice.getAllSpecialNames(payload).subscribe(
+//     (res)=>{
+//       this.speciality = res
+//     }
+//   )
+// }
 
   getId(){
     if(this.doctorDataOfAdd){
