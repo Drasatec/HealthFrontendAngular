@@ -1,1 +1,24 @@
-    <chart type="line" [data]="data" [options]="options"></chart>
+<div class="d-flex justify-content-between align-items-center">
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group.svg">
+    <p class="mt-2">المرضي : {{stat.patients}}</p>
+  </div>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px" src="assets/images/hospital-icons/Group-1.svg">
+    <p class="mt-2">التخصصات : {{stat.specialties}}</p>
+
+  </div>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group-2.svg">
+    <p class="mt-2">الاطباء: {{stat.doctors}}</p>
+
+  </div>
+  <div class="stat d-flex align-items-center flex-column mx-3">
+    <img style="width:50px"  src="assets/images/hospital-icons/Group-3.svg">
+    <p class="mt-2">العيادات : {{stat.clinics}}</p>
+  </div>
+</div>
+<div class="row my-3">
+  <chart type="line" [data]="data" [options]="options"></chart>
+
+</div>

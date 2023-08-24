@@ -18,4 +18,8 @@ export class ECommerceService {
     const url = `${this.baseURL}dashboard/statistics/booking-statistics?year=2023`;
     return this.http.get(url,{ params: fetchCriteria });
   }
+  getstat(fetchCriteria?: any): Observable<any> {
+    const url = `${this.baseURL}dashboard/statistics/CSDP-count`;
+    return this.http.get(url,{ params: fetchCriteria });
+  }
 }
