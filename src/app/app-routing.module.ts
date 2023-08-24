@@ -1,4 +1,4 @@
-import { ExtraOptions, RouterModule, Routes } from '@angular/router';
+import { ExtraOptions, PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
@@ -8,53 +8,51 @@ import {
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { AuthComponent } from './components/auth/auth.component';
+import { LoginComponent } from './components/auth/components/login/login.component';
+import { PagesComponent } from './pages/pages.component';
+import { ECommerceComponent } from './pages/e-commerce/e-commerce.component';
+import { AuthGuard } from './components/auth/guard/auth.guard';
+import { AppComponent } from './app.component';
 
 export const routes: Routes = [
   {
-    path: 'dashboard',
-    loadChildren: () => import('./pages/pages.module')
-      .then(m => m.PagesModule),
+    path: '',
+    component: PagesComponent,
+    canActivate:[AuthGuard],
+    children: [
+      // {path:'',redirectTo:'/dashboard',pathMatch:'full'},
+      {
+        path: 'dashboard',
+        component: ECommerceComponent,
+         canActivate:[AuthGuard],
+
+      },
+      { path: 'system', loadChildren: () => import('./components/system/system.module').then(m => m.SystemModule) },
+  
+      { path: 'booking', loadChildren: () => import('./components/Reception/booking/booking.module').then(m => m.BookingModule) },
+      { path: 'system/settings', loadChildren: () => import('./components/setting/setting.module').then(m => m.SettingModule) },
+      { path: 'marketing', loadChildren: () => import('./components/marketing/marketing.module').then(m => m.MarketingModule) },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  
+    ]
   },
+ 
   {
     path: 'auth',
-    component: NbAuthComponent,
-    children: [
-      {
-        path: '',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'login',
-        component: NbLoginComponent,
-      },
-      {
-        path: 'register',
-        component: NbRegisterComponent,
-      },
-      {
-        path: 'logout',
-        component: NbLogoutComponent,
-      },
-      {
-        path: 'request-password',
-        component: NbRequestPasswordComponent,
-      },
-      {
-        path: 'reset-password',
-        component: NbResetPasswordComponent,
-      },
-    ],
+    loadChildren: () => import('./components/auth/auth.module')
+      .then(m => m.AuthModule),
   },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'auth', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' },
 ];
 
-const config: ExtraOptions = {
-  useHash: false,
-};
+// const config: ExtraOptions = {
+//   useHash: false,
+// };
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, config)],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {
