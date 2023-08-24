@@ -4,20 +4,26 @@ import { Observable, of } from "rxjs";
 import { tap, catchError } from "rxjs/operators";
 // import { AppToastService } from '../app-toast/app-toast.service';
 import { AuthService } from '../services/auth.service';
+import { NbAuthService } from '@nebular/auth';
 
 @Injectable()
 export class HttpRequestInterceptor implements HttpInterceptor {
-
-  constructor(private currentUserService: AuthService,
+token:string=''
+  constructor(private currentUserService: NbAuthService,
     //  private appToastService: AppToastService
      ) { }
-
+   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    if (this.currentUserService.currentUser?.token) {
+    this.currentUserService.getToken().subscribe(
+      (res:any)=>{
+        console.log("tokeen",res.token)
+        this.token=res.token
+      }
+    )
+    if (this.token) {
       req = req.clone({
         setHeaders: {
-          Authorization: "Bearer " + this.currentUserService.currentUser.token
+          Authorization: "Bearer " + this.token
         }
       });
     }

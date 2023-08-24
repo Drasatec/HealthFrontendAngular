@@ -6,6 +6,7 @@ import { items } from './pages-menu';
   selector: 'ngx-pages',
   styleUrls: ['pages.component.scss'],
   template: `
+  kk
     <ngx-one-column-layout>
       <!-- <nb-menu [items]="menu" autoCollapse="true">
       </nb-menu> -->
@@ -17,4 +18,5 @@ import { items } from './pages-menu';
 export class PagesComponent {
 
   menu = items;
+  constructor(){console.log("lllll")}
 }

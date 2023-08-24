@@ -55,6 +55,8 @@ export class InfoBasicComponent implements OnInit {
     this.createForm();
     if(this.id){
       this.getDoctorById(this.id);
+      this.emitIdAndNavigate(this.data )
+
     }
   }
   getDoctorById(id){

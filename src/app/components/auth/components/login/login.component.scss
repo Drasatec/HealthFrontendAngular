@@ -1,0 +1,11 @@
+.auth{
+    background-color: #222d32;
+}
+::ng-deep {
+    nb-card-header { 
+        display: none !important; 
+    }
+    .layout-container .content {
+        padding-top: 0;
+    }
+}

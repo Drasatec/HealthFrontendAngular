@@ -12,14 +12,14 @@ export class SystemComponent  {
   constructor(private router:Router) { }
   active:boolean;
   icons=[
-    {name:'الفروع',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/dashboard/system/hospitals'},
-    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/dashboard/system/buildings'},
-    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/dashboard/system/floors'},
-    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/dashboard/system/rooms'},
-    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/dashboard/system/specialities'},
-    {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/dashboard/system/clinics'},
-    {name:'الاطباء',src:'assets/images/toolbar-icons/Doctors.svg',link:'/dashboard/system/doctorss'},
-    {name:'المرضي',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/dashboard/system/patients'},
+    {name:'الفروع',src:'assets/images/toolbar-icons/All-hosps.svg',link:'/system/hospitals'},
+    {name:'مباني',src:'assets/images/toolbar-icons/Buildings-Card.svg',link:'/system/buildings'},
+    {name:'طوابق',src:'assets/images/toolbar-icons/Floor-Card.svg',link:'/system/floors'},
+    {name:'غرف',src:'assets/images/toolbar-icons/All-rooms.svg',link:'/system/rooms'},
+    {name:'تخصصات',src:'assets/images/toolbar-icons/Specialization-Card.svg',link:'/system/specialities'},
+    {name:'عيادات',src:'assets/images/toolbar-icons/Clinics-Card.svg',link:'/system/clinics'},
+    {name:'الاطباء',src:'assets/images/toolbar-icons/Doctors.svg',link:'/system/doctorss'},
+    {name:'المرضي',src:'assets/images/toolbar-icons/Services-Card.svg',link:'/system/patients'},
 
   ]
   // getLink(){
