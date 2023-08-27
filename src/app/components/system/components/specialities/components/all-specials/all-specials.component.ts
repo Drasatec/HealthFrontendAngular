@@ -162,7 +162,7 @@ export class AllSpecialsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/specialities/view-special/',id])
+    this.router.navigate(['/system/specialities/view-special/',id])
   }
   searchHospital(pay){
     this._specialservice.SearchMedicalSpecial(pay).subscribe(

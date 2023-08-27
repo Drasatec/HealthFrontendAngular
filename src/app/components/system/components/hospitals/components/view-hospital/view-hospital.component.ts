@@ -5,6 +5,7 @@ import { HospitalService } from '../../services/hospital.service';
 import { environment } from '../../../../../../../environments/environment';
 import Swal from 'sweetalert2';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AddHospitalComponent } from '../add-hospital/add-hospital.component';
 
 @Component({
   selector: 'ngx-view-hospital',
@@ -136,7 +137,19 @@ export class ViewHospitalComponent implements OnInit{
     });
   }
   edit(id){
-    this.route.navigate(["/dashboard/system/hospitals/edit-hospital",this.id]);
-
+    // this.route.navigate(["/system/hospitals/edit-hospital",this.id]);
+      const dialogRef = this.dialog.open(AddHospitalComponent,{
+        width: "1200px",
+        disableClose: true,
+        data:{
+          id:this.id,
+        }
+      })
+      dialogRef.afterClosed().subscribe((result) => {
+        console.log(result)
+        if(result){
+          // this.getTableData(this.fetch)
+        }
+      });
   }
 }

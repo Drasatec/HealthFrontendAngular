@@ -187,7 +187,7 @@ export class AllDoctorssComponent  implements OnInit{
     }else if(action === 'translate'){
       this.openTranslateDialog(id);
     }else if(action === 'profile'){
-      this.route.navigate(['/dashboard/system/doctorss/doctor-profile/',id]);
+      this.route.navigate(['/system/doctorss/doctor-profile/',id]);
     }
   }
   openEditDialog(id){
@@ -223,7 +223,7 @@ export class AllDoctorssComponent  implements OnInit{
     });
   }
   gotoProfile(id){
-    this.route.navigate(['/dashboard/system/doctorss/doctor-profile/',id])
+    this.route.navigate(['/system/doctorss/doctor-profile/',id])
   }
 }
 

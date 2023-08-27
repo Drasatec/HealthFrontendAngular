@@ -58,9 +58,14 @@ export class WorkWeekComponent implements OnInit {
   }
   week:any;
   getTableData(payload?){
-
+    let para={
+      lang:'ar',
+      ...payload,
+      page:this.pageIndex+1,
+      pageSize:this.pageSize
+    }
     this.subscriptions.add(
-      this._weektypeservice.getAllWorkWeek(payload).subscribe((res: any) => {
+      this._weektypeservice.getAllWorkWeek(para).subscribe((res: any) => {
 
       this.week = res.data;
       this.dataSource = new MatTableDataSource(this.week);

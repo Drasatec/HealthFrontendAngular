@@ -66,7 +66,7 @@ export class AddSpecialComponent implements OnInit {
       codeNumber:this.special.codeNumber?this.special.codeNumber:null,
       name:this.special.medicalSpecialtyTranslations.length > 0?this.special.medicalSpecialtyTranslations[0].name:null,
       description:this.special.medicalSpecialtyTranslations.length > 0?this.special.medicalSpecialtyTranslations[0].description:null,
-      appearance:this.special.appearance?this.special.appearance:null
+      appearance:this.special.appearance?this.special.appearance:false
 
   })
   console.log(this.form.value)

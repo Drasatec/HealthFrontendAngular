@@ -173,7 +173,7 @@ export class AllHospitalsComponent implements OnInit{
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/hospitals/view-hospital/',id])
+    this.router.navigate(['/system/hospitals/view-hospital/',id])
   }
   searchHospital(pay){
     this._hospitalservice.SearchHospital(pay).subscribe(

@@ -5,7 +5,7 @@
  */
 export const environment = {
   production: true,
-  apiUrl:'https://www.alrahmacare.somee.com/api/',
-  imgUrl:'https://www.alrahmacare.somee.com/images/',
-  showAttach:'https://www.alrahmacare.somee.com/'
+  apiUrl:'http://api.alrahmavip.com/api/',
+  imgUrl:'http://api.alrahmavip.com/images/',
+  showAttach:'http://api.alrahmavip.com/'
 };

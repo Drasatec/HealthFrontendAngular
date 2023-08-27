@@ -21,7 +21,7 @@ import { TranslationTypesComponent } from '../translation-types/translation-type
 
 })
 export class DoctorStatusComponent implements OnInit {
-  displayedColumns: string[] = ['name','action'];
+  displayedColumns: string[] = ['id','name','action'];
   dataSource: MatTableDataSource<BuildingModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;

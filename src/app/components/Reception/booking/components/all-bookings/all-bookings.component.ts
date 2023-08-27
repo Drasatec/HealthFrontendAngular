@@ -116,7 +116,7 @@ export class AllBookingsComponent implements OnInit {
   }
   translateData;
   openEditDialog(id){
-    this.router.navigate(['/dashboard/booking/edit-booking',id])
+    this.router.navigate(['/booking/edit-booking',id])
   }
   openTranslateDialog(id){
     Swal.fire({
@@ -169,10 +169,10 @@ export class AllBookingsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/booking/view-booking/',id])
+    this.router.navigate(['/booking/view-booking/',id])
   }
   openAddBuilding(){
-    this.router.navigate(['/dashboard/booking/add-booking'])
+    this.router.navigate(['/booking/add-booking'])
 
   }
   onFilterChange(e) {

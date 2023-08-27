@@ -104,7 +104,7 @@ export class AddClinicComponent implements OnInit {
       SpecialtyId:this.clinic.specialtyId ?this.clinic.specialtyId : null,
       Phone:this.clinic.phone ?this.clinic.phone : null,
       WorkingHours:this.clinic.workingHours ?this.clinic.workingHours : null,
-      Appearance:this.clinic.appearance ?this.clinic.appearance : null,
+      Appearance:this.clinic.appearance ?this.clinic.appearance : false,
 
   })
   console.log(this.form.value)

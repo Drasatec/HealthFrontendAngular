@@ -163,7 +163,7 @@ export class AllClinicsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/clinics/view-clinic/',id])
+    this.router.navigate(['/system/clinics/view-clinic/',id])
   }
   searchHospital(pay){
     this._clinicservice.SearchClinic(pay).subscribe(

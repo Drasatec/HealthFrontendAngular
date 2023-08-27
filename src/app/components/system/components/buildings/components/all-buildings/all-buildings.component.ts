@@ -171,7 +171,7 @@ export class AllBuildingsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/buildings/view-building/',id])
+    this.router.navigate(['/system/buildings/view-building/',id])
   }
   searchBuilding(pay){
     this._buildingservice.SearchBuildings(pay).subscribe(

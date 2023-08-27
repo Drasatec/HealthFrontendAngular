@@ -167,7 +167,7 @@ export class AllRoomsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/rooms/view-room/',id])
+    this.router.navigate(['/system/rooms/view-room/',id])
   }
   searchHospital(pay){
     this._roomservice.SearchRoom(pay).subscribe(

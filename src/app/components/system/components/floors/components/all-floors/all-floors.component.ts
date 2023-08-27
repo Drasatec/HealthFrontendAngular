@@ -165,7 +165,7 @@ export class AllFloorsComponent implements OnInit {
   }
   onClickPublisher(id){
     console.log(id)
-    this.router.navigate(['/dashboard/system/floors/view-floor/',id])
+    this.router.navigate(['/system/floors/view-floor/',id])
   }
   searchHospital(pay){
     this._floorservice.SearchFloor(pay).subscribe(

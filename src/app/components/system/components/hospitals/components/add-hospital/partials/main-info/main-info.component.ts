@@ -56,6 +56,7 @@ export class MainInfoComponent implements OnInit {
         this.phoneNumbers=res.phoneNumbers;
         this.patchForm();
         this.phoneNumbers?.forEach(el => {
+          console.log(el)
           this.addPhone(el);
         })
       }
@@ -79,7 +80,7 @@ export class MainInfoComponent implements OnInit {
       name:[null,Validators.required],
       description:[null],
       email:[null],
-      PhoneNumbers: this._FormBuilder.array([this.createPhoneFormGroup()]),
+      PhoneNumbers: this._FormBuilder.array([]),
       whatsAppNumber:[null],
     });
   }
@@ -162,7 +163,7 @@ export class MainInfoComponent implements OnInit {
               duration: 5000,
               panelClass: 'success'
             });
-            this.router.navigate(["/dashboard/system/hospitals/view-hospital",this.id]);
+            this.router.navigate(["/system/hospitals/view-hospital",this.id]);
           },
           (err) => {
             this.loading=false
