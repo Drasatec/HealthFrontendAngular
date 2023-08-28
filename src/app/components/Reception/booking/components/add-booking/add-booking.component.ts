@@ -20,6 +20,7 @@ export class AddBookingComponent implements OnInit {
   clinics
   id:number;
   isEdit:boolean;
+  minDate = {year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()};
   constructor(
     private _FormBuilder: FormBuilder,
     private route:ActivatedRoute,

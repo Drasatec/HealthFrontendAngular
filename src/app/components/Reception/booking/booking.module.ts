@@ -22,6 +22,7 @@ import { ThemeModule } from '../../../@theme/theme.module';
 import { FilterBookingComponent } from './components/filter-booking/filter-booking.component';
 import { ThemeGeneralModule } from '../../themegeneral.module';
 import { ChangeStatusComponent } from './components/change-status/change-status.component';
+import { ViewBookingComponent } from './components/view-booking/view-booking.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ChangeStatusComponent } from './components/change-status/change-status.
     AllBookingsComponent,
     AddBookingComponent,
     FilterBookingComponent,
-    ChangeStatusComponent
+    ChangeStatusComponent,
+    ViewBookingComponent
   ],
   imports: [
     CommonModule,
