@@ -155,6 +155,7 @@ getWorkWeek(){
       ClinicId:this.doctorPeriod ? this.doctorPeriod.clinicId : null,
       WorkingPeriodId:this.doctorPeriod ? this.doctorPeriod.workingPeriodId : null,
       onDay:this.doctorPeriod ? this.doctorPeriod.onDay : null,
+      SpecialtyId:this.doctorPeriod?this.doctorPeriod.specialtyId:null,
   })
   console.log(this.form.value)
   }

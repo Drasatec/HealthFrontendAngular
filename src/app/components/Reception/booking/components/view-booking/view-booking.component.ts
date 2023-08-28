@@ -46,7 +46,7 @@ export class ViewBookingComponent implements OnInit {
     }
     this._bookingservice.getAllBookings(paylod).subscribe(
       (res:any)=>{
-        this.hospital = res.data;
+        this.hospital = res.data[0];
         this.loadImages();
         this.loading=false;
       }

@@ -24,7 +24,8 @@ export class FilterBookingComponent implements OnInit {
   @Output() AddElement: EventEmitter<any> = new EventEmitter();
   readonly DT_FORMAT = "DD-MM-YYYY";
   readonly DT_FORMAT_Two = "YYYY-MM-DD";
-
+  minDate;
+  maxDate;
   form: FormGroup;
   lookups = {
     clinics:[],
@@ -67,12 +68,12 @@ export class FilterBookingComponent implements OnInit {
       clinicId:[null],
       visitTypeId:[],
       bookStatusId:[],
-      hosId:[null],
+      hospitalId:[null],
       buildId:[null],
       floorId:[null],
       roomId:[null],
       specialtyId:[null],
-      docId:[null],
+      doctorId:[null],
       StartDateTime:[null],
       EndDateTime:[null],
     });
@@ -91,6 +92,12 @@ export class FilterBookingComponent implements OnInit {
 
 
   filters(value?: any) {
+    if(this.form.value.StartDateTime){
+      this.minDate = this.form.value.StartDateTime
+    }
+    if(this.form.value.EndDateTime){
+      this.maxDate = this.form.value.EndDateTime
+    }
     let formData = this.prepareDataBeforeEmit(this.form.value);
     this.FilterChange.emit(formData);
     this.toDisplayNoData.emit(true)

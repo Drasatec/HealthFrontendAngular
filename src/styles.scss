@@ -1,4 +1,5 @@
-@import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+// @import '~mdb-angular-ui-kit/assets/scss/mdb.scss';
+@import '../node_modules/mdb-angular-ui-kit/assets/scss/mdb.scss';
 @import '~@ng-select/ng-select/themes/default.theme.css';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
 @import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
@@ -13,6 +14,9 @@
 body {
   direction: rtl !important;
   color:#fff;
+}
+.layout-container {
+  margin-top: var(--header-height);
 }
 /*basic color **/
 .text-base-color {
@@ -64,9 +68,9 @@ nb-layout-header.fixed ~ .layout-container {
 .layout-container {
   background: var(--layout-background-color);
 }
-.layout-container .content {
-  padding-top: var(--header-height);
-}
+// .layout-container .content {
+//   padding-top: var(--header-height);
+// }
 .mat-menu-content:not(:empty) {
   padding-top: 1px !important;
   padding-bottom: 1px !important;
@@ -289,4 +293,7 @@ div.cdk-overlay-container .cdk-overlay-pane {
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .tabset{
+    overflow-x: auto;
   }

@@ -46,7 +46,8 @@ export class AllBookingsComponent implements OnInit {
     clinics:true,
     doctors:true,
     specialtyId:true,
-    dateRange:true
+    from_date:true,
+    to_date:true
   };
   loading=true;
   constructor(private router:Router,private _bookingservice:BookingService,
