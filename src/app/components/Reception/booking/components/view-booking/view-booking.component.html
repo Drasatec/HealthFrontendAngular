@@ -1,0 +1,96 @@
+<div class="card mt-4">
+
+    <div class="card-body" *ngIf="!loading;else progressSpinner">
+  
+      <div class="row">
+        <div class="col-md-8">
+          <div class="header-view d-flex justify-content-between ">
+            <h5 class="text-base-color text-bold">
+              {{hospital?.hospitalTrasnlations[0]?.name}}
+            </h5>
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="edit(hospital.id)">
+                <i class="fa-solid fa-pen mx-2"></i>
+                <span>تعديل</span>
+              </button>
+              <button mat-menu-item disabled>
+                <i class="fa-solid fa-share-nodes mx-2"></i>
+                <span>مشاركة</span>
+              </button>
+              <!-- <button mat-menu-item (click)="statusAction(hospital.isDeleted)">
+                <span *ngIf="hospital.isDeleted"><i class="fa-regular fa-circle-xmark" ></i>تشغيل</span>
+                <spsn *ngIf="!hospital.isDeleted"><i class="fa-solid fa-circle-check" ></i> إيقاف</spsn>
+              </button> -->
+            </mat-menu>
+          </div>
+          <div class="content-view">
+            <p><i class="fa-solid fa-location-dot ms-2"></i>
+              {{hospital?.hospitalTrasnlations[0]?.address}}
+            </p>
+            <p><i class="fa-solid fa-phone ms-2"></i>
+              <ng-container *ngIf="hospital.phoneNumbers.length > 0">
+                <span *ngFor="let tel of hospital.phoneNumbers">
+                  {{tel?.telephoneNumber}} /
+                </span>
+              </ng-container>
+              <ng-container *ngIf="hospital.phoneNumbers.length === 0">
+                <span >
+                  لا يوجد
+                </span>
+              </ng-container>
+  
+            </p>
+            <p ><i class="fa-brands fa-whatsapp ms-2"></i>
+              {{hospital?.whatsAppNumber?hospital?.whatsAppNumber :'لا يوجد'}}
+            </p>
+            <p ><i class="fa-solid fa-envelope ms-2"></i>
+              {{hospital?.email?hospital?.email:"لا يوجد"}}
+            </p>
+          </div>
+  
+        </div>
+  
+  
+      </div>
+      <div class="row">
+        <p class="my-5">{{hospital?.hospitalTrasnlations[0]?.description}}</p>
+      </div>
+      
+  
+  </div>
+  </div>
+  
+  <div id="imgModal" class="slide-modal">
+    <span class="close cursor" (click)="closeModal()">&times;</span>
+    <div class="slide-modal-content">
+        <div class="img-slides" *ngFor="let image of images; let i = index">
+            <img [src]="image.url ? imgUrl+'small/'+image.url+'?timestamp='+timestamp : '/assets/images/hospital.jpg'">
+        </div>
+        <!-- <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+        <a class="next" (click)="plusSlides(1)">&#10095;</a> -->
+        <!-- <div class="image-row">
+            <div class="image-column" *ngFor="let image of images; let i = index">
+                <img class="images" (click)="currentSlide(i+1)" src="{{image.url}}">
+            </div>
+        </div> -->
+    </div>
+  </div>
+  <ng-template #progressSpinner>
+  <div class="overlay" >
+    <div class="center">
+  
+    <mat-progress-spinner
+     diameter="100"
+     mode="indeterminate"
+     color="primary"
+     strokeWidth="10"
+     value="100">
+    </mat-progress-spinner>
+  
+    </div>
+  </div>
+  </ng-template>
+  
