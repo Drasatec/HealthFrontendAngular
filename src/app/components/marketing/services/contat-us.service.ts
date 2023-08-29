@@ -24,7 +24,7 @@ export class ContatUsService {
   }
  
   deleteContactForm(id) {
-    const url = `${this.baseURL}ContactForm/delete?id=${id}`;
+    const url = `${this.baseURL}ContactForm?id=${id}`;
     return this.http.delete(url);
   }
   

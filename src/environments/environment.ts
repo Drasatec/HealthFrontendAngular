@@ -10,7 +10,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://api.alrahmavip.com/api/',
-  imgUrl:'http://api.alrahmavip.com/images/',
-  showAttach:'http://api.alrahmavip.com/'
+  apiUrl:'https://api.alrahmavip.com/api/',
+  imgUrl:'https://api.alrahmavip.com/images/',
+  showAttach:'https://api.alrahmavip.com/'
 };

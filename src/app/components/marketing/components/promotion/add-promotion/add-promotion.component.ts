@@ -160,7 +160,7 @@ export class AddPromotionComponent implements OnInit {
       ...data,
       id:this.building? this.building.id:null,
       PromotionsTranslations:[{
-        id:this.building.promotionsTranslations.length>0 ? this.building.promotionsTranslations[0].id:0,
+        id:this.id ? this.building.promotionsTranslations[0].id:0,
         Title:data.Title,
         Description:data.Description,
         LangCode:'ar',

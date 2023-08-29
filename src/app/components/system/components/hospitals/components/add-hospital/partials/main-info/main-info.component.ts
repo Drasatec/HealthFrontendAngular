@@ -103,7 +103,14 @@ export class MainInfoComponent implements OnInit {
   public removeOrClearPhone(i: number) {
     const phones = this.form.get('PhoneNumbers') as FormArray
     if (phones.length > 1) {
+      console.log(phones)
+      this._hospitalservice.deletePhone(phones.value[i].id).subscribe(
+        (res)=>{
+          
+        }
+      )
       phones.removeAt(i)
+      
     } else {
       phones.reset()
     }

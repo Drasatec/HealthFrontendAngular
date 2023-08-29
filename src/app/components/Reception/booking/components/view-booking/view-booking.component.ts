@@ -140,19 +140,7 @@ export class ViewBookingComponent implements OnInit {
   //   });
   // }
   edit(id){
-    // this.route.navigate(["/system/hospitals/edit-hospital",this.id]);
-      const dialogRef = this.dialog.open(AddBookingComponent,{
-        width: "1200px",
-        disableClose: true,
-        data:{
-          id:this.id,
-        }
-      })
-      dialogRef.afterClosed().subscribe((result) => {
-        console.log(result)
-        if(result){
-          // this.getTableData(this.fetch)
-        }
-      });
+    this.route.navigate(["/booking/edit-booking",id]);
+      
   }
 }

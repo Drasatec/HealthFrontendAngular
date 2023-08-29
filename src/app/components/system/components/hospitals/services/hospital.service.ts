@@ -59,6 +59,10 @@ export class HospitalService {
     const url = `${this.baseURL}Hospital/delete-translat?translteId=${id}`;
     return this.http.delete(url);
   }
+  deletePhone(id) {
+    const url = `${this.baseURL}Hospital/delete-phone?phoneId=${id}`;
+    return this.http.delete(url);
+  }
   createFeatureHospital(body: any,): Observable<any> {
     const url = `${this.baseURL}HospitalFeature/add`;
     return this.http.post(url,body);

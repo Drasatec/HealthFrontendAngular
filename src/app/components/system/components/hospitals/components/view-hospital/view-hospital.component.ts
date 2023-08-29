@@ -148,7 +148,7 @@ export class ViewHospitalComponent implements OnInit{
       dialogRef.afterClosed().subscribe((result) => {
         console.log(result)
         if(result){
-          // this.getTableData(this.fetch)
+          this.getHospitalById(this.id)
         }
       });
   }
