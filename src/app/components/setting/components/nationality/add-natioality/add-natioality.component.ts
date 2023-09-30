@@ -58,17 +58,41 @@ export class AddNatioalityComponent implements OnInit {
   }
   patchForm(){
     this.form.patchValue({
-      symbol:this.nationals.symbol?this.nationals.symbol:null,
-      name:this.nationals.nationalitiesTranslations.length > 0?this.nationals.nationalitiesTranslations[0].name:null,
-
+     CallingCode:this.nationals.callingCode?this.nationals.callingCode:null,
+      NumberOfDigits:this.nationals.numberOfDigits?this.nationals.numberOfDigits:null,
+      CountryCode:this.nationals.countryCode?this.nationals.countryCode:null,
+      CurrencyCode:this.nationals.currencyCode?this.nationals.currencyCode:null,
+      CurrencySymbol:this.nationals.currencySymbol?this.nationals.currencySymbol:null,
+      CountryName:this.nationals.countriesTranslations.length > 0?this.nationals.countriesTranslations[0].countryName:null,
+      CurrencyName: this.nationals.countriesTranslations.length > 0?this.nationals.countriesTranslations[0].currencyName:null,
+      CapitalName:this.nationals.countriesTranslations.length > 0?this.nationals.countriesTranslations[0].capitalName:null,
   })
   console.log(this.form.value)
   }
   createForm(): void {
     this.form = this._FormBuilder.group({
-      Symbol: [null],
-      name:[null,Validators.required],
+      CallingCode:[null,Validators.maxLength(5)],
+      NumberOfDigits:[null],
+      CountryCode:[null,[Validators.maxLength(2), this.englishLettersOnlyValidator()]],
+      CurrencyCode:[null,[Validators.maxLength(3), this.englishLettersOnlyValidator()]],
+      CurrencySymbol:[null,[Validators.maxLength(2), this.englishLettersOnlyValidator()]],
+      CountryName:[null,Validators.required],
+      CurrencyName: [null],
+      CapitalName:[null],
+      LangCode:[null],
     });
+  }
+   // Create a custom validator function
+   englishLettersOnlyValidator() {
+    return (control) => {
+      const value = control.value;
+
+      if (!/^[a-zA-Z\s]*$/.test(value)) {
+        return { englishLettersOnly: true };
+      }
+
+      return null; // Validation passes
+    };
   }
   get formControls() {
     return this.form.controls;
@@ -137,10 +161,11 @@ export class AddNatioalityComponent implements OnInit {
     let paylod={
       id:this.id?this.id:null,
       ...data,
-      NationalitiesTranslations:[{
-        id:this.id ? this.nationals.nationalitiesTranslations[0].id:0,
-        Name:data.name,
-        Description:data.description,
+      CountriesTranslations:[{
+        id:this.id ? this.nationals.countriesTranslations[0].id:0,
+        CountryName:data.CountryName,
+        CurrencyName:data.CurrencyName,
+        CapitalName:data.CapitalName,
         LangCode:'ar',
       }],
     }
@@ -155,12 +180,14 @@ export class AddNatioalityComponent implements OnInit {
     Object.keys(formVal).forEach((key) => {
       if (formVal[key]) {
         bodyObj[key] = formVal[key]
-        if (key == "NationalitiesTranslations") {
-          for (let i = 0; i < formVal['NationalitiesTranslations'].length; i++) {
-            body.append('NationalitiesTranslations['+(i)+'][id]', formVal.NationalitiesTranslations[i].id );
-            body.append('NationalitiesTranslations['+(i)+'][Name]', formVal.NationalitiesTranslations[i].Name);
-            body.append('NationalitiesTranslations['+(i)+'][Address]', formVal.NationalitiesTranslations[i].Address);
-            body.append('NationalitiesTranslations['+(i)+'][LangCode]', formVal.NationalitiesTranslations[i].LangCode);
+        if (key == "CountriesTranslations") {
+          for (let i = 0; i < formVal['CountriesTranslations'].length; i++) {
+            body.append('CountriesTranslations['+(i)+'][id]', formVal.CountriesTranslations[i].id );
+            body.append('CountriesTranslations['+(i)+'][CountryName]', formVal.CountriesTranslations[i].CountryName);
+            body.append('CountriesTranslations['+(i)+'][CurrencyName]', formVal.CountriesTranslations[i].CurrencyName);
+
+            body.append('CountriesTranslations['+(i)+'][CapitalName]', formVal.CountriesTranslations[i].CapitalName);
+            body.append('CountriesTranslations['+(i)+'][LangCode]', formVal.CountriesTranslations[i].LangCode);
           }
         }
         else if (key == "PhoneNumbers") {

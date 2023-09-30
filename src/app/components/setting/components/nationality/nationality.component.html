@@ -1,9 +1,9 @@
 <div class="card">
   <div class="card-header">
-    <h5 class="text-base-color text-bold"> انواع الجنسيات</h5>
+    <h5 class="text-base-color text-bold">  البلاد</h5>
     <button class="btn btn-primary background-primary"  (click)="openAddRoomTypes()" >
       <i class="fa-solid fa-circle-plus"></i>
-      إضافة جنسية جديدة
+      إضافة بلد جديدة
     </button>
   </div>
   <ngx-filter
@@ -20,14 +20,14 @@
         <!-- ID Column -->
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الكود </th>
-          <td mat-cell *matCellDef="let row"> {{row.symbol}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.countryCode}} </td>
         </ng-container>
 
         <!-- Progress Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> الاسم </th>
           <td mat-cell *matCellDef="let row">
-            {{row?.nationalitiesTranslations[0]?.name ? row?.nationalitiesTranslations[0]?.name : 'بدون اسم'}}
+            {{row?.countriesTranslations[0]?.countryName ? row?.countriesTranslations[0]?.countryName : 'بدون اسم'}}
           </td>
         </ng-container>
 

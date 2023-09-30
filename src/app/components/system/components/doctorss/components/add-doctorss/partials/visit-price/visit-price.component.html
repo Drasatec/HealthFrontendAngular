@@ -33,7 +33,7 @@
         <div class="form-group mb-3">
           <label for="example-search-input" class="text-base-color text-bold">العملة<span class="text-danger">*</span></label>
           <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="currancys" formControlName="PriceCurrency"
-              bindValue="name" bindLabel="name" appDebounceInputChange >
+              bindValue="countryId" bindLabel="currencyName" appDebounceInputChange >
           </ng-select>
           <mat-error>
             <div *ngIf="form.get('PriceCurrency').hasError('required')&& form.get('PriceCurrency').touched">

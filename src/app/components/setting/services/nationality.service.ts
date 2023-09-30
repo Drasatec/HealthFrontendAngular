@@ -15,35 +15,35 @@ export class NationalityService {
   constructor(private http: HttpClient) {}
 
 natioalityTranslation(fetchCriteria?: any): Observable<any> {
-  const url = `${this.baseURL}Nationality/edit-translations`;
+  const url = `${this.baseURL}Country/edit-translations`;
   return this.http.put(url,fetchCriteria );
 }
 getnationalityById(id,fetchCriteria?: any): Observable<any> {
-  const url = `${this.baseURL}Nationality?id=${id}`;
+  const url = `${this.baseURL}Country?id=${id}`;
   return this.http.get(url,{ params: fetchCriteria });
 }
 getnationality(fetchCriteria?: any): Observable<any> {
-  const url = `${this.baseURL}Nationality/all`;
+  const url = `${this.baseURL}Country/all`;
   return this.http.get(url,{ params: fetchCriteria });
 }
 deletenationality(id) {
-  const url = `${this.baseURL}Nationality/delete?id=${id}`;
+  const url = `${this.baseURL}Country/delete?id=${id}`;
   return this.http.delete(url);
 }
 Searchnationality(fetchCriteria?: any): Observable<any> {
-  const url = `${this.baseURL}Nationality/search`;
+  const url = `${this.baseURL}Country/search`;
   return this.http.get(url,{ params: fetchCriteria });
 }
 createnationality(body: any,): Observable<any> {
-  const url = `${this.baseURL}Nationality/add`;
+  const url = `${this.baseURL}Country/add`;
   return this.http.post(url,body);
 }
 editnationality(body: any,): Observable<any> {
-  const url = `${this.baseURL}Nationality/edit`;
+  const url = `${this.baseURL}Country/edit`;
   return this.http.put(url,body);
 }
 deleteNationalTrans(id:number): Observable<any> {
-  const url = `${this.baseURL}Nationality/delete-translat?translteId=${id}`;
+  const url = `${this.baseURL}Country/delete-translat?translteId=${id}`;
   return this.http.delete(url);
 }
 }

@@ -70,7 +70,7 @@ export class MainInfoComponent implements OnInit {
       whatsAppNumber:this.hospital.whatsAppNumber?this.hospital.whatsAppNumber:null,
       address:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].address:null,
       name:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].name:null,
-      description:this.hospital.hospitalTrasnlations.length > 0?this.hospital.hospitalTrasnlations[0].description:null,
+      description:(this.hospital.hospitalTrasnlations.length > 0 && this.hospital?.hospitalTrasnlations[0]?.description !== "null")?this.hospital.hospitalTrasnlations[0].description:null,
   })
   }
   createForm(): void {

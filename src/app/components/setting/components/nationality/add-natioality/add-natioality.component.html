@@ -1,7 +1,7 @@
 
 <div class="card">
   <div class="card-header">
-    <h5 class="text-base-color text-bold"> {{id ?"تعديل جنسية":'إضافة جنسية'}} </h5>
+    <h5 class="text-base-color text-bold"> {{id ?"تعديل بلد":'إضافة بلد'}} </h5>
     <button mat-button (click)="closeEditDialog()" class="btn-close-trans">
       <i mat-dialog-close class="fas fa-times" ></i>
     </button>
@@ -13,16 +13,84 @@
         <div class="row mt-4">
           <div class="col-6 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">الرمز</label>
-                <input type="text" formControlName="Symbol" class="form-control pr-3 my-2" >
+                <label for="example-search-input" class="text-base-color text-bold">كود الاتصال</label>
+                <input type="number" formControlName="CallingCode" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('CallingCode').hasError('maxLength')&& form.get('CallingCode').touched">
+                    اقصي عدد مسموح هو 5 خانات
+                  </div>
+                  <div *ngIf="form.get('CallingCode').hasError('englishLettersOnly')">
+                    أرجو الكتابة بالانجليزية
+                  </div>
+                </mat-error>
             </div>
           </div>
           <div class="col-6 filter-border">
             <div class="form-group mb-3">
-                <label for="example-search-input" class="text-base-color text-bold">الاسم <span class="text-danger">*</span></label>
-                <input type="text" formControlName="name" class="form-control pr-3 my-2" >
+                <label for="example-search-input" class="text-base-color text-bold">عدد ارقام التليفون</label>
+                <input type="number" formControlName="NumberOfDigits" class="form-control pr-3 my-2" >
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">رمز البلد</label>
+                <input type="text" formControlName="CountryCode" class="form-control pr-3 my-2" >
                 <mat-error>
-                  <div *ngIf="form.get('name').hasError('required')&& form.get('name').touched">
+                  <div *ngIf="form.get('CountryCode').hasError('maxlength')&& form.get('CountryCode').touched">
+                    اقصي عدد مسموح هو 2 خانات
+                  </div>
+                  <div *ngIf="form.get('CountryCode').hasError('englishLettersOnly')">
+                    أرجو الكتابة بالانجليزية
+                  </div>
+                </mat-error>
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">كود العملة</label>
+                <input type="text" formControlName="CurrencyCode" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('CurrencyCode').hasError('maxlength')&& form.get('CurrencyCode').touched">
+                    اقصي عدد مسموح هو 3 خانات
+                  </div>
+                  <div *ngIf="form.get('CurrencyCode').hasError('englishLettersOnly')">
+                    أرجو الكتابة بالانجليزية
+                  </div>
+                </mat-error>
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">رمز العملة</label>
+                <input type="text" formControlName="CurrencySymbol" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('CurrencySymbol').hasError('maxlength')&& form.get('CurrencySymbol').touched">
+                    اقصي عدد مسموح هو 2 خانات
+                  </div>
+                  <div *ngIf="form.get('CurrencySymbol').hasError('englishLettersOnly')">
+                    أرجو الكتابة بالانجليزية
+                  </div>
+                </mat-error>
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">اسم العملة</label>
+                <input type="text" formControlName="CurrencyName" class="form-control pr-3 my-2" >
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">اسم عاصمة البلد</label>
+                <input type="text" formControlName="CapitalName" class="form-control pr-3 my-2" >
+            </div>
+          </div>
+          <div class="col-6 filter-border">
+            <div class="form-group mb-3">
+                <label for="example-search-input" class="text-base-color text-bold">اسم البلد <span class="text-danger">*</span></label>
+                <input type="text" formControlName="CountryName" class="form-control pr-3 my-2" >
+                <mat-error>
+                  <div *ngIf="form.get('CountryName').hasError('required')&& form.get('CountryName').touched">
                     من فضلك ادخل الاسم
                   </div>
                 </mat-error>

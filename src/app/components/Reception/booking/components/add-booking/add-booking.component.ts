@@ -168,7 +168,7 @@ export class AddBookingComponent implements OnInit {
     let payload={
       lang:'ar'
     }
-    this.lookupservice.getAllCurrency(payload).subscribe(
+    this.lookupservice.getAllNationalityNames(payload).subscribe(
       (res)=>{
         this.currency=res
       }

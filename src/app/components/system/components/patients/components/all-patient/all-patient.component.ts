@@ -23,7 +23,7 @@ import { PatientTranslationComponent } from '../../patient-translation/patient-t
 })
 export class AllPatientComponent implements OnInit {
   imgUrl=`${environment.imgUrl}`;
-  displayedColumns: string[] = ['id','name','mobile','address','gender','bd','action'];
+  displayedColumns: string[] = ['id','name','address','gender','bd','action'];
   dataSource: MatTableDataSource<HospitalModel>;
   private subscriptions: Subscription = new Subscription();
   totalItems: number ;

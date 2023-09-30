@@ -25,7 +25,6 @@ import { AddBuildTranslateComponent } from '../../../../../buildings/components/
 export class FeaturesComponent implements OnInit {
   form: FormGroup;
   @Input() newHospitalId;
-  currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
   private subscriptions: Subscription = new Subscription();
   fetch
   idOfDoctor
@@ -287,7 +286,15 @@ export class FeaturesComponent implements OnInit {
       if (result.isConfirmed === true) {
         this._hospitalService.deleteFeature(id).subscribe(
           (res: any) => {
-            this.getTableData(this.fetch);
+            if(res.success ==true){
+              this.getTableData(this.fetch);
+            }else{
+              this.snackBar.open(" احذف الترجمات اولا ", "ُError", {
+                duration: 3000,
+                panelClass: 'error'
+              });
+  
+            }
           },
           (err) => {
             this.snackBar.open("حاول مرة اخري", "ُError", {

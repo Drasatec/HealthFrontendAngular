@@ -64,9 +64,9 @@ export class TranslationTypesComponent implements OnInit {
       this.dataRec="workingPeriodTranslations"
 
     }else if(this.data.type === "national"){
-      this._translationservice.sendController("Nationality")
-      this.dataRec="nationalitiesTranslations"
-      this.dataId="NationalityId"
+      this._translationservice.sendController("Country")
+      this.dataRec="countriesTranslations"
+      this.dataId="CountryId"
 
     }else if(this.data.type === "pricecat"){
       this._translationservice.sendController("PriceCategory")

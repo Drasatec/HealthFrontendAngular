@@ -23,7 +23,6 @@ export class AddDoctorSpecialityComponent implements OnInit,OnDestroy {
 
   form: FormGroup;
   @Input() doctorDataOfAdd;
-  currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
   private subscriptions: Subscription = new Subscription();
   @Output() navigateToAccountTab: EventEmitter<number> = new EventEmitter<number>();
 

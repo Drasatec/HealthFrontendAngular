@@ -22,7 +22,7 @@ import { AddDoctorssComponent } from '../../add-doctorss.component';
 export class AddDoctorHosComponent implements OnInit {
   form: FormGroup;
   @Input() doctorDataOfAdd;
-  currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
+  currancys=[]
   private subscriptions: Subscription = new Subscription();
   fetch
   idOfDoctor
@@ -55,13 +55,18 @@ export class AddDoctorHosComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.data,this.doctorDataOfAdd)
     this.getHospitals()
+    this.getnatonality()
     if(this.data || this.doctorDataOfAdd)this.getTableData()
     this.createForm();
     this.form.patchValue({
       doctorId:this.data?this.data.id : this.doctorDataOfAdd.id
     })
   }
-
+getnatonality(){
+  this._lookpservice.getAllNationalityNames().subscribe((res)=>{
+    this.currancys = res
+  })
+}
   hospitals;
 getHospitals(){
   let payload={

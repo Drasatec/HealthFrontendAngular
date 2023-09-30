@@ -18,7 +18,7 @@ export class AddPatientComponent implements OnInit {
   form: FormGroup;
   imgUrl=`${environment.imgUrl}`;
   loading=false
-  readonly DT_FORMAT = "DD-MM-YYYY";
+  readonly DT_FORMAT = "MM-DD-YYYY";
   religions=[{name:'مسلم',id:1},{name:'مسيحي',id:1},{name:'اخري',id:1}]
   MaritalStatus=[{name:'متزوج',id:1},{name:'اعذب',id:1},{name:'ارمل',id:1},{name:'اخري',id:1}]
 

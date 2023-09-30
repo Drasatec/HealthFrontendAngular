@@ -45,11 +45,11 @@
     <div class="col-md-6 col-xxl-6 filter-border">
       <div class="form-group mb-3">
         <label for="example-search-input" class="text-base-color text-bold">اليوم<span class="text-danger">*</span></label>
-        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="workWeek" formControlName="onDay"
+        <ng-select class="d-block pr-3 my-2" [multiple]="false" [items]="workWeek" formControlName="dayId"
             bindValue="weekdayId" bindLabel="name" appDebounceInputChange >
         </ng-select>
         <mat-error>
-          <div *ngIf="form.get('onDay').hasError('required')&& form.get('onDay').touched">
+          <div *ngIf="form.get('dayId').hasError('required')&& form.get('dayId').touched">
             من فضلك اختر اليوم
           </div>
         </mat-error>

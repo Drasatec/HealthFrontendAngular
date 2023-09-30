@@ -208,14 +208,15 @@ export class AllBuildingsComponent implements OnInit {
       }
       console.log(payload)
       this.getTableData(payload)
-    }else if( e.hosId){
+    }
+    if( e.hosId){
       let payload={
         hosId : e.hosId ? e.hosId : null
       }
       console.log(payload)
       this.getTableData(payload)
     }
-    else if(e.name && !e.status){
+    if(e.name && !e.status){
       let pay={
         searchTerm:e.name,
         lang:'ar'

@@ -188,14 +188,15 @@ export class AllFloorsComponent implements OnInit {
       }
       console.log(payload)
       this.getTableData(payload)
-    }else if(e.buildId){
+    }
+    if(e.buildId){
       let payload={
         buildId : e.buildId ? e.buildId : null
       }
       console.log(payload)
       this.getTableData(payload)
     }
-    else if(e.name && !e.status){
+    if(e.name && !e.status){
       let pay={
         searchTerm:e.name,
         lang:'ar'

@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
 })
 export class VisitPriceComponent implements OnInit {
   @Input() doctorDataOfAdd;
-  currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
+  currancys=[];
   form: FormGroup;
   loading=false
   private subscriptions: Subscription = new Subscription();
@@ -60,10 +60,15 @@ export class VisitPriceComponent implements OnInit {
 
     this.getVisitType()
     this.getPriceCategory()
-
+    this.getnatonality()
     this.createForm();
     this.getId()
 
+  }
+  getnatonality(){
+    this._lookpservice.getAllNationalityNames().subscribe((res)=>{
+      this.currancys = res
+    })
   }
   getId(){
     if(this.doctorDataOfAdd){
@@ -152,6 +157,8 @@ export class VisitPriceComponent implements OnInit {
         this._doctorService.createVisitPrice(this.sendData).subscribe(
           (res)=>{
             this.loading=false
+            if(res.success === true){
+              
             this.snackBar.open("تم الاضافة بنجاح ", "ُsuccess", {
               duration: 5000,
               panelClass: 'success'
@@ -160,6 +167,10 @@ export class VisitPriceComponent implements OnInit {
             console.log(this.fetch)
             this.getTableData(this.fetch)
             this.form.reset()
+            }else{
+              this.loading=false
+              this.form.reset()
+            }
 
           },
           (err) => {

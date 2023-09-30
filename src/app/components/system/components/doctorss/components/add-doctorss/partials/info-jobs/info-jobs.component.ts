@@ -26,7 +26,6 @@ export class InfoJobsComponent implements OnInit {
   @Input() doctorDataOfAdd;
   @Input() hospitals;
   @Input() speciality;
-  currancys=[{name:'EGP',id:1},{name:'AED',id:2},{name:'SR',id:3}];
   private subscriptions: Subscription = new Subscription();
   fetch
   idOfDoctor
@@ -154,7 +153,7 @@ getWorkWeek(){
       HospitalId:this.doctorPeriod ? this.doctorPeriod.hospitalId : null,
       ClinicId:this.doctorPeriod ? this.doctorPeriod.clinicId : null,
       WorkingPeriodId:this.doctorPeriod ? this.doctorPeriod.workingPeriodId : null,
-      onDay:this.doctorPeriod ? this.doctorPeriod.onDay : null,
+      dayId:this.doctorPeriod ? this.doctorPeriod.dayId : null,
       SpecialtyId:this.doctorPeriod?this.doctorPeriod.specialtyId:null,
   })
   console.log(this.form.value)
@@ -165,7 +164,7 @@ getWorkWeek(){
       HospitalId:[null,Validators.required],
       ClinicId:[null,Validators.required],
       WorkingPeriodId:[null,Validators.required],
-      onDay:[null,Validators.required],
+      dayId:[null,Validators.required],
       SpecialtyId:[null,Validators.required],
 
     });
